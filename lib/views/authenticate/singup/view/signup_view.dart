@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:medication_app_v0/core/base/view/base_widget.dart';
-import 'package:medication_app_v0/views/authenticate/singup/viewmodel/singup_viewmodel.dart';
-import 'package:medication_app_v0/core/extention/context_extention.dart';
+import '../../../../core/base/view/base_widget.dart';
+import '../viewmodel/singup_viewmodel.dart';
+import '../../../../core/extention/context_extention.dart';
 
 class SignUpView extends StatelessWidget {
   @override
