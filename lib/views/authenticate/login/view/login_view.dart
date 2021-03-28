@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:medication_app_v0/core/base/view/base_widget.dart';
-import 'package:medication_app_v0/core/constants/image/image_constants.dart';
-import 'package:medication_app_v0/views/authenticate/login/viewmodel/login_viewmodel.dart';
-import 'package:medication_app_v0/core/extention/context_extention.dart';
+import '../../../../core/base/view/base_widget.dart';
+import '../../../../core/constants/image/image_constants.dart';
+import '../viewmodel/login_viewmodel.dart';
+import '../../../../core/extention/context_extention.dart';
 
+//relative path yapıldı
 class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
