@@ -24,7 +24,7 @@ class LoginView extends StatelessWidget {
               children: [
                 Expanded(flex: 40, child: buildLogoImage),
                 Expanded(flex: 40, child: buildForms(context, viewModel)),
-                Expanded(flex: 30, child: buildButtons(context))
+                Expanded(flex: 30, child: buildButtons(context, viewModel))
               ],
             ),
           ),
@@ -33,12 +33,13 @@ class LoginView extends StatelessWidget {
     );
   }
 
-  Padding buildButtons(BuildContext context) {
+  Padding buildButtons(BuildContext context, LoginViewModel viewModel) {
     return Padding(
       padding: context.paddingMediumHorizontal,
       child: Column(
         children: [
-          Expanded(flex: 3, child: buildLoginElevatedButton(context)),
+          Expanded(
+              flex: 3, child: buildLoginElevatedButton(context, viewModel)),
           Spacer(flex: 1),
           Expanded(flex: 3, child: buildSignupElevatedButton(context)),
           Spacer(flex: 3)
@@ -62,12 +63,18 @@ class LoginView extends StatelessWidget {
     );
   }
 
-  ElevatedButton buildLoginElevatedButton(BuildContext context) {
+  ElevatedButton buildLoginElevatedButton(
+      BuildContext context, LoginViewModel viewModel) {
     return ElevatedButton(
       child: Center(
         child: Text("LOGIN"),
       ),
-      onPressed: () {},
+      onPressed: () {
+        print("mail:" +
+            viewModel.mailController.text +
+            " password:" +
+            viewModel.passwordController.text);
+      },
       style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all<Color>(Color(0xff3BCCBB))),
     );
@@ -94,7 +101,10 @@ class LoginView extends StatelessWidget {
       BuildContext context, LoginViewModel viewmodel) {
     return TextFormField(
       validator: (value) => viewmodel.validateEmail(value),
+      controller: viewmodel.mailController,
+      keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
+          border: OutlineInputBorder(),
           hintText: "Enter your email",
           labelText: "EMAIL",
           icon: Icon(Icons.email)),
@@ -105,9 +115,11 @@ class LoginView extends StatelessWidget {
       BuildContext context, LoginViewModel viewmodel) {
     return Observer(builder: (_) {
       return TextFormField(
+        controller: viewmodel.passwordController,
         validator: (value) => value.isNotEmpty ? null : "This field required!",
         obscureText: !viewmodel.isPasswordVisible,
         decoration: InputDecoration(
+          border: OutlineInputBorder(),
           hintText: "Enter your email",
           labelText: "PASSWORD",
           icon: Icon(Icons.lock),

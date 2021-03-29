@@ -8,6 +8,9 @@ class LoginViewModel = _LoginViewModelBase with _$LoginViewModel;
 abstract class _LoginViewModelBase with Store, BaseViewModel {
   GlobalKey<FormState> formState = GlobalKey();
   GlobalKey<ScaffoldState> scaffoldState = GlobalKey();
+  TextEditingController mailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   void setContext(BuildContext context) => this.context = context;
   void init() {}
 

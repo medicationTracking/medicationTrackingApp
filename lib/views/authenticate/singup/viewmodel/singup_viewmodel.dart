@@ -8,6 +8,12 @@ part 'singup_viewmodel.g.dart';
 class SignupViewModel = _SignupViewModelBase with _$SignupViewModel;
 
 abstract class _SignupViewModelBase with Store, BaseViewModel {
+  TextEditingController name = TextEditingController();
+  TextEditingController mail = TextEditingController();
+  TextEditingController id = TextEditingController();
+  TextEditingController password = TextEditingController();
+  GlobalKey<FormState> singupFormState = GlobalKey();
+
   @observable
   DateTime _date = DateTime.now();
 
@@ -21,6 +27,7 @@ abstract class _SignupViewModelBase with Store, BaseViewModel {
 
   void setContext(BuildContext context) => this.context = context;
   void init() {}
+  //contorllerleri nerede dispose edeceğim???
 
   pickDate(BuildContext context) async {
     DateTime pickedDate = await showDatePicker(
@@ -37,5 +44,24 @@ abstract class _SignupViewModelBase with Store, BaseViewModel {
     if (pickedDate != null) {
       date = pickedDate;
     }
+  }
+
+  String emptyCheck(String value) {
+    if (value == null || value.isEmpty) {
+      return "This form required!";
+    }
+    return null;
+  }
+
+  String validateEmail(String value) {
+    Pattern pattern =
+        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+        r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+        r"{0,253}[a-zA-Z0-9])?)*$";
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(value) || value == null)
+      return 'Enter a valid email address';
+    else
+      return null;
   }
 }
