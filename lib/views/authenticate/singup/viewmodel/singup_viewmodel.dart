@@ -1,6 +1,7 @@
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:medication_app_v0/core/base/viewmodel/base_viewmodel.dart';
+import 'package:medication_app_v0/core/constants/navigation/navigation_constants.dart';
 import 'package:mobx/mobx.dart';
 
 part 'singup_viewmodel.g.dart';
@@ -8,10 +9,10 @@ part 'singup_viewmodel.g.dart';
 class SignupViewModel = _SignupViewModelBase with _$SignupViewModel;
 
 abstract class _SignupViewModelBase with Store, BaseViewModel {
-  TextEditingController name = TextEditingController();
-  TextEditingController mail = TextEditingController();
-  TextEditingController id = TextEditingController();
-  TextEditingController password = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController mailController = TextEditingController();
+  TextEditingController idController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> singupFormState = GlobalKey();
 
   @observable

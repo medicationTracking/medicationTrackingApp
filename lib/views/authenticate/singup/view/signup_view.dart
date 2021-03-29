@@ -59,10 +59,10 @@ class SignUpView extends StatelessWidget {
 
   TextFormField buildTextFormFieldMail(viewmodel) {
     return TextFormField(
-      controller: viewmodel.mail,
+      controller: viewmodel.mailController,
       validator: (value) => (viewmodel.validateEmail(value)),
       onSaved: (value) {
-        viewmodel.mail = value;
+        viewmodel.mailController = value;
       },
       decoration: InputDecoration(
           hintText: "enter your mail",
@@ -73,10 +73,10 @@ class SignUpView extends StatelessWidget {
 
   TextFormField buildTextFormFieldPassword(viewmodel) {
     return TextFormField(
-      controller: viewmodel.password,
+      controller: viewmodel.passwordController,
       validator: (value) => (viewmodel.emptyCheck(value)),
       onSaved: (value) {
-        viewmodel.password = value;
+        viewmodel.passwordController = value;
       },
       obscureText: true,
       decoration: InputDecoration(
@@ -88,10 +88,10 @@ class SignUpView extends StatelessWidget {
 
   TextFormField buildTextFormFieldId(viewmodel) {
     return TextFormField(
-      controller: viewmodel.id,
+      controller: viewmodel.idController,
       validator: (value) => (viewmodel.emptyCheck(value)),
       onSaved: (value) {
-        viewmodel.id = value;
+        viewmodel.idController = value;
       },
       decoration: InputDecoration(
           hintText: "enter your id",
@@ -102,10 +102,10 @@ class SignUpView extends StatelessWidget {
 
   TextFormField buildTextFormFieldName(viewmodel) {
     return TextFormField(
-      controller: viewmodel.name,
+      controller: viewmodel.nameController,
       validator: (value) => (viewmodel.emptyCheck(value)),
       onSaved: (value) {
-        viewmodel.name = value;
+        viewmodel.nameController = value;
       },
       decoration: InputDecoration(
           hintText: "enter your name",
@@ -118,16 +118,16 @@ class SignUpView extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
         print("name:" +
-            viewModel.name.text +
+            viewModel.nameController.text +
             " " +
             "id:" +
-            viewModel.id.text +
+            viewModel.idController.text +
             " " +
             "password:" +
-            viewModel.password.text +
+            viewModel.passwordController.text +
             " " +
             "mail:" +
-            viewModel.mail.text);
+            viewModel.mailController.text);
       },
       child: Center(child: Text("SAVE")),
     );

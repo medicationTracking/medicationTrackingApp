@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medication_app_v0/core/constants/navigation/navigation_constants.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
 part 'login_viewmodel.g.dart';
@@ -33,5 +34,9 @@ abstract class _LoginViewModelBase with Store, BaseViewModel {
       return 'Enter a valid email address';
     else
       return null;
+  }
+
+  void navigateSingupPage() {
+    navigation.navigateToPage(path: NavigationConstants.SIGNUP_VIEW);
   }
 }

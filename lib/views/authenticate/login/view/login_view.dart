@@ -5,7 +5,6 @@ import '../../../../core/constants/image/image_constants.dart';
 import '../viewmodel/login_viewmodel.dart';
 import '../../../../core/extention/context_extention.dart';
 
-//relative path yapıldı
 class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -41,7 +40,8 @@ class LoginView extends StatelessWidget {
           Expanded(
               flex: 3, child: buildLoginElevatedButton(context, viewModel)),
           Spacer(flex: 1),
-          Expanded(flex: 3, child: buildSignupElevatedButton(context)),
+          Expanded(
+              flex: 3, child: buildSignupElevatedButton(context, viewModel)),
           Spacer(flex: 3)
         ],
       ),
@@ -52,14 +52,20 @@ class LoginView extends StatelessWidget {
     return Center(child: Image.asset(ImageConstants.instance.heartPulse));
   }
 
-  Widget buildTextForgot(BuildContext context) => Align(
+  Widget buildTextForgot(
+    BuildContext context,
+  ) =>
+      Align(
         alignment: Alignment.centerRight,
         child: Text("Forgot Password ?"),
       );
-  ElevatedButton buildSignupElevatedButton(BuildContext context) {
+  ElevatedButton buildSignupElevatedButton(
+      BuildContext context, LoginViewModel viewModel) {
     return ElevatedButton(
       child: Center(child: Text("SIGN UP")),
-      onPressed: () {},
+      onPressed: () {
+        viewModel.navigateSingupPage();
+      },
     );
   }
 
