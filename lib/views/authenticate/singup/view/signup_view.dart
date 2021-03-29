@@ -24,7 +24,7 @@ class SignUpView extends StatelessWidget {
               padding: context.paddingMedium,
               child: Form(
                 key: viewmodel.singupFormState,
-                autovalidateMode: AutovalidateMode.always,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Column(
                   children: [
                     Expanded(

@@ -9,11 +9,11 @@ part 'singup_viewmodel.g.dart';
 class SignupViewModel = _SignupViewModelBase with _$SignupViewModel;
 
 abstract class _SignupViewModelBase with Store, BaseViewModel {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController mailController = TextEditingController();
-  TextEditingController idController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  GlobalKey<FormState> singupFormState = GlobalKey();
+  TextEditingController nameController;
+  TextEditingController mailController;
+  TextEditingController idController ;
+  TextEditingController passwordController;
+  GlobalKey<FormState> singupFormState;
 
   @observable
   DateTime _date = DateTime.now();
@@ -27,7 +27,13 @@ abstract class _SignupViewModelBase with Store, BaseViewModel {
   }
 
   void setContext(BuildContext context) => this.context = context;
-  void init() {}
+  void init() {
+    nameController = TextEditingController();
+    mailController = TextEditingController();
+    idController = TextEditingController();
+    passwordController = TextEditingController();
+    singupFormState  = GlobalKey();
+  }
   //contorllerleri nerede dispose edeceğim???
 
   pickDate(BuildContext context) async {

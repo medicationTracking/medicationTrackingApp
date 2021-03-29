@@ -7,14 +7,25 @@ part 'login_viewmodel.g.dart';
 class LoginViewModel = _LoginViewModelBase with _$LoginViewModel;
 
 abstract class _LoginViewModelBase with Store, BaseViewModel {
-  GlobalKey<FormState> formState = GlobalKey();
-  GlobalKey<ScaffoldState> scaffoldState = GlobalKey();
-  TextEditingController mailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  GlobalKey<FormState> formState;
+  GlobalKey<ScaffoldState> scaffoldState;
+  TextEditingController mailController;
+  TextEditingController passwordController;
 
   void setContext(BuildContext context) => this.context = context;
-  void init() {}
+  void init() {
+    mailController = TextEditingController();
+    passwordController = TextEditingController();
+    scaffoldState =  GlobalKey();
+    formState = GlobalKey();
+  }
 
+  void dispose(){
+    mailController.dispose();
+    passwordController.dispose();
+  }
+
+  @observable
   bool isLoading = false;
   @observable
   bool isPasswordVisible = false;

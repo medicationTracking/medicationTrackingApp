@@ -8,11 +8,14 @@ import '../../../../core/extention/context_extention.dart';
 class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BaseView(
+    return BaseView<LoginViewModel>(
       model: LoginViewModel(),
       onModelReady: (model) {
         model.setContext(context);
         model.init();
+      },
+      onDispose: (model){
+        model.dispose();
       },
       builder: (BuildContext context, LoginViewModel viewModel) => Scaffold(
         key: viewModel.scaffoldState,
@@ -52,9 +55,7 @@ class LoginView extends StatelessWidget {
     return Center(child: Image.asset(ImageConstants.instance.heartPulse));
   }
 
-  Widget buildTextForgot(
-    BuildContext context,
-  ) =>
+  Widget buildTextForgot(BuildContext context,) =>
       Align(
         alignment: Alignment.centerRight,
         child: Text("Forgot Password ?"),
