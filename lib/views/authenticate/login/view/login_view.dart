@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:medication_app_v0/core/init/theme/color_theme.dart';
 import '../../../../core/base/view/base_widget.dart';
 import '../../../../core/constants/image/image_constants.dart';
 import '../viewmodel/login_viewmodel.dart';
@@ -60,8 +61,7 @@ class LoginView extends StatelessWidget {
         alignment: Alignment.centerRight,
         child: Text("Forgot Password ?"),
       );
-  ElevatedButton buildSignupElevatedButton(
-      BuildContext context, LoginViewModel viewModel) {
+  ElevatedButton buildSignupElevatedButton(BuildContext context, LoginViewModel viewModel) {
     return ElevatedButton(
       child: Center(child: Text("SIGN UP")),
       onPressed: () {
@@ -82,11 +82,11 @@ class LoginView extends StatelessWidget {
             " password:" +
             viewModel.passwordController.text);
       },
-      style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(Color(0xff3BCCBB))),
+      //TODO EGER BELIRLEDIGIMIZ TEMA DISINDA BIR RENK VERMEK ISTERSEK COPYWITH DEYIP O SPESIFIK OZELLIGI DEGISTIRIYORUZ.
+      style: Theme.of(context).elevatedButtonTheme.style.copyWith(backgroundColor: MaterialStateProperty.all<Color>(ColorTheme.RED_BUTTON)),
     );
-  }
 
+}
   Form buildForms(BuildContext context, LoginViewModel value) {
     return Form(
       key: value.formState,
