@@ -67,7 +67,8 @@ class SignUpView extends StatelessWidget {
       decoration: InputDecoration(
           hintText: "enter your mail",
           labelText: "Mail",
-          icon: Icon(Icons.mail)),
+          icon: Icon(Icons.mail),
+          border: buildBorder),
     );
   }
 
@@ -82,7 +83,8 @@ class SignUpView extends StatelessWidget {
       decoration: InputDecoration(
           hintText: "enter your password",
           labelText: "Password",
-          icon: Icon(Icons.lock)),
+          icon: Icon(Icons.lock),
+          border: buildBorder),
     );
   }
 
@@ -96,7 +98,8 @@ class SignUpView extends StatelessWidget {
       decoration: InputDecoration(
           hintText: "enter your id",
           labelText: "ID",
-          icon: Icon(Icons.account_circle)),
+          icon: Icon(Icons.account_circle),
+          border: buildBorder),
     );
   }
 
@@ -110,7 +113,8 @@ class SignUpView extends StatelessWidget {
       decoration: InputDecoration(
           hintText: "enter your name",
           labelText: "Name",
-          icon: Icon(Icons.person)),
+          icon: Icon(Icons.person),
+          border: buildBorder),
     );
   }
 
@@ -151,4 +155,6 @@ class SignUpView extends StatelessWidget {
           ],
         ));
   }
+
+  OutlineInputBorder get buildBorder => OutlineInputBorder();
 }
