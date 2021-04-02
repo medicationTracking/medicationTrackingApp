@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 extension ContextExtension on BuildContext {
   MediaQueryData get mediaQuery => MediaQuery.of(this);
+  TextTheme get textTheme => Theme.of(this).textTheme;
   ThemeData get theme => Theme.of(this);
 }
 
@@ -17,7 +18,6 @@ extension MediaQueryExtension on BuildContext {
 
 extension ThemeExtension on BuildContext {
   ThemeData get theme => Theme.of(this);
-  TextTheme get textTheme => theme.textTheme;
   ColorScheme get colors => theme.colorScheme;
 }
 
@@ -50,4 +50,13 @@ extension PaddingExtensionSymetric on BuildContext {
 extension DurationExtension on BuildContext {
   Duration get lowDuration => Duration(milliseconds: 500);
   Duration get normalDuration => Duration(seconds: 1);
+}
+
+extension SizedBoxExtension on BuildContext {
+  Widget get emptySizedWidthBoxLow3x => SizedBox(width: width * 0.03);
+  Widget get emptySizedWidthBoxLow => SizedBox(width: width * 0.01);
+  Widget get emptySizedHeightBoxLow => SizedBox(height: width * 0.01);
+  Widget get emptySizedHeightBoxLow3x => SizedBox(height: width * 0.03);
+  Widget get emptySizedHeightBoxNormal => SizedBox(height: width *0.05);
+  Widget get emptySizedHeightBoxHigh => SizedBox(height: width * 0.1);
 }

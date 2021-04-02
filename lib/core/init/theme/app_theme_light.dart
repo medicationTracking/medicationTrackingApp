@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:medication_app_v0/core/init/theme/app_theme.dart';
 import 'package:medication_app_v0/core/init/theme/color_theme.dart';
 
 class AppThemeLight extends AppTheme {
@@ -22,7 +21,7 @@ class AppThemeLight extends AppTheme {
       //textTheme: _textTheme,
       appBarTheme: AppBarTheme(
           elevation: 0,
-          color: Colors.transparent,
+          color: Colors.blue,
           iconTheme: IconThemeData(color: ColorTheme.GREY_DARK),
           brightness: Brightness.light),
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -68,4 +67,8 @@ class AppThemeLight extends AppTheme {
       unselectedLabelColor: ColorTheme.GREY_HUNTER.withOpacity(0.5),
     );
   }
+}
+
+class AppTheme {
+  ThemeData theme; //gereksiz gibi düşünmek lazım
 }
