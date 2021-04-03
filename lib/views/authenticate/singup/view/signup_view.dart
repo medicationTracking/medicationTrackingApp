@@ -22,55 +22,117 @@ class SignUpView extends StatelessWidget {
             height: context.height * 0.8,
             child: Padding(
               padding: context.paddingMedium,
-              child: Column(
-                children: [
-                  Expanded(
-                      flex: 20,
-                      child: buildFormField(context, viewmodel, "ID",
-                          "Enter your ID", Icon(Icons.account_circle))),
-                  Expanded(
-                      flex: 20,
-                      child: buildFormField(context, viewmodel, "Password",
-                          "Enter your password", Icon(Icons.lock))),
-                  Expanded(
-                      flex: 20,
-                      child: buildFormField(context, viewmodel, "Email",
-                          "Enter your e-mail", Icon(Icons.mail))),
-                  Expanded(
-                      flex: 20,
-                      child: buildFormField(context, viewmodel, "Name",
-                          "Enter your name", Icon(Icons.person))),
-                  Expanded(
-                      flex: 20,
-                      child: buildDatePickerButton(viewmodel, context)),
-                  Expanded(flex: 10, child: buildSaveButton()),
-                ],
+              child: Form(
+                key: viewmodel.singupFormState,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                child: Column(
+                  children: [
+                    Expanded(
+                      flex: 10,
+                      child: buildTextFormFieldName(viewmodel),
+                    ),
+                    Expanded(
+                      flex: 10,
+                      child: buildTextFormFieldId(viewmodel),
+                    ),
+                    Expanded(
+                      flex: 10,
+                      child: buildTextFormFieldPassword(viewmodel),
+                    ),
+                    Expanded(
+                      flex: 10,
+                      child: buildTextFormFieldMail(viewmodel),
+                    ),
+                    Expanded(
+                        flex: 7,
+                        child: buildDatePickerButton(viewmodel, context)),
+                    Expanded(flex: 5, child: buildSaveButton(viewmodel)),
+                  ],
+                ),
               ),
             ),
           ),
         ),
-        /*ListView(
-          padding: context.paddingMediumHorizontal,
-          children: [
-            buildFormField(context, viewmodel, "ID", "Enter your id",
-                Icon(Icons.account_circle)),
-            buildFormField(context, viewmodel, "Password",
-                "Enter your password", Icon(Icons.lock)),
-            buildFormField(context, viewmodel, "Email", "Enter your e-mail",
-                Icon(Icons.mail)),
-            buildFormField(context, viewmodel, "Name", "Enter your name",
-                Icon(Icons.person)),
-            buildDatePickerButton(viewmodel, context),
-            buildSaveButton(),
-          ],
-        ),*/
       ),
     );
   }
 
-  ElevatedButton buildSaveButton() {
+  TextFormField buildTextFormFieldMail(viewmodel) {
+    return TextFormField(
+      controller: viewmodel.mailController,
+      validator: (value) => (viewmodel.validateEmail(value)),
+      onSaved: (value) {
+        viewmodel.mailController = value;
+      },
+      decoration: InputDecoration(
+          hintText: "enter your mail",
+          labelText: "Mail",
+          icon: Icon(Icons.mail),
+          border: buildBorder),
+    );
+  }
+
+  TextFormField buildTextFormFieldPassword(viewmodel) {
+    return TextFormField(
+      controller: viewmodel.passwordController,
+      validator: (value) => (viewmodel.emptyCheck(value)),
+      onSaved: (value) {
+        viewmodel.passwordController = value;
+      },
+      obscureText: true,
+      decoration: InputDecoration(
+          hintText: "enter your password",
+          labelText: "Password",
+          icon: Icon(Icons.lock),
+          border: buildBorder),
+    );
+  }
+
+  TextFormField buildTextFormFieldId(viewmodel) {
+    return TextFormField(
+      controller: viewmodel.idController,
+      validator: (value) => (viewmodel.emptyCheck(value)),
+      onSaved: (value) {
+        viewmodel.idController = value;
+      },
+      decoration: InputDecoration(
+          hintText: "enter your id",
+          labelText: "ID",
+          icon: Icon(Icons.account_circle),
+          border: buildBorder),
+    );
+  }
+
+  TextFormField buildTextFormFieldName(viewmodel) {
+    return TextFormField(
+      controller: viewmodel.nameController,
+      validator: (value) => (viewmodel.emptyCheck(value)),
+      onSaved: (value) {
+        viewmodel.nameController = value;
+      },
+      decoration: InputDecoration(
+          hintText: "enter your name",
+          labelText: "Name",
+          icon: Icon(Icons.person),
+          border: buildBorder),
+    );
+  }
+
+  ElevatedButton buildSaveButton(SignupViewModel viewModel) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        print("name:" +
+            viewModel.nameController.text +
+            " " +
+            "id:" +
+            viewModel.idController.text +
+            " " +
+            "password:" +
+            viewModel.passwordController.text +
+            " " +
+            "mail:" +
+            viewModel.mailController.text);
+      },
       child: Center(child: Text("SAVE")),
     );
   }
@@ -94,22 +156,5 @@ class SignUpView extends StatelessWidget {
         ));
   }
 
-  TextFormField buildFormField(BuildContext context, SignupViewModel viewmodel,
-      String hint, String label, Icon icon) {
-    return TextFormField(
-      validator: (value) => emptyCheck(value),
-      decoration: InputDecoration(
-          hintText: hint,
-          labelText: label,
-          icon: icon,
-          border: UnderlineInputBorder()),
-    );
-  }
-
-  String emptyCheck(String value) {
-    if (value.isEmpty) {
-      return "This form required!";
-    }
-    return null;
-  }
+  OutlineInputBorder get buildBorder => OutlineInputBorder();
 }

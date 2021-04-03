@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:medication_app_v0/core/init/theme/color_theme.dart';
 import '../../../../core/base/view/base_widget.dart';
 import '../../../../core/constants/image/image_constants.dart';
 import '../viewmodel/login_viewmodel.dart';
 import '../../../../core/extention/context_extention.dart';
 
-//relative path yapıldı
 class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BaseView(
+    return BaseView<LoginViewModel>(
       model: LoginViewModel(),
       onModelReady: (model) {
         model.setContext(context);
         model.init();
+      },
+      onDispose: (model) {
+        model.dispose();
       },
       builder: (BuildContext context, LoginViewModel viewModel) => Scaffold(
         key: viewModel.scaffoldState,
@@ -24,7 +27,7 @@ class LoginView extends StatelessWidget {
               children: [
                 Expanded(flex: 40, child: buildLogoImage),
                 Expanded(flex: 40, child: buildForms(context, viewModel)),
-                Expanded(flex: 30, child: buildButtons(context))
+                Expanded(flex: 30, child: buildButtons(context, viewModel))
               ],
             ),
           ),
@@ -33,14 +36,16 @@ class LoginView extends StatelessWidget {
     );
   }
 
-  Padding buildButtons(BuildContext context) {
+  Padding buildButtons(BuildContext context, LoginViewModel viewModel) {
     return Padding(
       padding: context.paddingMediumHorizontal,
       child: Column(
         children: [
-          Expanded(flex: 3, child: buildLoginElevatedButton(context)),
+          Expanded(
+              flex: 3, child: buildLoginElevatedButton(context, viewModel)),
           Spacer(flex: 1),
-          Expanded(flex: 3, child: buildSignupElevatedButton(context)),
+          Expanded(
+              flex: 3, child: buildSignupElevatedButton(context, viewModel)),
           Spacer(flex: 3)
         ],
       ),
@@ -51,25 +56,39 @@ class LoginView extends StatelessWidget {
     return Center(child: Image.asset(ImageConstants.instance.heartPulse));
   }
 
-  Widget buildTextForgot(BuildContext context) => Align(
+  Widget buildTextForgot(
+    BuildContext context,
+  ) =>
+      Align(
         alignment: Alignment.centerRight,
         child: Text("Forgot Password ?"),
       );
-  ElevatedButton buildSignupElevatedButton(BuildContext context) {
+  ElevatedButton buildSignupElevatedButton(
+      BuildContext context, LoginViewModel viewModel) {
     return ElevatedButton(
       child: Center(child: Text("SIGN UP")),
-      onPressed: () {},
+      onPressed: () {
+        viewModel.navigateSingupPage();
+      },
     );
   }
 
-  ElevatedButton buildLoginElevatedButton(BuildContext context) {
+  ElevatedButton buildLoginElevatedButton(
+      BuildContext context, LoginViewModel viewModel) {
     return ElevatedButton(
       child: Center(
         child: Text("LOGIN"),
       ),
-      onPressed: () {},
-      style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(Color(0xff3BCCBB))),
+      onPressed: () {
+        print("mail:" +
+            viewModel.mailController.text +
+            " password:" +
+            viewModel.passwordController.text);
+      },
+      //TODO EGER BELIRLEDIGIMIZ TEMA DISINDA BIR RENK VERMEK ISTERSEK COPYWITH DEYIP O SPESIFIK OZELLIGI DEGISTIRIYORUZ.
+      style: Theme.of(context).elevatedButtonTheme.style.copyWith(
+          backgroundColor:
+              MaterialStateProperty.all<Color>(ColorTheme.RED_BUTTON)),
     );
   }
 
@@ -94,7 +113,10 @@ class LoginView extends StatelessWidget {
       BuildContext context, LoginViewModel viewmodel) {
     return TextFormField(
       validator: (value) => viewmodel.validateEmail(value),
+      controller: viewmodel.mailController,
+      keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
+          border: buildBorder,
           hintText: "Enter your email",
           labelText: "EMAIL",
           icon: Icon(Icons.email)),
@@ -105,9 +127,11 @@ class LoginView extends StatelessWidget {
       BuildContext context, LoginViewModel viewmodel) {
     return Observer(builder: (_) {
       return TextFormField(
+        controller: viewmodel.passwordController,
         validator: (value) => value.isNotEmpty ? null : "This field required!",
         obscureText: !viewmodel.isPasswordVisible,
         decoration: InputDecoration(
+          border: buildBorder,
           hintText: "Enter your email",
           labelText: "PASSWORD",
           icon: Icon(Icons.lock),
@@ -123,4 +147,6 @@ class LoginView extends StatelessWidget {
       );
     });
   }
+
+  OutlineInputBorder get buildBorder => OutlineInputBorder();
 }

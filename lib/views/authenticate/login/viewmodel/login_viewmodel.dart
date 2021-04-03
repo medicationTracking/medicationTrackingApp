@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medication_app_v0/core/constants/navigation/navigation_constants.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
 part 'login_viewmodel.g.dart';
@@ -6,11 +7,25 @@ part 'login_viewmodel.g.dart';
 class LoginViewModel = _LoginViewModelBase with _$LoginViewModel;
 
 abstract class _LoginViewModelBase with Store, BaseViewModel {
-  GlobalKey<FormState> formState = GlobalKey();
-  GlobalKey<ScaffoldState> scaffoldState = GlobalKey();
-  void setContext(BuildContext context) => this.context = context;
-  void init() {}
+  GlobalKey<FormState> formState;
+  GlobalKey<ScaffoldState> scaffoldState;
+  TextEditingController mailController;
+  TextEditingController passwordController;
 
+  void setContext(BuildContext context) => this.context = context;
+  void init() {
+    mailController = TextEditingController();
+    passwordController = TextEditingController();
+    scaffoldState =  GlobalKey();
+    formState = GlobalKey();
+  }
+
+  void dispose(){
+    mailController.dispose();
+    passwordController.dispose();
+  }
+
+  @observable
   bool isLoading = false;
   @observable
   bool isPasswordVisible = false;
@@ -30,5 +45,9 @@ abstract class _LoginViewModelBase with Store, BaseViewModel {
       return 'Enter a valid email address';
     else
       return null;
+  }
+
+  void navigateSingupPage() {
+    navigation.navigateToPage(path: NavigationConstants.SIGNUP_VIEW);
   }
 }
