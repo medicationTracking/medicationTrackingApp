@@ -38,5 +38,5 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: NavigationRoute.instance.generateRoute,
         home: CalendarView(),
       );
-  }//Home de�i�ebilir
+  }//Home degisebilir
 }
