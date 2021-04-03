@@ -10,5 +10,5 @@ class ImageConstants {
 
   String get heartPulse => toPng("heartpulse");
 
-  String toPng(String name) => "asset/images/$name.png";
+  String toPng(String name) => "assets/images/$name.png";
 }
