@@ -23,14 +23,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  auto_size_text: ^2.1.0
   cupertino_icons: ^1.0.2
   date_format: ^2.0.2
+  easy_localization: ^2.3.3
   flutter_mobx: ^1.1.0+2
   mobx: ^1.2.1+4
   mobx_codegen: ^1.1.2
   provider: 5.0.0
   table_calendar: ^2.3.0
-
 
 dev_dependencies:
   flutter_test:
@@ -48,7 +49,8 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
-    - asset/images/
+    - assets/images/
+    - assets/lang/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

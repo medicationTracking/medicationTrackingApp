@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:medication_app_v0/core/extention/string_extention.dart';
+import 'package:medication_app_v0/core/init/text/locale_text.dart';
 import 'package:medication_app_v0/core/init/theme/color_theme.dart';
 import '../../../../core/base/view/base_widget.dart';
 import '../../../../core/constants/image/image_constants.dart';
 import '../viewmodel/login_viewmodel.dart';
 import '../../../../core/extention/context_extention.dart';
+import 'package:medication_app_v0/core/init/locale_keys.g.dart';
 
 class LoginView extends StatelessWidget {
   @override
@@ -66,7 +69,7 @@ class LoginView extends StatelessWidget {
   ElevatedButton buildSignupElevatedButton(
       BuildContext context, LoginViewModel viewModel) {
     return ElevatedButton(
-      child: Center(child: Text("SIGN UP")),
+      child: Center(child: LocaleText(text: LocaleKeys.login_SIGNUP)),
       onPressed: () {
         viewModel.navigateSingupPage();
       },
@@ -76,9 +79,7 @@ class LoginView extends StatelessWidget {
   ElevatedButton buildLoginElevatedButton(
       BuildContext context, LoginViewModel viewModel) {
     return ElevatedButton(
-      child: Center(
-        child: Text("LOGIN"),
-      ),
+      child: Center(child: LocaleText(text: LocaleKeys.login_LOGIN)),
       onPressed: () {
         print("mail:" +
             viewModel.mailController.text +
