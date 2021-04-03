@@ -23,5 +23,5 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: NavigationRoute.instance.generateRoute,
         home: CalendarView(),
       );
-  }
+  }//Home deðiþebilir
 }
