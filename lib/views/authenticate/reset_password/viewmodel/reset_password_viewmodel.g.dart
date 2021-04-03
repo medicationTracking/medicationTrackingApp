@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'login_viewmodel.dart';
+part of 'reset_password_viewmodel.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,24 +8,9 @@ part of 'login_viewmodel.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$LoginViewModel on _LoginViewModelBase, Store {
-  final _$isLoadingAtom = Atom(name: '_LoginViewModelBase.isLoading');
-
-  @override
-  bool get isLoading {
-    _$isLoadingAtom.reportRead();
-    return super.isLoading;
-  }
-
-  @override
-  set isLoading(bool value) {
-    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
-      super.isLoading = value;
-    });
-  }
-
+mixin _$ResetPasswordViewModel on _ResetPasswordViewModelBase, Store {
   final _$isPasswordVisibleAtom =
-      Atom(name: '_LoginViewModelBase.isPasswordVisible');
+      Atom(name: '_ResetPasswordViewModelBase.isPasswordVisible');
 
   @override
   bool get isPasswordVisible {
@@ -40,24 +25,23 @@ mixin _$LoginViewModel on _LoginViewModelBase, Store {
     });
   }
 
-  final _$_LoginViewModelBaseActionController =
-      ActionController(name: '_LoginViewModelBase');
+  final _$_ResetPasswordViewModelBaseActionController =
+      ActionController(name: '_ResetPasswordViewModelBase');
 
   @override
   void seePassword() {
-    final _$actionInfo = _$_LoginViewModelBaseActionController.startAction(
-        name: '_LoginViewModelBase.seePassword');
+    final _$actionInfo = _$_ResetPasswordViewModelBaseActionController
+        .startAction(name: '_ResetPasswordViewModelBase.seePassword');
     try {
       return super.seePassword();
     } finally {
-      _$_LoginViewModelBaseActionController.endAction(_$actionInfo);
+      _$_ResetPasswordViewModelBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   String toString() {
     return '''
-isLoading: ${isLoading},
 isPasswordVisible: ${isPasswordVisible}
     ''';
   }
