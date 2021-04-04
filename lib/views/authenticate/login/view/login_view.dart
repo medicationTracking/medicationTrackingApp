@@ -1,10 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:medication_app_v0/core/constants/app_constants/app_constants.dart';
 import 'package:medication_app_v0/core/extention/string_extention.dart';
 import 'package:medication_app_v0/core/init/text/locale_text.dart';
 import 'package:medication_app_v0/core/init/theme/color_theme.dart';
 import '../../../../core/base/view/base_widget.dart';
 import '../../../../core/constants/image/image_constants.dart';
+import '../../../../core/init/theme/color_theme.dart';
 import '../viewmodel/login_viewmodel.dart';
 import '../../../../core/extention/context_extention.dart';
 import 'package:medication_app_v0/core/init/locale_keys.g.dart';
@@ -21,18 +24,50 @@ class LoginView extends StatelessWidget {
       onDispose: (model) {
         model.dispose();
       },
-      builder: (BuildContext context, LoginViewModel viewModel) => Scaffold(
-        key: viewModel.scaffoldState,
-        body: SingleChildScrollView(
-          child: SizedBox(
-            height: context.height,
-            child: Column(
-              children: [
-                Expanded(flex: 40, child: buildLogoImage),
-                Expanded(flex: 40, child: buildForms(context, viewModel)),
-                Expanded(flex: 30, child: buildButtons(context, viewModel))
-              ],
-            ),
+      builder: (BuildContext context, LoginViewModel viewModel) =>
+          buildScaffold(viewModel, context),
+    );
+  }
+
+  Scaffold buildScaffold(LoginViewModel viewModel, BuildContext context) {
+    return Scaffold(
+      key: viewModel.scaffoldState,
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: context.height,
+          child: Column(
+            children: [
+              Expanded(flex: 30, child: buildLogoImage),
+              Expanded(flex: 30, child: buildForms(context, viewModel)),
+              Spacer(),
+              Expanded(
+                  flex: 6, child: buildGoogleSignInRow(context, viewModel)),
+              Spacer(flex: 2),
+              Expanded(flex: 30, child: buildButtons(context, viewModel))
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildGoogleSignInRow(BuildContext context, LoginViewModel viewModel) {
+    return GestureDetector(
+      onTap: () {
+        print("Signin with google account");
+      },
+      child: Padding(
+        padding: context.paddingMediumHorizontal,
+        child: Container(
+          color: ColorTheme.BACKGROUND_WHITE,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Image(
+                image: AssetImage(ImageConstants.instance.googleLogo),
+              ),
+              LocaleText(text: LocaleKeys.authentication_SIGN_WITH_GOOGLE)
+            ],
           ),
         ),
       ),
@@ -49,10 +84,21 @@ class LoginView extends StatelessWidget {
           Spacer(flex: 1),
           Expanded(
               flex: 3, child: buildSignupElevatedButton(context, viewModel)),
-          Spacer(flex: 3)
+          Spacer(),
+          buildChangeLanguageButton(context, viewModel),
+          Spacer()
         ],
       ),
     );
+  }
+
+  TextButton buildChangeLanguageButton(
+      BuildContext context, LoginViewModel viewModel) {
+    return TextButton(
+        onPressed: () {
+          viewModel.changeLanguageOnPress(context);
+        },
+        child: Text(context.locale.countryCode));
   }
 
   Center get buildLogoImage {
@@ -64,12 +110,12 @@ class LoginView extends StatelessWidget {
   ) =>
       Align(
         alignment: Alignment.centerRight,
-        child: Text("Forgot Password ?"),
+        child: LocaleText(text: LocaleKeys.authentication_FORGOT_PASSWORD),
       );
   ElevatedButton buildSignupElevatedButton(
       BuildContext context, LoginViewModel viewModel) {
     return ElevatedButton(
-      child: Center(child: LocaleText(text: LocaleKeys.login_SIGNUP)),
+      child: Center(child: LocaleText(text: LocaleKeys.authentication_SIGNUP)),
       onPressed: () {
         viewModel.navigateSingupPage();
       },
@@ -79,7 +125,7 @@ class LoginView extends StatelessWidget {
   ElevatedButton buildLoginElevatedButton(
       BuildContext context, LoginViewModel viewModel) {
     return ElevatedButton(
-      child: Center(child: LocaleText(text: LocaleKeys.login_LOGIN)),
+      child: Center(child: LocaleText(text: LocaleKeys.authentication_LOGIN)),
       onPressed: () {
         print("mail:" +
             viewModel.mailController.text +
@@ -118,9 +164,11 @@ class LoginView extends StatelessWidget {
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
           border: buildBorder,
-          hintText: "Enter your email",
-          labelText: "EMAIL",
-          icon: Icon(Icons.email)),
+          filled: true,
+          fillColor: ColorTheme.BACKGROUND_WHITE,
+          hintText: LocaleKeys.authentication_MAIL_HINT_TEXT.locale,
+          labelText: LocaleKeys.authentication_EMAIL.locale,
+          prefixIcon: Icon(Icons.email)),
     );
   }
 
@@ -129,13 +177,17 @@ class LoginView extends StatelessWidget {
     return Observer(builder: (_) {
       return TextFormField(
         controller: viewmodel.passwordController,
-        validator: (value) => value.isNotEmpty ? null : "This field required!",
+        validator: (value) => value.isNotEmpty
+            ? null
+            : LocaleKeys.authentication_REQUIRED_TEXT.locale,
         obscureText: !viewmodel.isPasswordVisible,
         decoration: InputDecoration(
           border: buildBorder,
-          hintText: "Enter your email",
-          labelText: "PASSWORD",
-          icon: Icon(Icons.lock),
+          filled: true,
+          fillColor: ColorTheme.BACKGROUND_WHITE,
+          hintText: LocaleKeys.authentication_PASSWORD_HINT_TEXT.locale,
+          labelText: LocaleKeys.authentication_PASSWORD.locale,
+          prefixIcon: Icon(Icons.lock),
           suffixIcon: IconButton(
             icon: viewmodel.isPasswordVisible
                 ? Icon(Icons.remove_red_eye_outlined)

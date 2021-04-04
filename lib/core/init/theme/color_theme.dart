@@ -13,4 +13,7 @@ class ColorTheme {
 
   static const ICON_COLOR_GREY = Color(0xff969797);
   static const INPUT_BORDER_COLOR = Color(0xffd4d4e0);
+
+  static const PRIMARY_BLUE = Color(0xff487BF9);
+  static const BACKGROUND_WHITE = Color(0xffFFFFFF);
 }

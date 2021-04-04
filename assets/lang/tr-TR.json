@@ -1,6 +1,20 @@
 {
-    "login":{
+    "authentication":{
         "LOGIN":"Giriş",
-        "SIGNUP":"Kayıt ol"
+        "SIGNUP":"Kayıt ol",
+        "SIGN_WITH_GOOGLE":"Google hesabı ile giriş yap",
+        "EMAIL":"EMAIL",
+        "MAIL_HINT_TEXT":"E-mailinizi girin",
+        "MAIL_ERROR_TEXT":"Doğru bir e-mail adresi giriniz",
+        "PASSWORD":"PAROLA",
+        "PASSWORD_HINT_TEXT":"Parolanızı giriniz",
+        "REQUIRED_TEXT":"Bu alan boş bırakılamaz",
+        "FORGOT_PASSWORD":"Parolanızı mı unuttunuz?",
+        "SIGNUP_PAGE":"Hesap Oluştur",
+        "NAME":"İSİM",
+        "NAME_HINT_TEXT":"İsminizi Giriniz",
+        "ID":"KULLANICI ADI",
+        "ID_HINT_TEXT":"Kullanıcı Adınızı Giriniz",
+        "SAVE":"Kaydet"
     }
 }

@@ -1,6 +1,21 @@
 {
-    "login":{
+    "authentication":{
         "LOGIN":"Login",
-        "SIGNUP":"Sign Up"
+        "SIGNUP":"Sign Up",
+        "SIGN_WITH_GOOGLE":"Sign in with Google",
+        "EMAIL":"EMAIL",
+        "MAIL_HINT_TEXT":"Enter your e-mail",
+        "MAIL_ERROR_TEXT":"Enter a valid e-mail address",
+        "PASSWORD":"PASSWORD",
+        "PASSWORD_HINT_TEXT":"Enter your password",
+        "REQUIRED_TEXT":"This field required!",
+        "FORGOT_PASSWORD":"Forgot Password?",
+        "SIGNUP_PAGE":"Create Account",
+        "NAME":"Name",
+        "NAME_HINT_TEXT":"Enter your name",
+        "ID":"ID",
+        "ID_HINT_TEXT":"Enter your ID",
+        "SAVE":"Save"
+
     }
 }
