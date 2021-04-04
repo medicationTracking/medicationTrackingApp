@@ -41,7 +41,7 @@ class LoginView extends StatelessWidget {
               Expanded(flex: 30, child: buildForms(context, viewModel)),
               Spacer(),
               Expanded(
-                  flex: 6, child: buildGoogleSignInRow(context, viewModel)),
+                  flex: 6, child: buildGoogleSignButton(context, viewModel)),
               Spacer(flex: 2),
               Expanded(flex: 30, child: buildButtons(context, viewModel))
             ],
@@ -51,25 +51,33 @@ class LoginView extends StatelessWidget {
     );
   }
 
-  Widget buildGoogleSignInRow(BuildContext context, LoginViewModel viewModel) {
-    return GestureDetector(
-      onTap: () {
-        print("Signin with google account");
-      },
-      child: Padding(
-        padding: context.paddingMediumHorizontal,
-        child: Container(
-          color: ColorTheme.BACKGROUND_WHITE,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Image(
+  Widget buildGoogleSignButton(BuildContext context, LoginViewModel viewModel) {
+    return Padding(
+      padding: context.paddingMediumHorizontal,
+      child: ElevatedButton(
+        child: Row(
+          children: [
+            Padding(
+              padding: context.paddingLow,
+              child: Image(
                 image: AssetImage(ImageConstants.instance.googleLogo),
               ),
-              LocaleText(text: LocaleKeys.authentication_SIGN_WITH_GOOGLE)
-            ],
-          ),
+            ),
+            SizedBox(
+              width: context.normalValue,
+            ),
+            Text(
+              LocaleKeys.authentication_SIGN_WITH_GOOGLE.locale,
+              style: TextStyle(color: Colors.black),
+            ),
+          ],
         ),
+        style: Theme.of(context).elevatedButtonTheme.style.copyWith(
+            backgroundColor:
+                MaterialStateProperty.all<Color>(ColorTheme.GREY_LIGHT)),
+        onPressed: () {
+          print("Signin with google account");
+        },
       ),
     );
   }
@@ -147,8 +155,8 @@ class LoginView extends StatelessWidget {
         padding: context.paddingMediumHorizontal,
         child: Column(
           children: [
-            Expanded(flex: 4, child: buildMailFormField(context, value)),
-            Expanded(flex: 4, child: buildPasswordFormField(context, value)),
+            Expanded(flex: 5, child: buildMailFormField(context, value)),
+            Expanded(flex: 5, child: buildPasswordFormField(context, value)),
             Expanded(flex: 1, child: buildTextForgot(context)),
           ],
         ),
@@ -164,8 +172,6 @@ class LoginView extends StatelessWidget {
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
           border: buildBorder,
-          filled: true,
-          fillColor: ColorTheme.BACKGROUND_WHITE,
           hintText: LocaleKeys.authentication_MAIL_HINT_TEXT.locale,
           labelText: LocaleKeys.authentication_EMAIL.locale,
           prefixIcon: Icon(Icons.email)),
@@ -183,8 +189,6 @@ class LoginView extends StatelessWidget {
         obscureText: !viewmodel.isPasswordVisible,
         decoration: InputDecoration(
           border: buildBorder,
-          filled: true,
-          fillColor: ColorTheme.BACKGROUND_WHITE,
           hintText: LocaleKeys.authentication_PASSWORD_HINT_TEXT.locale,
           labelText: LocaleKeys.authentication_PASSWORD.locale,
           prefixIcon: Icon(Icons.lock),

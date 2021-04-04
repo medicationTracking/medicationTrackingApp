@@ -15,6 +15,7 @@
         "NAME_HINT_TEXT":"Enter your name",
         "ID":"ID",
         "ID_HINT_TEXT":"Enter your ID",
+        "BIRTHDAY":"Pick your birtday",
         "SAVE":"Save"
 
     }

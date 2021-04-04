@@ -16,6 +16,7 @@ abstract class  LocaleKeys {
   static const authentication_NAME_HINT_TEXT = 'authentication.NAME_HINT_TEXT';
   static const authentication_ID = 'authentication.ID';
   static const authentication_ID_HINT_TEXT = 'authentication.ID_HINT_TEXT';
+  static const authentication_BIRTHDAY = 'authentication.BIRTHDAY';
   static const authentication_SAVE = 'authentication.SAVE';
   static const authentication = 'authentication';
 

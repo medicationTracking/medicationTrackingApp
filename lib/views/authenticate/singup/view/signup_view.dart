@@ -68,12 +68,11 @@ class SignUpView extends StatelessWidget {
       onSaved: (value) {
         viewmodel.mailController = value;
       },
+      keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
           hintText: LocaleKeys.authentication_MAIL_HINT_TEXT.locale,
           labelText: LocaleKeys.authentication_EMAIL.locale,
           prefixIcon: Icon(Icons.mail),
-          filled: true,
-          fillColor: ColorTheme.BACKGROUND_WHITE,
           border: buildBorder),
     );
   }
@@ -90,8 +89,6 @@ class SignUpView extends StatelessWidget {
           hintText: LocaleKeys.authentication_PASSWORD_HINT_TEXT.locale,
           labelText: LocaleKeys.authentication_PASSWORD.locale,
           prefixIcon: Icon(Icons.lock),
-          filled: true,
-          fillColor: ColorTheme.BACKGROUND_WHITE,
           border: buildBorder),
     );
   }
@@ -107,8 +104,6 @@ class SignUpView extends StatelessWidget {
           hintText: LocaleKeys.authentication_ID_HINT_TEXT.locale,
           labelText: LocaleKeys.authentication_ID.locale,
           prefixIcon: Icon(Icons.account_circle),
-          filled: true,
-          fillColor: ColorTheme.BACKGROUND_WHITE,
           border: buildBorder),
     );
   }
@@ -124,8 +119,6 @@ class SignUpView extends StatelessWidget {
           hintText: LocaleKeys.authentication_NAME_HINT_TEXT.locale,
           labelText: LocaleKeys.authentication_NAME.locale,
           prefixIcon: Icon(Icons.person),
-          filled: true,
-          fillColor: ColorTheme.BACKGROUND_WHITE,
           border: buildBorder),
     );
   }
@@ -149,23 +142,26 @@ class SignUpView extends StatelessWidget {
     );
   }
 
-  TextButton buildDatePickerButton(viewmodel, BuildContext context) {
-    return TextButton(
-        onPressed: () {
-          viewmodel.pickDate(context);
-        },
-        child: Row(
-          children: [
-            Icon(Icons.date_range_sharp),
-            Observer(
-                builder: (context) => Center(
-                      child: Text(
-                        viewmodel.getDate.toString(),
-                        style: context.textTheme.headline6,
-                      ),
-                    )),
-          ],
-        ));
+  Widget buildDatePickerButton(viewmodel, BuildContext context) {
+    return Row(
+      children: [
+        Icon(Icons.date_range_sharp),
+        LocaleText(text: LocaleKeys.authentication_BIRTHDAY),
+        Expanded(
+          child: TextButton(
+              onPressed: () {
+                viewmodel.pickDate(context);
+              },
+              child: Observer(
+                  builder: (context) => Center(
+                        child: Text(
+                          viewmodel.getDate.toString(),
+                          style: context.textTheme.headline6,
+                        ),
+                      ))),
+        ),
+      ],
+    );
   }
 
   OutlineInputBorder get buildBorder => OutlineInputBorder();

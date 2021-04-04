@@ -15,6 +15,7 @@
         "NAME_HINT_TEXT":"İsminizi Giriniz",
         "ID":"KULLANICI ADI",
         "ID_HINT_TEXT":"Kullanıcı Adınızı Giriniz",
+        "BIRTHDAY":"Doğum tarihini seç",
         "SAVE":"Kaydet"
     }
 }

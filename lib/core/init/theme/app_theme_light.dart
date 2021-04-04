@@ -10,31 +10,33 @@ class AppThemeLight extends AppTheme {
 
   ThemeData get theme {
     return ThemeData(
-      primaryColor: ColorTheme.PRIMARY_BLUE,
-      //fontFamily: AppConstants.FONT_SOURCE_SANS,
-      scaffoldBackgroundColor: ColorTheme.GREY_LIGHT,
-      cursorColor: ColorTheme.PRIMARY_RED,
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
-          backgroundColor: ColorTheme.PRIMARY_RED),
-      colorScheme: colorScheme(),
-      focusColor: ColorTheme.BACKGROUND_WHITE,
-      //inputDecorationTheme: AppInputTheme.instance.buildInputDecorationTheme,
-      tabBarTheme: tabBarTheme(),
-      errorColor: ColorTheme.PRIMARY_RED,
-      //textTheme: _textTheme,
-      appBarTheme: AppBarTheme(
-          elevation: 0,
-          color: Colors.blue,
-          iconTheme: IconThemeData(color: ColorTheme.PRIMARY_BLUE),
-          brightness: Brightness.light),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(ColorTheme
-                  .PRIMARY_BLUE) // TODO HAL�L BURAYA BAKARSAN SEN�N BUTONLARIN RENG�N� ANLARSIN
-              )),
-      //primaryTextTheme: _primaryTextTheme,
-      buttonTheme: buttonThemeData(),
-    );
+        primaryColor: ColorTheme.PRIMARY_BLUE,
+        //fontFamily: AppConstants.FONT_SOURCE_SANS,
+        scaffoldBackgroundColor: ColorTheme.GREY_LIGHT,
+        cursorColor: ColorTheme.PRIMARY_RED,
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: ColorTheme.PRIMARY_RED),
+        colorScheme: colorScheme(),
+        focusColor: ColorTheme.BACKGROUND_WHITE,
+        //inputDecorationTheme: AppInputTheme.instance.buildInputDecorationTheme,
+        tabBarTheme: tabBarTheme(),
+        errorColor: ColorTheme.PRIMARY_RED,
+        //textTheme: _textTheme,
+        appBarTheme: AppBarTheme(
+            elevation: 0,
+            color: ColorTheme.PRIMARY_BLUE,
+            iconTheme: IconThemeData(color: Colors.black),
+            brightness: Brightness.light),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(ColorTheme
+                    .PRIMARY_BLUE) // TODO HAL�L BURAYA BAKARSAN SEN�N BUTONLARIN RENG�N� ANLARSIN
+                )),
+        //primaryTextTheme: _primaryTextTheme,
+        iconTheme: IconThemeData(color: ColorTheme.PRIMARY_BLUE),
+        buttonTheme: buttonThemeData(),
+        inputDecorationTheme: InputDecorationTheme(
+            filled: true, fillColor: ColorTheme.BACKGROUND_WHITE));
   }
 
   ColorScheme colorScheme() {
