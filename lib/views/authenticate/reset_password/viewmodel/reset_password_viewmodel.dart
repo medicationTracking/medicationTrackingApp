@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/constants/navigation/navigation_constants.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
 
@@ -14,12 +15,14 @@ abstract class _ResetPasswordViewModelBase with Store, BaseViewModel {
 
   @observable
   bool isPasswordVisible = false;
+  bool isPasswordVisibleAgain = false;
 
   @action
   void seePassword(){
     isPasswordVisible = !isPasswordVisible;
+    
   }
-
+ 
   String validatePassword(String value){
     Pattern  pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$';
     RegExp regExp = new RegExp(pattern);
@@ -33,6 +36,9 @@ abstract class _ResetPasswordViewModelBase with Store, BaseViewModel {
       return 'Passwords does not match, please enter again.';
     else
       return null;
+  }
+  void navigateLoginPage() {
+    navigation.navigateToPage(path: NavigationConstants.LOGIN_VIEW);
   }
 }
 

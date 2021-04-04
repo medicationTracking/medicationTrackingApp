@@ -13,7 +13,7 @@ class VerifyMailCodeView extends StatelessWidget {
         model.setContext(context);
         model.init();
       },
-      builder: (context, viewmodel) => Scaffold(
+      builder: (BuildContext context, VerifyMailCodeViewModel viewModel) => Scaffold(
         appBar: AppBar(
           title: Text("Verify Mail Code Page"),
         ),
@@ -28,12 +28,12 @@ class VerifyMailCodeView extends StatelessWidget {
                             style: Theme.of(context).textTheme.headline6)
                   ),
                   Expanded(flex:2,
-                    child:buildMailFormField(context,viewmodel, "Verification Code",
+                    child:buildMailFormField(context,viewModel, "Verification Code",
                         "Enter verification code here.")
                   ),
                   Expanded(flex: 1,
                     child:Padding(padding: context.paddingMediumVertical,
-                        child: buildSendButton())),
+                        child: buildSendButton(context, viewModel))),
                   Expanded(flex:1,
                   child: buildSendCodeAgain(context)),
                 ],
@@ -45,9 +45,11 @@ class VerifyMailCodeView extends StatelessWidget {
           );
   }
 
-  ElevatedButton buildSendButton() {
+  ElevatedButton buildSendButton(BuildContext context, VerifyMailCodeViewModel viewModel) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        viewModel.navigateResetPasswordPage();
+      },
       child: Center(child: Text("SEND")),
     );
   }

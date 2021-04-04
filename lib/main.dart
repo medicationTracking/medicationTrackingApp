@@ -7,6 +7,8 @@ import 'package:medication_app_v0/core/init/notifier/theme_notifier.dart';
 import 'package:medication_app_v0/views/home/Calendar/view/calendar_view.dart';
 import 'package:provider/provider.dart';
 import 'package:medication_app_v0/core/constants/app_constants/app_constants.dart';
+import 'views/authenticate/forgot_password/view/forgot_password_view.dart';
+import 'views/authenticate/login/view/login_view.dart';
 
 
 void main() async {
@@ -36,7 +38,7 @@ class MyApp extends StatelessWidget {
         title: 'Material App',
         navigatorKey: NavigationService.instance.navigatorKey,
         onGenerateRoute: NavigationRoute.instance.generateRoute,
-        home: CalendarView(),
+        home: LoginView(),
       );
   }//Home degisebilir
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:medication_app_v0/core/extention/string_extention.dart';
@@ -59,13 +60,15 @@ class LoginView extends StatelessWidget {
     return Center(child: Image.asset(ImageConstants.instance.heartPulse));
   }
 
-  Widget buildTextForgot(
-    BuildContext context,
-  ) =>
-      Align(
+  Widget buildTextForgot(BuildContext context, LoginViewModel viewModel) =>
+  Align(
         alignment: Alignment.centerRight,
-        child: Text("Forgot Password ?"),
-      );
+        child: TextButton(child: Text("Forgot Password ?"), 
+            onPressed: () {viewModel.navigateForgotPasswordPage();
+            },
+          ),
+  );
+
   ElevatedButton buildSignupElevatedButton(
       BuildContext context, LoginViewModel viewModel) {
     return ElevatedButton(
@@ -103,7 +106,7 @@ class LoginView extends StatelessWidget {
           children: [
             Expanded(flex: 4, child: buildMailFormField(context, value)),
             Expanded(flex: 4, child: buildPasswordFormField(context, value)),
-            Expanded(flex: 1, child: buildTextForgot(context)),
+            Expanded(flex: 1, child: buildTextForgot(context, value)),
           ],
         ),
       ),

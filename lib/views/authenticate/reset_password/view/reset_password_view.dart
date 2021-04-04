@@ -13,7 +13,7 @@ class ResetPasswordView extends StatelessWidget {
         model.setContext(context);
         model.init();
       },
-      builder: (context, viewmodel) => Scaffold(
+      builder: (BuildContext context, ResetPasswordViewModel viewModel) => Scaffold(
         appBar: AppBar(
           title: Text("Reset Password Page"),
         ),
@@ -24,8 +24,8 @@ class ResetPasswordView extends StatelessWidget {
               child: Column(
                 children: [
                   Expanded(flex: 1, child: buildText(context)),
-                  Expanded(flex: 4, child: buildForms(context, viewmodel)),
-                  Expanded(flex: 2, child: buildButton(context)), 
+                  Expanded(flex: 4, child: buildForms(context, viewModel)),
+                  Expanded(flex: 2, child: buildButton(context, viewModel)), 
                   Expanded(flex: 2, child: buildPasswordRequiresText(context),)                     ],
               )
             )
@@ -38,15 +38,14 @@ class ResetPasswordView extends StatelessWidget {
   Widget buildText(BuildContext context){
     return Padding(
       padding: context.paddingLowHorizontal,
-      child:Expanded(
         child: Text("Please enter new password below",
-              style: Theme.of(context).textTheme.headline6))
-    );
+              style: Theme.of(context).textTheme.headline6, ))
+    ;
   }
   SingleChildScrollView buildPasswordRequiresText(BuildContext context){
     return SingleChildScrollView(
-        child: Expanded(child: Text("Minimum 1 Uppercase\n,Minimum 1 Lowercase\n,Minimum 1 Numeric Number\nMinimum 8 Characters Long.",
-                      style: Theme.of(context).textTheme.bodyText2),)
+        child: Text("Minimum 1 Uppercase\n,Minimum 1 Lowercase\n,Minimum 1 Numeric Number\nMinimum 8 Characters Long.",
+                      style: Theme.of(context).textTheme.bodyText2),
     );
   }
 
@@ -68,21 +67,21 @@ class ResetPasswordView extends StatelessWidget {
     );        
   }
 
-  Widget buildPasswordFormField(BuildContext context, ResetPasswordViewModel viewmodel) {
+  Widget buildPasswordFormField(BuildContext context, ResetPasswordViewModel viewModel) {
     return Observer(builder: (_){
       return TextFormField(
-        validator: (value) => viewmodel.validatePassword(value),
-        obscureText: !viewmodel.isPasswordVisible,
+        validator: (value) => viewModel.validatePassword(value),
+        obscureText: !viewModel.isPasswordVisible,
         decoration: InputDecoration(
           hintText: "New Password",
-          border: UnderlineInputBorder(),
+          border: UnderlineInputBorder(), 
           icon: Icon(Icons.lock),
           suffixIcon: IconButton(
-            icon: viewmodel.isPasswordVisible
+            icon: viewModel.isPasswordVisible
               ? Icon(Icons.remove_red_eye_outlined)
               : Icon(Icons.remove_red_eye_sharp),
             onPressed: () {
-              viewmodel.seePassword();
+              viewModel.seePassword();
             },
           ),
         ),
@@ -90,20 +89,21 @@ class ResetPasswordView extends StatelessWidget {
     });
   }
 
-  Widget buildPasswordAgainFormField(BuildContext context, ResetPasswordViewModel viewmodel) {
+  Widget buildPasswordAgainFormField(BuildContext context, ResetPasswordViewModel viewModel) {
     return Observer(builder: (_){
       return TextFormField(
-        validator: (value) => viewmodel.validatePassword(value),
+        validator: (value) => viewModel.validatePassword(value),
+        obscureText: !viewModel.isPasswordVisible,
         decoration: InputDecoration(
           hintText: "New Password Again",
           border: UnderlineInputBorder(),
           icon: Icon(Icons.lock),
           suffixIcon: IconButton(
-            icon: viewmodel.isPasswordVisible
+            icon: viewModel.isPasswordVisible
               ? Icon(Icons.remove_red_eye_outlined)
               : Icon(Icons.remove_red_eye_sharp),
             onPressed: () {
-              viewmodel.seePassword();
+              viewModel.seePassword();
             },
           ),
         ),
@@ -111,16 +111,18 @@ class ResetPasswordView extends StatelessWidget {
     });
   }
 
- Padding buildButton(BuildContext context) {
+ Padding buildButton(BuildContext context, ResetPasswordViewModel viewModel) {
     return Padding(
       padding: context.paddingMedium,
-      child: buildSaveButton(),
+      child: buildSaveButton(context, viewModel),
     );
  }
   
-  ElevatedButton buildSaveButton() {
+  ElevatedButton buildSaveButton(BuildContext context, ResetPasswordViewModel viewModel) {
     return ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          viewModel.navigateLoginPage();
+        },
         child: Center(child: Text("SAVE")),
       );
   }
