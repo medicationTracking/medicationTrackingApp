@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       title: 'Material App',
       navigatorKey: NavigationService.instance.navigatorKey,
       onGenerateRoute: NavigationRoute.instance.generateRoute,
-      home: CalendarView(),
+      home: LoginView(),
     );
   } //Home degisebilir
 }

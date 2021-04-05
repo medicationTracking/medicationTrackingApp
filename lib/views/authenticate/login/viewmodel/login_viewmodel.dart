@@ -67,4 +67,8 @@ abstract class _LoginViewModelBase with Store, BaseViewModel {
       context.locale = Locale('en', 'US');
     }
   }
+
+  void navigateCalendarPage() {
+    navigation.navigateToPage(path: NavigationConstants.CALENDAR_VIEW);
+  }
 }

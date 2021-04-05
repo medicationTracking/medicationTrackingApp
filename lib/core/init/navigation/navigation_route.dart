@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../views/home/Calendar/view/calendar_view.dart';
 import '../../../views/home/view/home_view.dart';
 import '../../constants/navigation/navigation_constants.dart';
 import '../../../views/authenticate/login/view/login_view.dart';
@@ -20,6 +21,8 @@ class NavigationRoute {
         return normalNavigate(TestView());
       case NavigationConstants.HOME_VIEW:
         return normalNavigate(HomeView());
+      case NavigationConstants.CALENDAR_VIEW:
+        return normalNavigate(CalendarView());
       default:
         return normalNavigate(Scaffold(
           body: Text("Not Found"),

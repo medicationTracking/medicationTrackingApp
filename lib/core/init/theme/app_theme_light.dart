@@ -13,9 +13,14 @@ class AppThemeLight extends AppTheme {
         primaryColor: ColorTheme.PRIMARY_BLUE,
         //fontFamily: AppConstants.FONT_SOURCE_SANS,
         scaffoldBackgroundColor: ColorTheme.GREY_LIGHT,
+        bottomAppBarTheme: BottomAppBarTheme(
+          color: ColorTheme.BACKGROUND_WHITE,
+          shape: CircularNotchedRectangle(),
+        ),
+        primaryIconTheme: IconThemeData(color: ColorTheme.PRIMARY_BLUE),
         cursorColor: ColorTheme.PRIMARY_RED,
         floatingActionButtonTheme: FloatingActionButtonThemeData(
-            backgroundColor: ColorTheme.PRIMARY_RED),
+            backgroundColor: ColorTheme.PRIMARY_BLUE),
         colorScheme: colorScheme(),
         focusColor: ColorTheme.BACKGROUND_WHITE,
         //inputDecorationTheme: AppInputTheme.instance.buildInputDecorationTheme,
