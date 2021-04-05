@@ -135,7 +135,7 @@ class LoginView extends StatelessWidget {
     return ElevatedButton(
       child: Center(child: LocaleText(text: LocaleKeys.authentication_LOGIN)),
       onPressed: () {
-        viewModel.navigateCalendarPage();
+        viewModel.navigateHomePage();
         print("mail:" +
             viewModel.mailController.text +
             " password:" +

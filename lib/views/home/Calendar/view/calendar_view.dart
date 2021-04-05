@@ -203,7 +203,7 @@ class _CalendarViewState extends State<CalendarView>
       calendarController: _calendarController,
       events: _events,
       rowHeight: context.height * 0.1, //headerin size'ını ayarlamak lazım.
-      //locale: context.locale.toString(), tr sürümü yok sanırım.
+      //locale: context.locale.toString(), tr sürümü yok.
       availableGestures: AvailableGestures.horizontalSwipe,
       startingDayOfWeek: StartingDayOfWeek.monday,
       initialCalendarFormat: CalendarFormat.week,

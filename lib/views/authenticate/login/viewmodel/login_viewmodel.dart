@@ -68,7 +68,7 @@ abstract class _LoginViewModelBase with Store, BaseViewModel {
     }
   }
 
-  void navigateCalendarPage() {
-    navigation.navigateToPage(path: NavigationConstants.CALENDAR_VIEW);
+  void navigateHomePage() {
+    navigation.navigateToPage(path: NavigationConstants.HOME_VIEW);
   }
 }
