@@ -10,4 +10,6 @@ class LocaleText extends StatelessWidget {
   Widget build(BuildContext context) {
     return AutoSizeText(text.locale);
   }
+
+  String get getText => text;
 }

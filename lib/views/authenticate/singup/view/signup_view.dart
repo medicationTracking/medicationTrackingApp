@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:medication_app_v0/core/init/text/locale_text.dart';
+import 'package:medication_app_v0/core/init/theme/color_theme.dart';
 import '../../../../core/base/view/base_widget.dart';
 import '../viewmodel/singup_viewmodel.dart';
 import '../../../../core/extention/context_extention.dart';
+import 'package:medication_app_v0/core/init/locale_keys.g.dart';
+import '../../../../core/extention/string_extention.dart';
 
 class SignUpView extends StatelessWidget {
   @override
@@ -15,7 +19,7 @@ class SignUpView extends StatelessWidget {
       },
       builder: (context, viewmodel) => Scaffold(
         appBar: AppBar(
-          title: Text("Singup Page"),
+          title: LocaleText(text: LocaleKeys.authentication_SIGNUP_PAGE),
         ),
         body: SingleChildScrollView(
           child: SizedBox(
@@ -64,10 +68,11 @@ class SignUpView extends StatelessWidget {
       onSaved: (value) {
         viewmodel.mailController = value;
       },
+      keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
-          hintText: "enter your mail",
-          labelText: "Mail",
-          icon: Icon(Icons.mail),
+          hintText: LocaleKeys.authentication_MAIL_HINT_TEXT.locale,
+          labelText: LocaleKeys.authentication_EMAIL.locale,
+          prefixIcon: Icon(Icons.mail),
           border: buildBorder),
     );
   }
@@ -81,9 +86,9 @@ class SignUpView extends StatelessWidget {
       },
       obscureText: true,
       decoration: InputDecoration(
-          hintText: "enter your password",
-          labelText: "Password",
-          icon: Icon(Icons.lock),
+          hintText: LocaleKeys.authentication_PASSWORD_HINT_TEXT.locale,
+          labelText: LocaleKeys.authentication_PASSWORD.locale,
+          prefixIcon: Icon(Icons.lock),
           border: buildBorder),
     );
   }
@@ -96,9 +101,9 @@ class SignUpView extends StatelessWidget {
         viewmodel.idController = value;
       },
       decoration: InputDecoration(
-          hintText: "enter your id",
-          labelText: "ID",
-          icon: Icon(Icons.account_circle),
+          hintText: LocaleKeys.authentication_ID_HINT_TEXT.locale,
+          labelText: LocaleKeys.authentication_ID.locale,
+          prefixIcon: Icon(Icons.account_circle),
           border: buildBorder),
     );
   }
@@ -111,9 +116,9 @@ class SignUpView extends StatelessWidget {
         viewmodel.nameController = value;
       },
       decoration: InputDecoration(
-          hintText: "enter your name",
-          labelText: "Name",
-          icon: Icon(Icons.person),
+          hintText: LocaleKeys.authentication_NAME_HINT_TEXT.locale,
+          labelText: LocaleKeys.authentication_NAME.locale,
+          prefixIcon: Icon(Icons.person),
           border: buildBorder),
     );
   }
@@ -133,27 +138,30 @@ class SignUpView extends StatelessWidget {
             "mail:" +
             viewModel.mailController.text);
       },
-      child: Center(child: Text("SAVE")),
+      child: Center(child: LocaleText(text: LocaleKeys.authentication_SAVE)),
     );
   }
 
-  TextButton buildDatePickerButton(viewmodel, BuildContext context) {
-    return TextButton(
-        onPressed: () {
-          viewmodel.pickDate(context);
-        },
-        child: Row(
-          children: [
-            Icon(Icons.date_range_sharp),
-            Observer(
-                builder: (context) => Center(
-                      child: Text(
-                        viewmodel.getDate.toString(),
-                        style: context.textTheme.headline6,
-                      ),
-                    )),
-          ],
-        ));
+  Widget buildDatePickerButton(viewmodel, BuildContext context) {
+    return Row(
+      children: [
+        Icon(Icons.date_range_sharp),
+        LocaleText(text: LocaleKeys.authentication_BIRTHDAY),
+        Expanded(
+          child: TextButton(
+              onPressed: () {
+                viewmodel.pickDate(context);
+              },
+              child: Observer(
+                  builder: (context) => Center(
+                        child: Text(
+                          viewmodel.getDate.toString(),
+                          style: context.textTheme.headline6,
+                        ),
+                      ))),
+        ),
+      ],
+    );
   }
 
   OutlineInputBorder get buildBorder => OutlineInputBorder();

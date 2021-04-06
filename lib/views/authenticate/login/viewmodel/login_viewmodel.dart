@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import '../../../../core/constants/navigation/navigation_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:medication_app_v0/core/constants/app_constants/app_constants.dart';
+import 'package:medication_app_v0/core/constants/navigation/navigation_constants.dart';
+import 'package:medication_app_v0/core/init/locale_keys.g.dart';
+import 'package:medication_app_v0/core/extention/string_extention.dart';
+
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
 part 'login_viewmodel.g.dart';
@@ -16,11 +21,11 @@ abstract class _LoginViewModelBase with Store, BaseViewModel {
   void init() {
     mailController = TextEditingController();
     passwordController = TextEditingController();
-    scaffoldState =  GlobalKey();
+    scaffoldState = GlobalKey();
     formState = GlobalKey();
   }
 
-  void dispose(){
+  void dispose() {
     mailController.dispose();
     passwordController.dispose();
   }
@@ -42,7 +47,7 @@ abstract class _LoginViewModelBase with Store, BaseViewModel {
         r"{0,253}[a-zA-Z0-9])?)*$";
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value) || value == null)
-      return 'Enter a valid email address';
+      return LocaleKeys.authentication_MAIL_ERROR_TEXT.locale;
     else
       return null;
   }
@@ -51,7 +56,19 @@ abstract class _LoginViewModelBase with Store, BaseViewModel {
     navigation.navigateToPage(path: NavigationConstants.SIGNUP_VIEW);
   }
 
-  void navigateForgotPasswordPage() {
-    navigation.navigateToPage(path: NavigationConstants.FORGOT_PASSWORD_VIEW);
+  void changeLanguageOnPress(BuildContext context) {
+    if (context.locale.countryCode
+            .compareTo(AppConstants.EN_LOCALE.countryCode) ==
+        0)
+      context.locale = Locale('tr', 'TR');
+    else if (context.locale.countryCode
+            .compareTo(AppConstants.TR_LOCALE.countryCode) ==
+        0) {
+      context.locale = Locale('en', 'US');
+    }
+  }
+
+  void navigateHomePage() {
+    navigation.navigateToPage(path: NavigationConstants.HOME_VIEW);
   }
 }

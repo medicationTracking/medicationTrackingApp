@@ -11,7 +11,7 @@ class SignupViewModel = _SignupViewModelBase with _$SignupViewModel;
 abstract class _SignupViewModelBase with Store, BaseViewModel {
   TextEditingController nameController;
   TextEditingController mailController;
-  TextEditingController idController ;
+  TextEditingController idController;
   TextEditingController passwordController;
   GlobalKey<FormState> singupFormState;
 
@@ -32,10 +32,10 @@ abstract class _SignupViewModelBase with Store, BaseViewModel {
     mailController = TextEditingController();
     idController = TextEditingController();
     passwordController = TextEditingController();
-    singupFormState  = GlobalKey();
+    singupFormState = GlobalKey();
   }
-  //contorllerleri nerede dispose edeceğim???
 
+  //contorllerleri nerede dispose edeceğim???
   pickDate(BuildContext context) async {
     DateTime pickedDate = await showDatePicker(
         context: context,

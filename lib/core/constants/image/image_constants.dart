@@ -9,6 +9,7 @@ class ImageConstants {
   ImageConstants._init();
 
   String get heartPulse => toPng("heartpulse");
+  String get googleLogo => toPng("google_logo");
 
   String toPng(String name) => "assets/images/$name.png";
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../views/home/Calendar/view/calendar_view.dart';
 import '../../../views/authenticate/reset_password/view/reset_password_view.dart';
 import '../../../views/authenticate/verify_mail_code/view/verify_mail_code_view.dart';
 import '../../../views/authenticate/forgot_password/view/forgot_password_view.dart';
@@ -29,6 +30,8 @@ class NavigationRoute {
         return normalNavigate(ResetPasswordView());
       case NavigationConstants.VERIFY_MAIL_CODE_VIEW:
         return normalNavigate(VerifyMailCodeView());
+      case NavigationConstants.CALENDAR_VIEW:
+        return normalNavigate(CalendarView());
       default:
         return normalNavigate(Scaffold(
           body: Text("Not Found"),
