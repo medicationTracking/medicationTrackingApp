@@ -24,11 +24,6 @@ void main() async {
   );
 }
 
-Future<void> ensureLocalizationInitialized() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
-}
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

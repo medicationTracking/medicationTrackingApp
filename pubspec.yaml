@@ -28,6 +28,7 @@ dependencies:
   date_format: ^2.0.2
   easy_localization: ^3.0.0
   flutter_mobx: ^1.1.0+2
+  lottie: ^1.0.1
   mobx: ^1.2.1+4
   mobx_codegen: ^1.1.2
   provider: 5.0.0
@@ -52,6 +53,8 @@ flutter:
   assets:
     - assets/images/
     - assets/lang/
+    - assets/lottie/
+
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:medication_app_v0/core/base/view/base_widget.dart';
+import 'package:medication_app_v0/core/components/widgets/lottie_widget.dart';
 import 'package:medication_app_v0/core/constants/app_constants/app_constants.dart';
 import 'package:medication_app_v0/core/constants/enums/shared_preferences_enum.dart';
 import 'package:medication_app_v0/core/constants/image/image_constants.dart';
@@ -35,10 +36,9 @@ class SplashView extends StatelessWidget {
           _floatingActionButtonLogin(viewModel),
         ],
       ),
-      body: Container(
-        child: buildLogoImage,
-        color: Color(0xFF29AA9D),
-      ),
+      body: Container(child: buildLogoImage, color: ColorTheme.GREY_LIGHT
+          //Color(0xFF29AA9D),
+          ),
     );
   }
 
@@ -72,6 +72,6 @@ class SplashView extends StatelessWidget {
   }
 
   Center get buildLogoImage {
-    return Center(child: Image.asset(ImageConstants.instance.splashLogo));
+    return Center(child: LottieCustomWidget(path: "medical_shield"));
   }
 }

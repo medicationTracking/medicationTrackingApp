@@ -16,7 +16,7 @@ class ColorTheme {
 
   static const PRIMARY_BLUE = Color(0xff31B8B4);
   static const BACKGROUND_WHITE = Color(0xffFFFFFF);
-
+  static const PETRONAS_GREEN = Color(0xFF29AA9D);
   static const GREEN_ACCENT = Color(0xFF5CD78F);
   static const RED_ACCENT = Color(0xFFFFA6B81);
 }

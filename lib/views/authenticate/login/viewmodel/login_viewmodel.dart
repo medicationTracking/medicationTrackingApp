@@ -80,4 +80,9 @@ abstract class _LoginViewModelBase with Store, BaseViewModel {
   Future initSharedPreferences() async {
     sharedPreferences = await SharedPreferences.getInstance();
   }
+
+  @action
+  void changeLoading() {
+    isLoading = !isLoading;
+  }
 }

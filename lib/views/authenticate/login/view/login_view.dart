@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:medication_app_v0/core/components/widgets/lottie_widget.dart';
 import 'package:medication_app_v0/core/constants/app_constants/app_constants.dart';
 import 'package:medication_app_v0/core/extention/string_extention.dart';
 import 'package:medication_app_v0/core/init/text/locale_text.dart';
@@ -12,7 +13,6 @@ import '../../../../core/extention/context_extention.dart';
 import 'package:medication_app_v0/core/init/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-//locale problem is handled.
 class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -39,6 +39,7 @@ class LoginView extends StatelessWidget {
           child: Column(
             children: [
               Expanded(flex: 30, child: buildLogoImage),
+              Expanded(child: buildRowFooter(viewModel, context)),
               Expanded(flex: 30, child: buildForms(context, viewModel)),
               Spacer(),
               Expanded(
@@ -49,6 +50,18 @@ class LoginView extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Row buildRowFooter(LoginViewModel viewModel, BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(child: Center(child: Observer(builder: (_) {
+          return Visibility(
+              visible: viewModel.isLoading, child: CircularProgressIndicator());
+        }))),
+      ],
     );
   }
 
@@ -111,7 +124,7 @@ class LoginView extends StatelessWidget {
   }
 
   Center get buildLogoImage {
-    return Center(child: Image.asset(ImageConstants.instance.heartPulse));
+    return Center(child: LottieCustomWidget(path: "heart_and_pulse"));
   }
 
   Widget buildTextForgot(
