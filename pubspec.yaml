@@ -26,11 +26,12 @@ dependencies:
   auto_size_text: ^2.1.0
   cupertino_icons: ^1.0.2
   date_format: ^2.0.2
-  easy_localization: ^2.3.3
+  easy_localization: ^3.0.0
   flutter_mobx: ^1.1.0+2
   mobx: ^1.2.1+4
   mobx_codegen: ^1.1.2
   provider: 5.0.0
+  shared_preferences: ^2.0.5
   table_calendar: ^2.3.0
 
 dev_dependencies:

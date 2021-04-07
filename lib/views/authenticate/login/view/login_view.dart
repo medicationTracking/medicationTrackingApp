@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:medication_app_v0/core/constants/app_constants/app_constants.dart';
@@ -11,7 +10,9 @@ import '../../../../core/init/theme/color_theme.dart';
 import '../viewmodel/login_viewmodel.dart';
 import '../../../../core/extention/context_extention.dart';
 import 'package:medication_app_v0/core/init/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
+//locale problem is handled.
 class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:medication_app_v0/core/constants/app_constants/app_constants.dart';
+import 'package:medication_app_v0/core/constants/enums/shared_preferences_enum.dart';
 import 'package:medication_app_v0/core/constants/navigation/navigation_constants.dart';
 import 'package:medication_app_v0/core/init/locale_keys.g.dart';
 import 'package:medication_app_v0/core/extention/string_extention.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
@@ -16,6 +18,7 @@ abstract class _LoginViewModelBase with Store, BaseViewModel {
   GlobalKey<ScaffoldState> scaffoldState;
   TextEditingController mailController;
   TextEditingController passwordController;
+  SharedPreferences sharedPreferences;
 
   void setContext(BuildContext context) => this.context = context;
   void init() {
@@ -60,15 +63,21 @@ abstract class _LoginViewModelBase with Store, BaseViewModel {
     if (context.locale.countryCode
             .compareTo(AppConstants.EN_LOCALE.countryCode) ==
         0)
-      context.locale = Locale('tr', 'TR');
+      context.setLocale(AppConstants.TR_LOCALE);
     else if (context.locale.countryCode
             .compareTo(AppConstants.TR_LOCALE.countryCode) ==
         0) {
-      context.locale = Locale('en', 'US');
+      context.setLocale(AppConstants.EN_LOCALE);
     }
+    sharedPreferences.setString(
+        SharedPreferencesEnum.LOCALE.toString(), context.locale.toString());
   }
 
   void navigateHomePage() {
     navigation.navigateToPage(path: NavigationConstants.HOME_VIEW);
+  }
+
+  Future initSharedPreferences() async {
+    sharedPreferences = await SharedPreferences.getInstance();
   }
 }
