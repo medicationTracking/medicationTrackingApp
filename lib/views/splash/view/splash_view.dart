@@ -3,7 +3,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:medication_app_v0/core/base/view/base_widget.dart';
 import 'package:medication_app_v0/core/components/widgets/lottie_widget.dart';
 import 'package:medication_app_v0/core/constants/app_constants/app_constants.dart';
-import 'package:medication_app_v0/core/constants/enums/shared_preferences_enum.dart';
 import 'package:medication_app_v0/core/constants/image/image_constants.dart';
 import 'package:medication_app_v0/core/extention/context_extention.dart';
 import 'package:medication_app_v0/core/init/locale_keys.g.dart';
@@ -36,9 +35,7 @@ class SplashView extends StatelessWidget {
           _floatingActionButtonLogin(viewModel),
         ],
       ),
-      body: Container(child: buildLogoImage, color: ColorTheme.GREY_LIGHT
-          //Color(0xFF29AA9D),
-          ),
+      body: Container(child: buildLottie, color: ColorTheme.GREY_LIGHT),
     );
   }
 
@@ -61,7 +58,7 @@ class SplashView extends StatelessWidget {
       SplashViewModel viewModel, BuildContext context) {
     return FloatingActionButton(
       onPressed: () {
-        viewModel.changeLanguageOnPress(context);
+        viewModel.changeLanguage(context);
       },
       child: Observer(
           builder: (context) => context.locale == AppConstants.TR_LOCALE
@@ -71,7 +68,7 @@ class SplashView extends StatelessWidget {
     );
   }
 
-  Center get buildLogoImage {
+  Center get buildLottie {
     return Center(child: LottieCustomWidget(path: "medical_shield"));
   }
 }

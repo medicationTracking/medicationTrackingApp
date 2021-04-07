@@ -13,11 +13,11 @@ mixin _$SplashViewModel on _SplashViewModelBase, Store {
       ActionController(name: '_SplashViewModelBase');
 
   @override
-  void changeLanguageOnPress(BuildContext context) {
+  void changeLanguage(BuildContext context) {
     final _$actionInfo = _$_SplashViewModelBaseActionController.startAction(
-        name: '_SplashViewModelBase.changeLanguageOnPress');
+        name: '_SplashViewModelBase.changeLanguage');
     try {
-      return super.changeLanguageOnPress(context);
+      return super.changeLanguage(context);
     } finally {
       _$_SplashViewModelBaseActionController.endAction(_$actionInfo);
     }

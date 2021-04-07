@@ -39,7 +39,7 @@ class LoginView extends StatelessWidget {
           child: Column(
             children: [
               Expanded(flex: 30, child: buildLogoImage),
-              Expanded(child: buildRowFooter(viewModel, context)),
+              //Expanded(child: buildRowFooter(viewModel, context)),
               Expanded(flex: 30, child: buildForms(context, viewModel)),
               Spacer(),
               Expanded(
@@ -53,6 +53,7 @@ class LoginView extends StatelessWidget {
     );
   }
 
+  //circular progress için çözülmesi gereken yer
   Row buildRowFooter(LoginViewModel viewModel, BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

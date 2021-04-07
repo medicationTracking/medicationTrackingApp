@@ -1,1 +1,1 @@
-enum SharedPreferencesEnum { LOCALE, THEME }
+enum SharedPreferencesKey { THEME }

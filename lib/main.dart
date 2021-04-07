@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:medication_app_v0/core/init/cache/shared_preferences_manager.dart';
 import 'package:medication_app_v0/core/init/navigation/navigation.service.dart';
 import 'package:medication_app_v0/core/init/navigation/navigation_route.dart';
 import 'package:medication_app_v0/core/init/notifier/provider_list.dart';
@@ -13,6 +14,8 @@ import 'views/authenticate/login/view/login_view.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  SharedPreferencesManager.preferencesInit();
+
   runApp(
     MultiProvider(
         providers: [...ApplicationProvider.instance.singleItems],
@@ -30,13 +33,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      debugShowCheckedModeBanner: false,
+      locale: context
+          .locale, // saveLocale is true by default. Locale is saved to device.
       theme: Provider.of<ThemeNotifier>(context, listen: false).currentTheme,
       title: 'Material App',
       navigatorKey: NavigationService.instance.navigatorKey,
       onGenerateRoute: NavigationRoute.instance.generateRoute,
       home: SplashView(),
+      debugShowCheckedModeBanner: false,
     );
   } //Home degisebilir
 }
