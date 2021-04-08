@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:medication_app_v0/core/constants/navigation/navigation_constants.dart';
 import 'package:medication_app_v0/core/init/cache/shared_preferences_manager.dart';
 import 'package:medication_app_v0/core/init/navigation/navigation.service.dart';
 import 'package:medication_app_v0/core/init/navigation/navigation_route.dart';
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
       title: 'Material App',
       navigatorKey: NavigationService.instance.navigatorKey,
       onGenerateRoute: NavigationRoute.instance.generateRoute,
-      home: SplashView(),
+      initialRoute: NavigationConstants.SPLASH_VIEW,
       debugShowCheckedModeBanner: false,
     );
   } //Home degisebilir
