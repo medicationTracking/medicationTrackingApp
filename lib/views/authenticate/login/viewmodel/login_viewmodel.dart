@@ -17,6 +17,11 @@ abstract class _LoginViewModelBase with Store, BaseViewModel {
   TextEditingController mailController;
   TextEditingController passwordController;
 
+  @observable
+  bool isLoading = false;
+  @observable
+  bool isPasswordVisible = false;
+
   void setContext(BuildContext context) => this.context = context;
   void init() {
     mailController = TextEditingController();
@@ -29,11 +34,6 @@ abstract class _LoginViewModelBase with Store, BaseViewModel {
     mailController.dispose();
     passwordController.dispose();
   }
-
-  @observable
-  bool isLoading = false;
-  @observable
-  bool isPasswordVisible = false;
 
   @action
   void seePassword() {

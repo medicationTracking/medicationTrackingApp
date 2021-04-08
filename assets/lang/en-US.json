@@ -17,6 +17,9 @@
         "ID_HINT_TEXT":"Enter your ID",
         "BIRTHDAY":"Pick your birtday",
         "SAVE":"Save"
-
+    },
+    "home":{
+        "HOME":"Welcome",
+        "CANCEL":"Cancel"
     }
 }

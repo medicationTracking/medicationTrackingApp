@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:medication_app_v0/core/base/viewmodel/base_viewmodel.dart';
+import 'package:medication_app_v0/core/init/locale_keys.g.dart';
 import 'package:medication_app_v0/views/home/model/home_model.dart';
+import 'package:medication_app_v0/core/extention/string_extention.dart';
 
 import 'package:mobx/mobx.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -14,6 +18,9 @@ abstract class _HomeViewmodelBase with Store, BaseViewModel {
   @observable
   List<HomeModel> selectedEvents;
   CalendarController calendarController;
+  //scan QR barcode
+  String _scanBarcode = 'Unknown';
+
   void setContext(BuildContext context) => this.context = context;
   void init() {
     final _selectedDay = DateTime.now();
@@ -113,5 +120,24 @@ abstract class _HomeViewmodelBase with Store, BaseViewModel {
 
   void onCalendarCreated(DateTime first, DateTime last, CalendarFormat format) {
     print('CALLBACK: _onCalendarCreated');
+  }
+
+  //scan barcode (qr and normal type barcode is readable.)
+  Future<void> scanQR() async {
+    String barcodeScanRes;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          "#ff6666", LocaleKeys.home_CANCEL.locale, true, ScanMode.QR);
+      print("barcode=$barcodeScanRes");
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    //if (!mounted) return; mountedi anlamadım!!!
+    _scanBarcode = barcodeScanRes;
   }
 }

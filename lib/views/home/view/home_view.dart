@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:medication_app_v0/core/base/view/base_widget.dart';
 import 'package:medication_app_v0/core/components/cards/pill_card2.dart';
+import 'package:medication_app_v0/core/init/locale_keys.g.dart';
+import 'package:medication_app_v0/core/init/text/locale_text.dart';
 import 'package:medication_app_v0/views/home/viewmodel/home_viewmodel.dart';
 import 'package:medication_app_v0/core/extention/context_extention.dart';
 import 'package:medication_app_v0/core/init/theme/color_theme.dart';
@@ -42,35 +44,23 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
       },
       builder: (context, viewmodel) => Scaffold(
         appBar: AppBar(
-          title: Text("Calendar"),
+          title: LocaleText(text: LocaleKeys.home_HOME),
         ),
-        floatingActionButton: buildFloatingActionButton(),
+        floatingActionButton: buildFloatingActionButton(viewmodel),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: buildBottomAppBar(),
-        body: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            _buildTableCalendar(context, viewmodel),
-            Divider(
-              thickness: 2,
-            ),
-            Expanded(
-                child: Padding(
-              padding: context.paddingNormal,
-              child: viewmodel.selectedEvents.isEmpty
-                  ? SizedBox()
-                  : _buildEventList(viewmodel),
-            )),
-          ],
-        ),
+        body: buildCalendarAndEvent(context, viewmodel),
       ),
     );
   }
 
   // Belki başka bir yerede konulabilir
-  FloatingActionButton buildFloatingActionButton() {
+  FloatingActionButton buildFloatingActionButton(HomeViewmodel viewmodel) {
     return FloatingActionButton(
-      onPressed: () {},
+      onPressed: () {
+        //this part may change to set reminder !!!
+        viewmodel.scanQR();
+      },
       child: Icon(Icons.add),
     );
   }
@@ -100,6 +90,25 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
               iconSize: context.height * 0.05)
         ],
       ),
+    );
+  }
+
+  Column buildCalendarAndEvent(BuildContext context, viewmodel) {
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      children: <Widget>[
+        _buildTableCalendar(context, viewmodel),
+        Divider(
+          thickness: 2,
+        ),
+        Expanded(
+            child: Padding(
+          padding: context.paddingNormal,
+          child: viewmodel.selectedEvents.isEmpty
+              ? SizedBox()
+              : _buildEventList(viewmodel),
+        )),
+      ],
     );
   }
 

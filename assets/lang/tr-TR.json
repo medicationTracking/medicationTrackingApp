@@ -17,5 +17,9 @@
         "ID_HINT_TEXT":"Kullanıcı Adınızı Giriniz",
         "BIRTHDAY":"Doğum tarihini seç",
         "SAVE":"Kaydet"
+    },
+    "home":{
+        "HOME":"Hoşgeldin",
+        "CANCEL":"iptal"
     }
 }

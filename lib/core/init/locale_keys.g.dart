@@ -19,5 +19,8 @@ abstract class  LocaleKeys {
   static const authentication_BIRTHDAY = 'authentication.BIRTHDAY';
   static const authentication_SAVE = 'authentication.SAVE';
   static const authentication = 'authentication';
+  static const home_HOME = 'home.HOME';
+  static const home_CANCEL = 'home.CANCEL';
+  static const home = 'home';
 
 }
