@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medication_app_v0/core/constants/navigation/navigation_constants.dart';
 import 'package:mobx/mobx.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 
@@ -20,5 +21,12 @@ abstract class _ForgotPasswordViewModelBase with Store, BaseViewModel {
       return 'Enter a valid email address.';
     else
       return null;
+  }
+  
+  void navigateLoginPage() {
+    navigation.navigateToPage(path: NavigationConstants.LOGIN_VIEW);
+  }
+  void navigateVerifyMailCodePage() {
+    navigation.navigateToPage(path: NavigationConstants.VERIFY_MAIL_CODE_VIEW);
   }
 }

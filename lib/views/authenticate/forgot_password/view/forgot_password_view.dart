@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:medication_app_v0/core/init/theme/color_theme.dart';
 import '../../verify_mail_code/view/verify_mail_code_view.dart';
 import '../../../../core/base/view/base_widget.dart';
 import '../viewmodel/forgot_password_viewmodel.dart';
@@ -14,58 +15,62 @@ class ForgotPasswordView extends StatelessWidget {
         model.setContext(context);
         model.init();
       },
-      builder: (context, viewmodel) => Scaffold(
-        appBar: AppBar(
-          title: Text("Forgot Password Page"),
-        ),
-        body: SingleChildScrollView(
-          child: SizedBox(
-            height: context.height * 0.8,
-            child: Padding(padding: context.paddingMedium,
-              child: Column(
-                children: [
-                  Expanded( flex:1,
-                    child: Text("Please enter your e-mail address below to reset your password.",
-                            style: Theme.of(context).textTheme.headline6)
-                  ),
-                  Expanded( flex: 2,
-                    child:buildMailFormField(context,viewmodel, "E-mail",
-                         Icon(Icons.email))
-                  ),
-                  Expanded( flex: 2,
-                    child: buildButtons(context)
+      builder: (BuildContext context, ForgotPasswordViewModel viewModel) => Scaffold(
+        body: Column(
+          children: [
+            Expanded(flex:3, child:
+              Container(color: ColorTheme.PRIMARY_BLUE, height: context.height *1 , width:context.width *1,
+                child: Align( alignment: Alignment.bottomLeft,
+                  child:Text(" Forgot\n Password?", style: Theme.of(context).textTheme.headline3.copyWith(color: ColorTheme.BACKGROUND_WHITE))))),
+            Expanded(flex: 5, child:SingleChildScrollView(
+                child: SizedBox(
+                  height: context.height * 0.6,
+                  child: Padding(padding: context.paddingMedium,
+                    child: Column(
+                      children: [
+                        Expanded( flex:1, child: Text("Please enter your e-mail address below to reset your password.",
+                            style: Theme.of(context).textTheme.headline6)),
+                        Expanded( flex: 1, child:buildMailFormField(context,viewModel, "E-mail",
+                         Icon(Icons.email))),
+                        Expanded( flex: 2, child: buildButtons(context, viewModel))
+                      ]
+                    )
                   )
-                ]
+                )
               )
             )
-          ),
+          ]),
         ),
-      ),
-    );
+      );
+    }
   }
 
-  Padding buildButtons(BuildContext context){
+  Padding buildButtons(BuildContext context, ForgotPasswordViewModel viewModel){
     return Padding(padding: context.paddingHighVertical,
       child: Row(
         children: [
-          Expanded(flex: 10, child: buildSendButton()),
+          Expanded(flex: 10, child: buildSendButton(viewModel)),
           Spacer(),
-          Expanded(flex: 10, child: buildCancelButton()),
+          Expanded(flex: 10, child: buildCancelButton(viewModel)),
         ],
       ),
     );
   }
 
-  ElevatedButton buildSendButton() {
+  ElevatedButton buildSendButton(ForgotPasswordViewModel viewModel) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        viewModel.navigateVerifyMailCodePage();
+      },
       child: Center(child: Text("SEND"),),
     );
   }
 
-  ElevatedButton buildCancelButton() {
+  ElevatedButton buildCancelButton(ForgotPasswordViewModel viewModel) {
     return ElevatedButton(
-      onPressed: () {}, 
+      onPressed: () {
+        viewModel.navigateLoginPage();
+      }, 
     child: Center(child: Text("CANCEL")),
     );
   }
@@ -73,27 +78,18 @@ class ForgotPasswordView extends StatelessWidget {
   TextFormField buildMailFormField(BuildContext context, ForgotPasswordViewModel viewmodel, 
      String hint, Icon icon) {
     return TextFormField(
-      //key: value.formState,
       autovalidateMode: AutovalidateMode.always,
       validator: (value) => viewmodel.validateEmail(value),
-      //validator: (value) => emptyCheck(value),
             decoration: InputDecoration(
               hintText: hint,
-              //labelText: label,
               icon: icon,
               border: UnderlineInputBorder()),
     );
   }
-      
- /* String emptyCheck(String value) {
-    if (value.isEmpty){
-      return "E-mail is required!";
-    }
-    return null;
-  }*/
+    
 
 
-}
+
 
 
 

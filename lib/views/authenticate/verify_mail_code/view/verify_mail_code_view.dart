@@ -33,7 +33,7 @@ class VerifyMailCodeView extends StatelessWidget {
                   ),
                   Expanded(flex: 1,
                     child:Padding(padding: context.paddingMediumVertical,
-                        child: buildSendButton())),
+                        child: buildSendButton(viewmodel))),
                   Expanded(flex:1,
                   child: buildSendCodeAgain(context)),
                 ],
@@ -45,9 +45,11 @@ class VerifyMailCodeView extends StatelessWidget {
           );
   }
 
-  ElevatedButton buildSendButton() {
+  ElevatedButton buildSendButton(VerifyMailCodeViewModel viewModel) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        viewModel.navigateResetPasswordPage();
+      },
       child: Center(child: Text("SEND")),
     );
   }
