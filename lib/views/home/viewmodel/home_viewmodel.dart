@@ -14,6 +14,8 @@ class HomeViewmodel = _HomeViewmodelBase with _$HomeViewmodel;
 
 abstract class _HomeViewmodelBase with Store, BaseViewModel {
   @observable
+  bool isLoading = false;
+  @observable
   Map<DateTime, List<HomeModel>> events;
   @observable
   List<HomeModel> selectedEvents;
@@ -22,7 +24,8 @@ abstract class _HomeViewmodelBase with Store, BaseViewModel {
   String _scanBarcode = 'Unknown';
 
   void setContext(BuildContext context) => this.context = context;
-  void init() {
+  void init() async {
+    changeLoading();
     final _selectedDay = DateTime.now();
 
     events = {
@@ -98,6 +101,15 @@ abstract class _HomeViewmodelBase with Store, BaseViewModel {
     };
     selectedEvents = events[_selectedDay] ?? [];
     calendarController = CalendarController();
+    //checking loading indicator
+    print("-----------------------------wait");
+    await waitIt();
+    print("-------------------------done");
+    changeLoading();
+  }
+
+  Future<void> waitIt() async {
+    await Future.delayed(Duration(seconds: 1));
   }
 
   void dispose() {
@@ -139,5 +151,10 @@ abstract class _HomeViewmodelBase with Store, BaseViewModel {
     // setState to update our non-existent appearance.
     //if (!mounted) return; mountedi anlamadım!!!
     _scanBarcode = barcodeScanRes;
+  }
+
+  @action
+  void changeLoading() {
+    isLoading = !isLoading;
   }
 }

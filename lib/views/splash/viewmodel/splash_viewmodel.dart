@@ -10,6 +10,8 @@ part 'splash_viewmodel.g.dart';
 class SplashViewModel = _SplashViewModelBase with _$SplashViewModel;
 
 abstract class _SplashViewModelBase with Store, BaseViewModel {
+  @observable
+  bool isLoading = false;
   void setContext(BuildContext context) => this.context = context;
   void init() {}
 
@@ -28,5 +30,10 @@ abstract class _SplashViewModelBase with Store, BaseViewModel {
         0) {
       context.setLocale(AppConstants.EN_LOCALE);
     }
+  }
+
+  @action
+  void changeLoading() {
+    isLoading = !isLoading;
   }
 }

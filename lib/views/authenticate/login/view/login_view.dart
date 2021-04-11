@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:medication_app_v0/core/components/widgets/loading_inducator.dart';
 import 'package:medication_app_v0/core/components/widgets/lottie_widget.dart';
 import 'package:medication_app_v0/core/constants/app_constants/app_constants.dart';
 import 'package:medication_app_v0/core/extention/string_extention.dart';
@@ -17,52 +18,44 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<LoginViewModel>(
-      model: LoginViewModel(),
-      onModelReady: (model) {
-        model.setContext(context);
-        model.init();
-      },
-      onDispose: (model) {
-        model.dispose();
-      },
-      builder: (BuildContext context, LoginViewModel viewModel) =>
-          buildScaffold(viewModel, context),
-    );
+        model: LoginViewModel(),
+        onModelReady: (model) {
+          model.setContext(context);
+          model.init();
+        },
+        onDispose: (model) {
+          model.dispose();
+        },
+        builder: (BuildContext context, LoginViewModel viewModel) =>
+            buildScaffold(viewModel, context));
   }
 
   Scaffold buildScaffold(LoginViewModel viewModel, BuildContext context) {
     return Scaffold(
-      key: viewModel.scaffoldState,
-      body: SingleChildScrollView(
-        child: SizedBox(
-          height: context.height,
-          child: Column(
-            children: [
-              Expanded(flex: 30, child: buildLogoImage),
-              //Expanded(child: buildRowFooter(viewModel, context)),
-              Expanded(flex: 30, child: buildForms(context, viewModel)),
-              Spacer(),
-              Expanded(
-                  flex: 6, child: buildGoogleSignButton(context, viewModel)),
-              Spacer(flex: 2),
-              Expanded(flex: 30, child: buildButtons(context, viewModel))
-            ],
-          ),
-        ),
-      ),
-    );
+        key: viewModel.scaffoldState,
+        body: Observer(
+          builder: (context) => viewModel.isLoading
+              ? PulseLoadingIndicatorWidget()
+              : buildLoginSingleChildScrollView(context, viewModel),
+        ));
   }
 
-  //circular progress için çözülmesi gereken yer
-  Row buildRowFooter(LoginViewModel viewModel, BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(child: Center(child: Observer(builder: (_) {
-          return Visibility(
-              visible: viewModel.isLoading, child: CircularProgressIndicator());
-        }))),
-      ],
+  SingleChildScrollView buildLoginSingleChildScrollView(
+      BuildContext context, LoginViewModel viewModel) {
+    return SingleChildScrollView(
+      child: SizedBox(
+        height: context.height,
+        child: Column(
+          children: [
+            Expanded(flex: 30, child: buildLogoImage),
+            Expanded(flex: 30, child: buildForms(context, viewModel)),
+            Spacer(),
+            Expanded(flex: 6, child: buildGoogleSignButton(context, viewModel)),
+            Spacer(flex: 2),
+            Expanded(flex: 30, child: buildButtons(context, viewModel))
+          ],
+        ),
+      ),
     );
   }
 
@@ -89,7 +82,7 @@ class LoginView extends StatelessWidget {
         ),
         style: Theme.of(context).elevatedButtonTheme.style.copyWith(
             backgroundColor:
-                MaterialStateProperty.all<Color>(ColorTheme.GREY_LIGHT)),
+                MaterialStateProperty.all<Color>(ColorTheme.BACKGROUND_WHITE)),
         onPressed: () {
           print("Signin with google account");
         },

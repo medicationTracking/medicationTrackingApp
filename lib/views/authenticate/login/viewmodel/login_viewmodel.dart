@@ -23,11 +23,20 @@ abstract class _LoginViewModelBase with Store, BaseViewModel {
   bool isPasswordVisible = false;
 
   void setContext(BuildContext context) => this.context = context;
-  void init() {
+  void init() async {
+    changeLoading();
     mailController = TextEditingController();
     passwordController = TextEditingController();
     scaffoldState = GlobalKey();
     formState = GlobalKey();
+    print("L-----------------------------wait");
+    await waitIt();
+    print("L-------------------------done");
+    changeLoading();
+  }
+
+  Future<void> waitIt() async {
+    await Future.delayed(Duration(seconds: 4));
   }
 
   void dispose() {
