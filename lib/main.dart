@@ -41,8 +41,8 @@ class MyApp extends StatelessWidget {
       title: 'Material App',
       navigatorKey: NavigationService.instance.navigatorKey,
       onGenerateRoute: NavigationRoute.instance.generateRoute,
-      //initialRoute: NavigationConstants.SPLASH_VIEW,
-      home: InventoryView(),
+      initialRoute: NavigationConstants.SPLASH_VIEW,
+      //home: InventoryView(),
       debugShowCheckedModeBanner: false,
     );
   } //Home degisebilir

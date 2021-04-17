@@ -5,6 +5,7 @@ import 'package:medication_app_v0/core/init/navigation/transitions/scale_rotate_
 import 'package:medication_app_v0/core/init/navigation/transitions/scale_route.dart';
 import 'package:medication_app_v0/core/init/navigation/transitions/size_route.dart';
 import 'package:medication_app_v0/core/init/navigation/transitions/slide_route.dart';
+import 'package:medication_app_v0/views/Inventory/view/inventory_view.dart';
 import 'package:medication_app_v0/views/authenticate/forgot_password/view/forgot_password_view.dart';
 import 'package:medication_app_v0/views/authenticate/reset_password/view/reset_password_view.dart';
 import 'package:medication_app_v0/views/authenticate/verify_mail_code/view/verify_mail_code_view.dart';
@@ -26,15 +27,17 @@ class NavigationRoute {
       case NavigationConstants.LOGIN_VIEW:
         return _navigateToSizeDeafult(LoginView(), settings);
       case NavigationConstants.SIGNUP_VIEW:
-        return _navigateToScaleRotateDeafult(SignUpView(), settings);
+        return _navigateToSlideDeafult(SignUpView(), settings);
       case NavigationConstants.HOME_VIEW:
         return _navigateToFadeDeafult(HomeView(), settings);
       case NavigationConstants.FORGOT_PASSWORD_VIEW:
         return _navigateToFadeDeafult(ForgotPasswordView(), settings);
       case NavigationConstants.RESET_PASSWORD_VIEW:
         return _navigateToFadeDeafult(ResetPasswordView(), settings);
-        case NavigationConstants.VERIFY_MAIL_CODE_VIEW:
+      case NavigationConstants.VERIFY_MAIL_CODE_VIEW:
         return _navigateToFadeDeafult(VerifyMailCodeView(), settings);
+      case NavigationConstants.INVENTORY_VIEW:
+        return _navigateToSlideDeafult(InventoryView(), settings);
       default:
         return _normalNavigate(Scaffold(
           body: Text("Not Found"),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:medication_app_v0/core/init/theme/color_theme.dart';
-
 import 'color_theme.dart';
 
 class AppThemeLight extends AppTheme {

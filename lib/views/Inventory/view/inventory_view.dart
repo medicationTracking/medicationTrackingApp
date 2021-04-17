@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:medication_app_v0/core/base/view/base_widget.dart';
 import 'package:medication_app_v0/core/components/cards/inventory_medication_card.dart';
+import 'package:medication_app_v0/core/components/widgets/loading_inducator.dart';
 import 'package:medication_app_v0/views/Inventory/model/inventory_model.dart';
 import 'package:medication_app_v0/views/Inventory/viewmodel/inventory_viewmodel.dart';
 import 'package:medication_app_v0/core/extention/context_extention.dart';
@@ -31,44 +33,53 @@ class _InventoryViewState extends State<InventoryView> {
           model.setContext(context);
           model.init();
         },
-        builder: (context, viewmodel) => Scaffold(
-            appBar: AppBar(
-              title: Text("Medication List"),
-            ),
-            body: Padding(
-              padding: context.paddingNormal,
-              child: Column(
-                children: [
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                            child: TextButton(
-                                onPressed: () {}, child: Text("Important"))),
-                        Expanded(
-                          child: TextButton(
-                              onPressed: () {}, child: Text("Expired Soon")),
-                        ),
-                        Expanded(
-                            child: TextButton(
-                                onPressed: () {}, child: Text("All")))
-                      ],
+        builder: (BuildContext context, InventoryViewModel viewmodel) =>
+            Observer(
+                //display Loading lottie or buildScaffold
+                builder: (context) => viewmodel.isLoading
+                    ? PulseLoadingIndicatorWidget()
+                    : buildScaffold(context, viewmodel)));
+  }
+
+  Scaffold buildScaffold(BuildContext context, InventoryViewModel viewmodel) {
+    return Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            print("add medicine");
+          },
+          child: Icon(Icons.add),
+        ),
+        appBar: AppBar(title: Text("Medication List")),
+        body: Padding(
+          padding: context.paddingNormal,
+          child: Column(
+            children: [
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                        child: TextButton(
+                            onPressed: () {}, child: Text("Important"))),
+                    Expanded(
+                      child: TextButton(
+                          onPressed: () {}, child: Text("Expired Soon")),
                     ),
-                  ),
-                  Expanded(
-                    flex: 9,
-                    child: ListView.builder(
-                        itemCount: 8,
-                        itemBuilder: (context, index) => Container(
-                            height: context.height * 0.2,
-                            child: InventoryMedicationCard(
-                              model: InventoryModel("barcode1", "name 2",
-                                  "Active Ing 3", "Company 4"),
-                            ))),
-                  ),
-                ],
+                    Expanded(
+                        child: TextButton(onPressed: () {}, child: Text("All")))
+                  ],
+                ),
               ),
-            )));
+              Expanded(
+                flex: 9,
+                child: ListView.builder(
+                  itemCount: medicationList.length,
+                  itemBuilder: (context, index) => InventoryMedicationCard(
+                      model: viewmodel.getMedList[index]),
+                ),
+              ),
+            ],
+          ),
+        ));
   }
 }

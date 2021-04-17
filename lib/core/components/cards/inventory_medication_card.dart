@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:medication_app_v0/core/constants/image/image_constants.dart';
@@ -25,7 +27,7 @@ class InventoryMedicationCard extends StatelessWidget {
   Row buildInsideCard(BuildContext context) {
     return Row(
       children: [
-        Expanded(child: buildAPicture(context)),
+        Expanded(child: buildPillPicture(context)),
         context.emptySizedWidthBoxLow3x,
         Expanded(
           flex: 4,
@@ -36,29 +38,53 @@ class InventoryMedicationCard extends StatelessWidget {
     );
   }
 
-  Padding buildAPicture(BuildContext context) {
-    return Padding(
-      padding: context.paddingLow,
-      child: Image(
-        image: AssetImage(ImageConstants.instance.googleLogo),
-      ),
-    );
+  //display pill logo
+  Padding buildPillPicture(BuildContext context) {
+    return Padding(padding: context.paddingLow, child: randomLogo);
   }
 
+  //create random pill logo
+  Image get randomLogo {
+    final x = Random.secure();
+    switch (x.nextInt(4)) {
+      case 1:
+        return Image(image: AssetImage(ImageConstants.instance.pill1Logo));
+      case 2:
+        return Image(image: AssetImage(ImageConstants.instance.pill2Logo));
+      case 3:
+        return Image(image: AssetImage(ImageConstants.instance.pill3Logo));
+      default:
+        return Image(image: AssetImage(ImageConstants.instance.pill4Logo));
+    }
+  }
+
+  //display medication name, active Ingredient and company
   Column buildMedicationTexts(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
             flex: 2,
-            child:
-                AutoSizeText(model.name, style: context.textTheme.headline1)),
-        Expanded(child: Text(model.activeIngredient)),
-        Expanded(child: Text(model.company))
+            child: AutoSizeText(
+              model.name,
+              style: context.textTheme.headline5.copyWith(
+                  fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
+            )),
+        Expanded(
+            child: AutoSizeText(
+          model.activeIngredient,
+          style: context.textTheme.bodyText1,
+        )),
+        Expanded(
+            child: AutoSizeText(
+          model.company,
+          style: context.textTheme.subtitle1,
+        ))
       ],
     );
   }
 
+  //navigate to see medication details
   IconButton buildSeeDetailButton(BuildContext context) {
     return IconButton(
       onPressed: () {},
