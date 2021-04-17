@@ -8,6 +8,7 @@ import 'package:medication_app_v0/core/init/text/locale_text.dart';
 import 'package:medication_app_v0/views/home/viewmodel/home_viewmodel.dart';
 import 'package:medication_app_v0/core/extention/context_extention.dart';
 import 'package:medication_app_v0/core/init/theme/color_theme.dart';
+import 'package:medication_app_v0/core/extention/string_extention.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class HomeView extends StatefulWidget {
@@ -37,6 +38,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    print("*********************inside build");
     return BaseView(
         model: HomeViewmodel(),
         onModelReady: (model) {
@@ -47,9 +49,10 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   }
 
   Scaffold buildScaffold(viewmodel, BuildContext context) {
+    print("*********************inside buildScaffold");
     return Scaffold(
         appBar: AppBar(
-          title: LocaleText(text: LocaleKeys.home_HOME),
+          title: Text(LocaleKeys.home_HOME.locale.toString()),
         ),
         floatingActionButton: buildFloatingActionButton(viewmodel),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -62,6 +65,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
 
   // Belki başka bir yerede konulabilir
   FloatingActionButton buildFloatingActionButton(HomeViewmodel viewmodel) {
+    print("*********************inside buildFloatingActionButton");
     return FloatingActionButton(
       onPressed: () {
         //this part may change to set reminder !!!
@@ -73,6 +77,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
 
   // Başka sayfalarda da kullanılacak mı ?
   BottomAppBar buildBottomAppBar() {
+    print("*********************inside buildBottomAppBar");
     return BottomAppBar(
       notchMargin: 8,
       child: Row(
@@ -100,6 +105,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   }
 
   Column buildCalendarAndEvent(BuildContext context, viewmodel) {
+    print("*********************inside buildCalendar");
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
@@ -119,6 +125,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   }
 
   Widget _buildTableCalendar(BuildContext context, HomeViewmodel viewmodel) {
+    print("*********************inside buildTableCalendar");
     return TableCalendar(
       calendarController: viewmodel.calendarController,
       events: viewmodel.events,

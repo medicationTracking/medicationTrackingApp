@@ -19,7 +19,6 @@ abstract class _SplashViewModelBase with Store, BaseViewModel {
     navigation.navigateToPage(path: NavigationConstants.LOGIN_VIEW);
   }
 
-  @action
   void changeLanguage(BuildContext context) {
     if (context.locale.countryCode
             .compareTo(AppConstants.EN_LOCALE.countryCode) ==

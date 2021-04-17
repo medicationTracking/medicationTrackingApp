@@ -27,6 +27,7 @@ class SplashView extends StatelessWidget {
   }
 
   Scaffold _buildScaffold(SplashViewModel viewModel, BuildContext context) {
+    print("*********************inside buildScaffold");
     return Scaffold(
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -41,6 +42,7 @@ class SplashView extends StatelessWidget {
   }
 
   FloatingActionButton _floatingActionButtonLogin(SplashViewModel viewModel) {
+    print("*********************inside buildButtonLogin");
     return FloatingActionButton.extended(
       onPressed: () {
         viewModel.navigateLogin();
@@ -57,19 +59,20 @@ class SplashView extends StatelessWidget {
 
   FloatingActionButton _floatingActionButtonChangeLanguage(
       SplashViewModel viewModel, BuildContext context) {
+    print("*********************inside floatingActionButtonChangeLanguage");
     return FloatingActionButton(
       onPressed: () {
         viewModel.changeLanguage(context);
       },
-      child: Observer(
-          builder: (context) => context.locale == AppConstants.TR_LOCALE
-              ? Image.asset(ImageConstants.instance.trFlag)
-              : Image.asset(ImageConstants.instance.ukFlag)),
+      child: context.locale == AppConstants.TR_LOCALE
+          ? Image.asset(ImageConstants.instance.trFlag)
+          : Image.asset(ImageConstants.instance.ukFlag),
       mini: true,
     );
   }
 
   Center get buildLottie {
+    print("*********************inside buildLottie");
     return Center(child: LottieCustomWidget(path: "medical_shield"));
   }
 }

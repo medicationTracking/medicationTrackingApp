@@ -28,11 +28,10 @@ class AppThemeLight extends AppTheme {
         errorColor: ColorTheme.PRIMARY_RED,
         //textTheme: _textTheme,
         appBarTheme: AppBarTheme(
-          elevation: 0,
-          color: ColorTheme.GREY_LIGHT,
-          iconTheme: IconThemeData(color: Colors.black),
-          brightness: Brightness.light,
-        ),
+            elevation: 0,
+            color: ColorTheme.GREY_LIGHT,
+            iconTheme: IconThemeData(color: Colors.black),
+            brightness: Brightness.light),
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(ColorTheme
