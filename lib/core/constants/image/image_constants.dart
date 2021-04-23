@@ -1,3 +1,5 @@
+import 'package:medication_app_v0/core/constants/navigation/navigation_constants.dart';
+
 class ImageConstants {
   static ImageConstants _instance;
 
@@ -13,6 +15,7 @@ class ImageConstants {
   String get splashLogo => toPng("splash");
   String get trFlag => toPng("tr_flag");
   String get ukFlag => toPng("uk_flag");
+  String get profileAvatar => toPng("profile_avatar");
 
   String toPng(String name) => "assets/images/$name.png";
 }
