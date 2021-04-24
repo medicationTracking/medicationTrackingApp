@@ -10,13 +10,14 @@ import 'package:medication_app_v0/views/Inventory/view/inventory_view.dart';
 import 'package:medication_app_v0/views/splash/view/splash_view.dart';
 import 'package:provider/provider.dart';
 import 'package:medication_app_v0/core/constants/app_constants/app_constants.dart';
-
+import 'package:firebase_core/firebase_core.dart';
 import 'views/authenticate/login/view/login_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   SharedPreferencesManager.preferencesInit();
+  await Firebase.initializeApp();
 
   runApp(
     MultiProvider(

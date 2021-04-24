@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "50087483482",
+    "firebase_url": "https://medicationapp-92ffd-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "medicationapp-92ffd",
+    "storage_bucket": "medicationapp-92ffd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:50087483482:android:250da33c369df0b7ad6063",
+        "android_client_info": {
+          "package_name": "com.example.medication_app_v0"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "50087483482-k585u9rak1sae14l4pvdnsnefoh460kk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.medication_app_v0",
+            "certificate_hash": "629137067bd0316ceceb8cb93cb5335432e2d487"
+          }
+        },
+        {
+          "client_id": "50087483482-ncnl62f14a5sp76eb36gctdq43nkjdln.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAL-XqUQB9Qwym0WItW4U5pdmmvn5j91JI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "50087483482-ncnl62f14a5sp76eb36gctdq43nkjdln.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

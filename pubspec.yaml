@@ -27,14 +27,18 @@ dependencies:
   cupertino_icons: ^1.0.2
   date_format: ^2.0.2
   easy_localization: ^3.0.0
+  firebase_auth: ^1.1.1
+  firebase_core: ^1.0.4
+  flutter_barcode_scanner: ^1.0.2
   flutter_mobx: ^1.1.0+2
+  google_sign_in: ^5.0.2
+  http: ^0.13.1
   lottie: ^1.0.1
   mobx: ^1.2.1+4
   mobx_codegen: ^1.1.2
   provider: 5.0.0
   shared_preferences: ^2.0.5
   table_calendar: ^2.3.0
-  flutter_barcode_scanner: ^1.0.2
 
 dev_dependencies:
   flutter_test:
@@ -55,7 +59,6 @@ flutter:
     - assets/images/
     - assets/lang/
     - assets/lottie/
-
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
