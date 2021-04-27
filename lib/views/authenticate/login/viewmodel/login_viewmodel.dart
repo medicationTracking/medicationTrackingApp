@@ -4,6 +4,8 @@ import 'package:medication_app_v0/core/constants/app_constants/app_constants.dar
 import 'package:medication_app_v0/core/constants/navigation/navigation_constants.dart';
 import 'package:medication_app_v0/core/init/locale_keys.g.dart';
 import 'package:medication_app_v0/core/extention/string_extention.dart';
+import 'package:medication_app_v0/core/init/services/google_sign_helper.dart';
+import 'package:medication_app_v0/core/init/theme/color_theme.dart';
 
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
@@ -84,5 +86,35 @@ abstract class _LoginViewModelBase with Store, BaseViewModel {
   @action
   void changeLoading() {
     isLoading = !isLoading;
+  }
+
+  void googleSignInOnPressFunc() async {
+    var data = await GoogleSignHelper.instance.signIn();
+    if (data != null) {
+      var userData = await GoogleSignHelper.instance.googleAuthentication();
+      //print("**********************************$userData");
+      //print("==============idtoken=${userData.idToken}");
+      //print("==============accestoken=${userData.accessToken}");
+      navigation.navigateToPageClear(path: NavigationConstants.HOME_VIEW);
+    }
+  }
+
+  void loginWithEmailAndPassword() async {
+    if (formState.currentState.validate()) {
+      var result = await GoogleSignHelper.instance.signInWithEmailAndPassword(
+          mailController.text, passwordController.text);
+      print(result.toString());
+      if (result != null) {
+        navigation.navigateToPageClear(path: NavigationConstants.HOME_VIEW);
+      } else
+        loginFailedSnackBar();
+    }
+  }
+
+  void loginFailedSnackBar() {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text("Login Failed!!"),
+      backgroundColor: ColorTheme.PRIMARY_RED,
+    ));
   }
 }

@@ -4,6 +4,7 @@ import 'package:medication_app_v0/core/base/view/base_widget.dart';
 import 'package:medication_app_v0/core/components/cards/pill_card2.dart';
 import 'package:medication_app_v0/core/components/widgets/loading_inducator.dart';
 import 'package:medication_app_v0/core/init/locale_keys.g.dart';
+import 'package:medication_app_v0/core/init/services/google_sign_helper.dart';
 import 'package:medication_app_v0/core/init/text/locale_text.dart';
 import 'package:medication_app_v0/views/authenticate/login/viewmodel/login_viewmodel.dart';
 import 'package:medication_app_v0/views/home/viewmodel/home_viewmodel.dart';
@@ -49,11 +50,18 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
         builder: (context, viewmodel) => buildScaffold(viewmodel, context));
   }
 
-  Scaffold buildScaffold(viewmodel, BuildContext context) {
+  Scaffold buildScaffold(HomeViewmodel viewmodel, BuildContext context) {
     print("*********************inside buildScaffold");
     return Scaffold(
         appBar: AppBar(
           title: Text(LocaleKeys.home_HOME.locale.toString()),
+          actions: [
+            IconButton(
+                icon: Icon(Icons.logout),
+                onPressed: () {
+                  viewmodel.logoutIconButtonOnPress();
+                })
+          ],
         ),
         floatingActionButton: buildFloatingActionButton(viewmodel),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

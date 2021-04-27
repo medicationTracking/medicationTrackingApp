@@ -9,6 +9,20 @@ class GoogleSignHelper {
   static final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  Future<bool> get isSignedIn async {
+    final bool g = await _googleSignIn.isSignedIn();
+    final bool eAndP = (_auth.currentUser != null);
+    return g || eAndP;
+  }
+
+  Future<bool> isSignedInWithGoogle() async {
+    return await _googleSignIn.isSignedIn();
+  }
+
+  bool get isSignedEmail {
+    return _auth.currentUser != null;
+  }
+
   Future<GoogleSignInAccount> signIn() async {
     final user = await _googleSignIn.signIn();
     if (user != null) {
@@ -20,6 +34,7 @@ class GoogleSignHelper {
 
   Future<GoogleSignInAccount> signOut() async {
     final user = await _googleSignIn.signOut();
+    if (_auth.currentUser != null) await _auth.signOut();
     if (user != null) {
       print(user.email);
       return user;
@@ -53,5 +68,22 @@ class GoogleSignHelper {
     print("---------------------------" + credential.toString());
     // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
+  Future signInWithEmailAndPassword(String email, String password) async {
+    try {
+      UserCredential result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      if (result != null) {
+        //print(result.toString());
+        print("_----____-----_____________---_----------");
+        print(_auth.authStateChanges().toString());
+        return result;
+        //print(result.additionalUserInfo.toString());
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
   }
 }

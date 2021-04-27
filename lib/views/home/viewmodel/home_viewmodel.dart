@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:medication_app_v0/core/base/viewmodel/base_viewmodel.dart';
+import 'package:medication_app_v0/core/constants/navigation/navigation_constants.dart';
 import 'package:medication_app_v0/core/init/locale_keys.g.dart';
+import 'package:medication_app_v0/core/init/services/google_sign_helper.dart';
 import 'package:medication_app_v0/views/home/model/home_model.dart';
 import 'package:medication_app_v0/core/extention/string_extention.dart';
 
@@ -156,5 +158,12 @@ abstract class _HomeViewmodelBase with Store, BaseViewModel {
   @action
   void changeLoading() {
     isLoading = !isLoading;
+  }
+
+  void logoutIconButtonOnPress() async {
+    try {
+      await GoogleSignHelper.instance.signOut();
+      navigation.navigateToPageClear(path: NavigationConstants.SPLASH_VIEW);
+    } catch (e) {}
   }
 }

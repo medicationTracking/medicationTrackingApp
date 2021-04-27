@@ -7,6 +7,7 @@ import 'package:medication_app_v0/core/constants/app_constants/app_constants.dar
 import 'package:medication_app_v0/core/constants/image/image_constants.dart';
 import 'package:medication_app_v0/core/extention/context_extention.dart';
 import 'package:medication_app_v0/core/init/locale_keys.g.dart';
+import 'package:medication_app_v0/core/init/services/google_sign_helper.dart';
 import 'package:medication_app_v0/core/init/text/locale_text.dart';
 import 'package:medication_app_v0/core/init/theme/color_theme.dart';
 import 'package:medication_app_v0/views/splash/viewmodel/splash_viewmodel.dart';
@@ -20,6 +21,9 @@ class SplashView extends StatelessWidget {
       onModelReady: (model) {
         model.setContext(context);
         model.init();
+        Future.microtask(() async {
+          await welcomeSnackBar(context);
+        });
       },
       builder: (BuildContext context, SplashViewModel viewModel) =>
           _buildScaffold(viewModel, context),
@@ -43,7 +47,7 @@ class SplashView extends StatelessWidget {
   FloatingActionButton _floatingActionButtonLogin(SplashViewModel viewModel) {
     return FloatingActionButton.extended(
       onPressed: () {
-        viewModel.navigateLogin();
+        viewModel.splashLoginButtonOnPress();
       },
       label: Row(
         children: [
@@ -70,5 +74,15 @@ class SplashView extends StatelessWidget {
 
   Center get buildLottie {
     return Center(child: LottieCustomWidget(path: "medical_shield"));
+  }
+
+  //check logged in or not
+  Future<void> welcomeSnackBar(BuildContext context) async {
+    final a = await GoogleSignHelper.instance.isSignedInWithGoogle();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(
+          "google = ${a.toString()}, email+pw= ${GoogleSignHelper.instance.isSignedEmail.toString()}"),
+      backgroundColor: Colors.green,
+    ));
   }
 }

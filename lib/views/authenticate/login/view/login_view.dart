@@ -4,7 +4,6 @@ import 'package:medication_app_v0/core/components/widgets/loading_inducator.dart
 import 'package:medication_app_v0/core/components/widgets/lottie_widget.dart';
 import 'package:medication_app_v0/core/constants/app_constants/app_constants.dart';
 import 'package:medication_app_v0/core/extention/string_extention.dart';
-import 'package:medication_app_v0/core/init/services/google_sign_helper.dart';
 import 'package:medication_app_v0/core/init/text/locale_text.dart';
 import 'package:medication_app_v0/core/init/theme/color_theme.dart';
 import '../../../../core/base/view/base_widget.dart';
@@ -85,7 +84,7 @@ class LoginView extends StatelessWidget {
             backgroundColor:
                 MaterialStateProperty.all<Color>(ColorTheme.BACKGROUND_WHITE)),
         onPressed: () {
-          googleSignInOnPressFunc();
+          viewModel.googleSignInOnPressFunc();
           print("Signin with google account");
         },
       ),
@@ -145,11 +144,12 @@ class LoginView extends StatelessWidget {
     return ElevatedButton(
       child: Center(child: LocaleText(text: LocaleKeys.authentication_LOGIN)),
       onPressed: () {
-        viewModel.navigateHomePage();
+        viewModel.loginWithEmailAndPassword();
+        /*viewModel.navigateHomePage();
         print("mail:" +
             viewModel.mailController.text +
             " password:" +
-            viewModel.passwordController.text);
+            viewModel.passwordController.text);*/
       },
       //TODO EGER BELIRLEDIGIMIZ TEMA DISINDA BIR RENK VERMEK ISTERSEK COPYWITH DEYIP O SPESIFIK OZELLIGI DEGISTIRIYORUZ.
       style: Theme.of(context).elevatedButtonTheme.style.copyWith(
@@ -217,18 +217,4 @@ class LoginView extends StatelessWidget {
   }
 
   OutlineInputBorder get buildBorder => OutlineInputBorder();
-
-  void googleSignInOnPressFunc() async {
-    await GoogleSignHelper.instance.firebaseAuth();
-  }
-  /*
-  void googleSignInOnPressFunc() async {
-    var data = await GoogleSignHelper.instance.signIn();
-    if (data != null) {
-      var userData = await GoogleSignHelper.instance.googleAuthentication();
-      print("**********************************$userData");
-      print("==============idtoken=${userData.idToken}");
-      print("==============accestoken=${userData.accessToken}");
-    }
-  }*/
 }
