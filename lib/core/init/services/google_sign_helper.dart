@@ -75,12 +75,11 @@ class GoogleSignHelper {
       UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       if (result != null) {
-        //print(result.toString());
-        print("_----____-----_____________---_----------");
-        print(_auth.authStateChanges().toString());
         return result;
-        //print(result.additionalUserInfo.toString());
       }
+      return null;
+    } on FirebaseAuthException catch (e) {
+      //return e.message;
       return null;
     } catch (e) {
       return null;

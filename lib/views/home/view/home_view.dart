@@ -65,7 +65,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
         ),
         floatingActionButton: buildFloatingActionButton(viewmodel),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: buildBottomAppBar(),
+        bottomNavigationBar: buildBottomAppBar(viewmodel),
         body: Observer(
             builder: (context) => viewmodel.isLoading
                 ? PulseLoadingIndicatorWidget()
@@ -85,7 +85,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   }
 
   // Başka sayfalarda da kullanılacak mı ?
-  BottomAppBar buildBottomAppBar() {
+  BottomAppBar buildBottomAppBar(HomeViewmodel viewmodel) {
     print("*********************inside buildBottomAppBar");
     return BottomAppBar(
       notchMargin: 8,
@@ -102,11 +102,15 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
               iconSize: context.height * 0.05),
           IconButton(
               icon: Icon(Icons.lightbulb_outline),
-              onPressed: () {},
+              onPressed: () {
+                viewmodel.navigateCovidTurkey();
+              },
               iconSize: context.height * 0.05),
           IconButton(
               icon: Icon(Icons.bookmark_outline),
-              onPressed: () {},
+              onPressed: () {
+                viewmodel.navigateInventory();
+              },
               iconSize: context.height * 0.05)
         ],
       ),

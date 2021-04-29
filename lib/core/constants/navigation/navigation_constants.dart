@@ -7,4 +7,5 @@ class NavigationConstants {
   static const VERIFY_MAIL_CODE_VIEW = "/verify_mail_code";
   static const RESET_PASSWORD_VIEW = "/reset_password";
   static const INVENTORY_VIEW = "/inventory";
+  static const COVID_TURKEY_VIEW = "/covid_turkey";
 }

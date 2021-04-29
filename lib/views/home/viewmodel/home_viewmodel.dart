@@ -166,4 +166,12 @@ abstract class _HomeViewmodelBase with Store, BaseViewModel {
       navigation.navigateToPageClear(path: NavigationConstants.SPLASH_VIEW);
     } catch (e) {}
   }
+
+  void navigateCovidTurkey() {
+    navigation.navigateToPage(path: NavigationConstants.COVID_TURKEY_VIEW);
+  }
+
+  void navigateInventory() {
+    navigation.navigateToPage(path: NavigationConstants.INVENTORY_VIEW);
+  }
 }
