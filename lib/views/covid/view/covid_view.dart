@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:medication_app_v0/core/base/view/base_widget.dart';
 import 'package:medication_app_v0/core/components/cards/covid_card.dart';
 import 'package:medication_app_v0/core/components/cards/date_card.dart';
+import 'package:medication_app_v0/core/components/widgets/custom_bottom_navigation_appbar.dart';
 import 'package:medication_app_v0/core/components/widgets/loading_inducator.dart';
 import 'package:medication_app_v0/core/init/theme/color_theme.dart';
 import 'package:medication_app_v0/views/covid/viewmodel/covid_viewmodel.dart';
@@ -23,6 +24,7 @@ class CovidView extends StatelessWidget {
               appBar: AppBar(
                 title: Text("Covid Turkey"),
               ),
+              bottomNavigationBar: CustomBottomAppBar(),
               body: Observer(
                   builder: (context) => viewmodel.isLoading
                       ? Center(child: PulseLoadingIndicatorWidget())

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:medication_app_v0/core/base/view/base_widget.dart';
 import 'package:medication_app_v0/core/components/cards/pill_card2.dart';
+import 'package:medication_app_v0/core/components/widgets/custom_bottom_navigation_appbar.dart';
 import 'package:medication_app_v0/core/components/widgets/loading_inducator.dart';
 import 'package:medication_app_v0/core/init/locale_keys.g.dart';
 import 'package:medication_app_v0/core/init/services/google_sign_helper.dart';
@@ -65,7 +66,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
         ),
         floatingActionButton: buildFloatingActionButton(viewmodel),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: buildBottomAppBar(viewmodel),
+        bottomNavigationBar: CustomBottomAppBar(),
         body: Observer(
             builder: (context) => viewmodel.isLoading
                 ? PulseLoadingIndicatorWidget()
@@ -81,39 +82,6 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
         viewmodel.scanQR();
       },
       child: Icon(Icons.add),
-    );
-  }
-
-  // Başka sayfalarda da kullanılacak mı ?
-  BottomAppBar buildBottomAppBar(HomeViewmodel viewmodel) {
-    print("*********************inside buildBottomAppBar");
-    return BottomAppBar(
-      notchMargin: 8,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          IconButton(
-              iconSize: context.height * 0.05,
-              icon: Icon(Icons.home_outlined),
-              onPressed: () {}),
-          IconButton(
-              icon: Icon(Icons.medical_services_outlined),
-              onPressed: () {},
-              iconSize: context.height * 0.05),
-          IconButton(
-              icon: Icon(Icons.lightbulb_outline),
-              onPressed: () {
-                viewmodel.navigateCovidTurkey();
-              },
-              iconSize: context.height * 0.05),
-          IconButton(
-              icon: Icon(Icons.bookmark_outline),
-              onPressed: () {
-                viewmodel.navigateInventory();
-              },
-              iconSize: context.height * 0.05)
-        ],
-      ),
     );
   }
 
