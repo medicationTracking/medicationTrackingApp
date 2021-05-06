@@ -46,6 +46,7 @@ class GoogleSignHelper {
     if (await _googleSignIn.isSignedIn()) {
       final GoogleSignInAccount user = _googleSignIn.currentUser;
       final GoogleSignInAuthentication userData = await user.authentication;
+      //developer.log(user.authHeaders.toString());
       return userData;
     }
     return null;
@@ -59,13 +60,14 @@ class GoogleSignHelper {
     // Obtain the auth details from the request
     final GoogleSignInAuthentication googleAuth =
         await googleUser.authentication;
-    print("---------------------------" + googleAuth.idToken);
+    print("---googleAuth.idtoken------------------------" + googleAuth.idToken);
     // Create a new credential
     final GoogleAuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-    print("---------------------------" + credential.toString());
+    print("---credential.tostring------------------------" +
+        credential.toString());
     // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }

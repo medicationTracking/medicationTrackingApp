@@ -28,11 +28,12 @@ dependencies:
   date_format: ^2.0.2
   easy_localization: ^3.0.0
   firebase_auth: ^1.1.1
-  firebase_core: ^1.0.4
+  firebase_core: ^1.1.0
   flutter_barcode_scanner: ^1.0.2
   flutter_mobx: ^1.1.0+2
   google_sign_in: ^5.0.2
   http: ^0.13.1
+  intl: ^0.17.0
   lottie: ^1.0.1
   mobx: ^1.2.1+4
   mobx_codegen: ^1.1.2

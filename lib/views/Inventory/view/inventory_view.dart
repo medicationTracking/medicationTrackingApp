@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:medication_app_v0/core/base/view/base_widget.dart';
 import 'package:medication_app_v0/core/components/cards/inventory_medication_card.dart';
-import 'package:medication_app_v0/core/components/widgets/custom_bottom_navigation_appbar.dart';
+import 'package:medication_app_v0/core/components/widgets/custom_bottom_appbar.dart';
 import 'package:medication_app_v0/core/components/widgets/loading_inducator.dart';
 import 'package:medication_app_v0/views/Inventory/model/inventory_model.dart';
 import 'package:medication_app_v0/views/Inventory/viewmodel/inventory_viewmodel.dart';

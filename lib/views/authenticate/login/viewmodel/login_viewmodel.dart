@@ -92,9 +92,9 @@ abstract class _LoginViewModelBase with Store, BaseViewModel {
     var data = await GoogleSignHelper.instance.signIn();
     if (data != null) {
       var userData = await GoogleSignHelper.instance.googleAuthentication();
-      //print("**********************************$userData");
-      //print("==============idtoken=${userData.idToken}");
-      //print("==============accestoken=${userData.accessToken}");
+      print("??????????${userData.toString()}");
+      print("==============idtoken=${userData.idToken}");
+      print("==============accestoken=${userData.accessToken}");
       navigation.navigateToPageClear(path: NavigationConstants.HOME_VIEW);
     }
   }

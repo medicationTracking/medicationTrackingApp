@@ -10,7 +10,7 @@ class DateCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: ColorTheme.PRIMARY_BLUE,
+      shape: StadiumBorder(),
       child: Center(
           child: AutoSizeText(
         DateFormat.yMd().format(date),

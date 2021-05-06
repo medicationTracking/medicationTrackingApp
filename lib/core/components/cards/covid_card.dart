@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:medication_app_v0/core/extention/context_extention.dart';
 
 class CovidCard extends StatelessWidget {
@@ -43,7 +44,8 @@ class CovidCard extends StatelessWidget {
                 ),
                 Expanded(
                   flex: 2,
-                  child: AutoSizeText(leftValue.toString(),
+                  child: AutoSizeText(
+                      NumberFormat.decimalPattern().format(leftValue),
                       style: context.textTheme.headline4.copyWith(
                           fontWeight: FontWeight.bold, color: leftColor)),
                 ),
@@ -63,7 +65,8 @@ class CovidCard extends StatelessWidget {
                             fontWeight: FontWeight.bold, color: rightColor))),
                 Expanded(
                   flex: 2,
-                  child: AutoSizeText(rightValue.toString(),
+                  child: AutoSizeText(
+                      NumberFormat.decimalPattern().format(rightValue),
                       style: context.textTheme.headline4.copyWith(
                           fontWeight: FontWeight.bold, color: rightColor)),
                 ),
