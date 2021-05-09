@@ -1,1 +1,1 @@
-enum SharedPreferencesKey { THEME }
+enum SharedPreferencesKey { THEME, TOKEN }

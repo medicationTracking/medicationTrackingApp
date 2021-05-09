@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:medication_app_v0/core/components/models/others/firebase_auth_error.dart';
+import 'package:medication_app_v0/core/components/models/others/user_request.dart';
 import 'package:medication_app_v0/core/constants/app_constants/app_constants.dart';
 import 'package:medication_app_v0/core/constants/navigation/navigation_constants.dart';
 import 'package:medication_app_v0/core/init/locale_keys.g.dart';
 import 'package:medication_app_v0/core/extention/string_extention.dart';
+import 'package:medication_app_v0/core/init/services/firebase_services.dart';
 import 'package:medication_app_v0/core/init/services/google_sign_helper.dart';
 import 'package:medication_app_v0/core/init/theme/color_theme.dart';
 
@@ -31,9 +34,9 @@ abstract class _LoginViewModelBase with Store, BaseViewModel {
     passwordController = TextEditingController();
     scaffoldState = GlobalKey();
     formState = GlobalKey();
-    print("L-----------------------------wait");
-    await waitIt();
-    print("L-------------------------done");
+    //print("L-----------------------------wait");
+    //await waitIt();
+    //print("L-------------------------done");
     changeLoading();
   }
 
@@ -88,29 +91,23 @@ abstract class _LoginViewModelBase with Store, BaseViewModel {
     isLoading = !isLoading;
   }
 
-  void googleSignInOnPressFunc() async {
-    var data = await GoogleSignHelper.instance.signIn();
-    if (data != null) {
-      var userData = await GoogleSignHelper.instance.googleAuthentication();
-      print("??????????${userData.toString()}");
-      print("==============idtoken=${userData.idToken}");
-      print("==============accestoken=${userData.accessToken}");
-      navigation.navigateToPageClear(path: NavigationConstants.HOME_VIEW);
-    }
+  //if login Failed,show snackbar, otherwise go to homePage
+  Future<void> loginWithGoogle() async {
+    await GoogleSignHelper.instance.firebaseSigninWithGoogle() == null
+        ? loginFailedSnackBar()
+        : navigateHomePage();
   }
 
-  void loginWithEmailAndPassword() async {
-    if (formState.currentState.validate()) {
-      var result = await GoogleSignHelper.instance.signInWithEmailAndPassword(
-          mailController.text, passwordController.text);
-      print(result.toString());
-      if (result != null) {
-        navigation.navigateToPageClear(path: NavigationConstants.HOME_VIEW);
-      } else
-        loginFailedSnackBar();
-    }
+  //if login Failed,show snackbar, otherwise go to homePage
+  Future<void> loginEmailAndPassword() async {
+    await GoogleSignHelper.instance.signInWithEmailAndPassword(
+                mailController.text, passwordController.text) ==
+            null
+        ? loginFailedSnackBar()
+        : navigateHomePage();
   }
 
+  //notify the user that login failed.
   void loginFailedSnackBar() {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text("Login Failed!!"),

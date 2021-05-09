@@ -37,8 +37,9 @@ abstract class _SplashViewModelBase with Store, BaseViewModel {
   }
 
   Future<void> splashLoginButtonOnPress() async {
-    final bool isSignedIn = await GoogleSignHelper.instance.isSignedIn;
-    isSignedIn ? navigateHome() : navigateLogin();
+    //final bool isSignedIn = await GoogleSignHelper.instance.isSignedIn;
+    //isSignedIn ? navigateHome() : navigateLogin();
+    navigateLogin();
   }
 
   @action

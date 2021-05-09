@@ -21,9 +21,6 @@ class SplashView extends StatelessWidget {
       onModelReady: (model) {
         model.setContext(context);
         model.init();
-        Future.microtask(() async {
-          await welcomeSnackBar(context);
-        });
       },
       builder: (BuildContext context, SplashViewModel viewModel) =>
           _buildScaffold(viewModel, context),
@@ -74,15 +71,5 @@ class SplashView extends StatelessWidget {
 
   Center get buildLottie {
     return Center(child: LottieCustomWidget(path: "medical_shield"));
-  }
-
-  //check logged in or not
-  Future<void> welcomeSnackBar(BuildContext context) async {
-    final a = await GoogleSignHelper.instance.isSignedInWithGoogle();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(
-          "google = ${a.toString()}, email+pw= ${GoogleSignHelper.instance.isSignedEmail.toString()}"),
-      backgroundColor: Colors.green,
-    ));
   }
 }

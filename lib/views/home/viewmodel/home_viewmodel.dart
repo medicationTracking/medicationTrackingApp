@@ -161,10 +161,8 @@ abstract class _HomeViewmodelBase with Store, BaseViewModel {
   }
 
   void logoutIconButtonOnPress() async {
-    try {
-      await GoogleSignHelper.instance.signOut();
+    if (await GoogleSignHelper.instance.signOut())
       navigation.navigateToPageClear(path: NavigationConstants.SPLASH_VIEW);
-    } catch (e) {}
   }
 
   void navigateCovidTurkey() {

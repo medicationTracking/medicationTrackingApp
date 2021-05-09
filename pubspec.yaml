@@ -26,6 +26,7 @@ dependencies:
   auto_size_text: ^2.1.0
   cupertino_icons: ^1.0.2
   date_format: ^2.0.2
+  dio: ^4.0.0
   easy_localization: ^3.0.0
   firebase_auth: ^1.1.1
   firebase_core: ^1.1.0

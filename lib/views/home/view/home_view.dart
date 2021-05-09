@@ -41,7 +41,6 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    print("*********************inside build");
     return BaseView(
         model: HomeViewmodel(),
         onModelReady: (model) {
@@ -52,7 +51,6 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   }
 
   Scaffold buildScaffold(HomeViewmodel viewmodel, BuildContext context) {
-    print("*********************inside buildScaffold");
     return Scaffold(
         appBar: AppBar(
           title: Text(LocaleKeys.home_HOME.locale.toString()),
@@ -75,7 +73,6 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
 
   // Belki başka bir yerede konulabilir
   FloatingActionButton buildFloatingActionButton(HomeViewmodel viewmodel) {
-    print("*********************inside buildFloatingActionButton");
     return FloatingActionButton(
       onPressed: () {
         //this part may change to set reminder !!!
@@ -86,7 +83,6 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   }
 
   Column buildCalendarAndEvent(BuildContext context, viewmodel) {
-    print("*********************inside buildCalendar");
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
@@ -106,7 +102,6 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   }
 
   Widget _buildTableCalendar(BuildContext context, HomeViewmodel viewmodel) {
-    print("*********************inside buildTableCalendar");
     return TableCalendar(
       calendarController: viewmodel.calendarController,
       events: viewmodel.events,
