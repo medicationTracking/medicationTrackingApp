@@ -50,7 +50,8 @@ class SignUpView extends StatelessWidget {
                     Expanded(
                         flex: 7,
                         child: buildDatePickerButton(viewmodel, context)),
-                    Expanded(flex: 5, child: buildSaveButton(viewmodel)),
+                    Expanded(
+                        flex: 5, child: buildSaveButton(context, viewmodel)),
                   ],
                 ),
               ),
@@ -123,20 +124,23 @@ class SignUpView extends StatelessWidget {
     );
   }
 
-  ElevatedButton buildSaveButton(SignupViewModel viewModel) {
+  ElevatedButton buildSaveButton(
+      BuildContext context, SignupViewModel viewModel) {
     return ElevatedButton(
-      onPressed: () {
-        print("name:" +
-            viewModel.nameController.text +
-            " " +
-            "id:" +
-            viewModel.idController.text +
-            " " +
-            "password:" +
-            viewModel.passwordController.text +
-            " " +
-            "mail:" +
-            viewModel.mailController.text);
+      onPressed: () async {
+        //result message
+        String registerationResult = await viewModel.userRegistration();
+        //Color snackBarBackgroundColor = Colors.red;
+        //if (registerationResult
+        //        .compareTo(LocaleKeys.authentication_SIGNUP_SUCCESFUL.locale) ==
+        //    0) {
+        //  snackBarBackgroundColor = Colors.green;
+        //}
+        final _snackBar = SnackBar(
+          content: Text(registerationResult),
+          backgroundColor: Colors.red,
+        );
+        ScaffoldMessenger.of(context).showSnackBar(_snackBar);
       },
       child: Center(child: LocaleText(text: LocaleKeys.authentication_SAVE)),
     );

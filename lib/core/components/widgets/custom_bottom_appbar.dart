@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medication_app_v0/core/constants/navigation/navigation_constants.dart';
 import 'package:medication_app_v0/core/extention/context_extention.dart';
-import 'package:medication_app_v0/core/init/navigation/navigation.service.dart';
+import 'package:medication_app_v0/core/init/navigation/navigation_service.dart';
 
 class CustomBottomAppBar extends StatelessWidget {
   final NavigationService navigation = NavigationService.instance;

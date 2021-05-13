@@ -16,7 +16,12 @@
         "ID":"KULLANICI ADI",
         "ID_HINT_TEXT":"Kullanıcı Adınızı Giriniz",
         "BIRTHDAY":"Doğum tarihini seç",
-        "SAVE":"Kaydet"
+        "SAVE":"Kaydet",
+        "SIGNUP_SUCCESFUL":"Kullanıcı Başarı ile kaydedildi.",
+        "SIGNUP_FAILED":"Kullanıcı kaydı başarısız oldu",
+        "FILL_ALL_FIELDS":"Bütün alanları doldurunuz.",
+        "WEAK_PASSWORD":"Parolanız çok zayıf",
+        "ACCOUNT_ALREADY_EXIST": "Böyle bir kullanıcı kayıtlı."
     },
     "home":{
         "HOME":"Hoşgeldin",

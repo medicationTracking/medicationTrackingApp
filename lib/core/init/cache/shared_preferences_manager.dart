@@ -35,4 +35,8 @@ class SharedPreferencesManager {
 
   bool getBoolValue(SharedPreferencesKey key) =>
       _preferences.getBool(key.toString()) ?? false;
+
+  Future<bool> deletePreferencesKey(SharedPreferencesKey key) async {
+    return await _preferences.remove(key.toString());
+  }
 }

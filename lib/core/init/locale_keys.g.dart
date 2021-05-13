@@ -18,6 +18,11 @@ abstract class  LocaleKeys {
   static const authentication_ID_HINT_TEXT = 'authentication.ID_HINT_TEXT';
   static const authentication_BIRTHDAY = 'authentication.BIRTHDAY';
   static const authentication_SAVE = 'authentication.SAVE';
+  static const authentication_SIGNUP_SUCCESFUL = 'authentication.SIGNUP_SUCCESFUL';
+  static const authentication_SIGNUP_FAILED = 'authentication.SIGNUP_FAILED';
+  static const authentication_FILL_ALL_FIELDS = 'authentication.FILL_ALL_FIELDS';
+  static const authentication_WEAK_PASSWORD = 'authentication.WEAK_PASSWORD';
+  static const authentication_ACCOUNT_ALREADY_EXIST = 'authentication.ACCOUNT_ALREADY_EXIST';
   static const authentication = 'authentication';
   static const home_HOME = 'home.HOME';
   static const home_CANCEL = 'home.CANCEL';

@@ -16,7 +16,12 @@
         "ID":"ID",
         "ID_HINT_TEXT":"Enter your ID",
         "BIRTHDAY":"Pick your birtday",
-        "SAVE":"Save"
+        "SAVE":"Save",
+        "SIGNUP_SUCCESFUL":"Signup Succesfull",
+        "SIGNUP_FAILED":"Signup Failed",
+        "FILL_ALL_FIELDS":"Fill all fields",
+        "WEAK_PASSWORD":"The password provided is too weak.",
+        "ACCOUNT_ALREADY_EXIST": "The account already exists for that email."
     },
     "home":{
         "HOME":"Welcome",

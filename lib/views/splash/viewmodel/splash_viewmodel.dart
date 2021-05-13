@@ -1,8 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:medication_app_v0/core/base/viewmodel/base_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:medication_app_v0/core/constants/app_constants/app_constants.dart';
 import 'package:medication_app_v0/core/constants/navigation/navigation_constants.dart';
-import 'package:medication_app_v0/core/init/services/google_sign_helper.dart';
 import 'package:mobx/mobx.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -37,9 +37,9 @@ abstract class _SplashViewModelBase with Store, BaseViewModel {
   }
 
   Future<void> splashLoginButtonOnPress() async {
-    //final bool isSignedIn = await GoogleSignHelper.instance.isSignedIn;
-    //isSignedIn ? navigateHome() : navigateLogin();
-    navigateLogin();
+    FirebaseAuth.instance.currentUser == null
+        ? navigateLogin()
+        : navigateHome();
   }
 
   @action

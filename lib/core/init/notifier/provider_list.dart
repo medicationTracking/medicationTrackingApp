@@ -1,12 +1,12 @@
-import 'package:medication_app_v0/core/init/navigation/navigation.service.dart';
+import 'package:medication_app_v0/core/init/navigation/navigation_service.dart';
 import 'package:medication_app_v0/core/init/notifier/theme_notifier.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
-class ApplicationProvider{
+class ApplicationProvider {
   static ApplicationProvider _instance;
-  static ApplicationProvider get instance{
-    if(_instance == null) _instance = ApplicationProvider._init();
+  static ApplicationProvider get instance {
+    if (_instance == null) _instance = ApplicationProvider._init();
     return _instance;
   }
 

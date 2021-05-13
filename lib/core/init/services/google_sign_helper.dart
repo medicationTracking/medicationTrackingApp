@@ -1,34 +1,31 @@
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:medication_app_v0/core/init/locale_keys.g.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:medication_app_v0/core/constants/enums/shared_preferences_enum.dart';
 import 'package:medication_app_v0/core/init/cache/shared_preferences_manager.dart';
+import 'package:medication_app_v0/core/extention/string_extention.dart';
 
 class GoogleSignHelper {
   static GoogleSignHelper _instance = GoogleSignHelper._private();
-  GoogleSignHelper._private();
+  GoogleSignHelper._private() {
+    //user change listener!!
+    _auth.authStateChanges().listen((User user) async {
+      if (user == null) {
+        print("signed out stream listener!!!");
+        await _deleteUserFromCache();
+      } else {
+        print("signed in stream listener!!!");
+        await _saveUserToCache(user);
+      }
+    });
+  }
   static GoogleSignHelper get instance => _instance;
 
   static final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  Future<GoogleSignInAccount> signIn() async {
-    final user = await _googleSignIn.signIn();
-    if (user != null) {
-      return user;
-    }
-    return null;
-  }
-
-  Future<GoogleSignInAuthentication> googleAuthenticate() async {
-    if (await _googleSignIn.isSignedIn()) {
-      final GoogleSignInAccount user = _googleSignIn.currentUser;
-      final GoogleSignInAuthentication userData = await user.authentication;
-      //print(userData.accessToken);
-      return userData;
-    }
-    return null;
-  }
+  final SharedPreferencesManager _sharedPreferencesManager =
+      SharedPreferencesManager.instance;
 
   Future<bool> signOut() async {
     try {
@@ -40,25 +37,19 @@ class GoogleSignHelper {
     }
   }
 
+  //enter application via google
   Future<User> firebaseSigninWithGoogle() async {
     try {
-      final GoogleSignInAccount account = await signIn();
-      final GoogleSignInAuthentication googleAuth = await googleAuthenticate();
+      final GoogleSignInAccount account = await _signIn();
+      final GoogleSignInAuthentication googleAuth = await _googleAuthenticate();
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
-
       UserCredential userCredential =
           await _auth.signInWithCredential(credential);
       User user = userCredential.user;
-      //print("uid= ${user.uid}");
-      //print("signed in " + user.displayName);
-      var tokenResult = await user.getIdToken();
-      SharedPreferencesManager.instance
-          .setStringValue(SharedPreferencesKey.TOKEN, tokenResult.toString());
-      print("token= $tokenResult");
       return user;
     } catch (e) {
       return null;
@@ -72,12 +63,6 @@ class GoogleSignHelper {
           email: email, password: password);
       User user = result.user;
       if (result != null) {
-        print("uid= ${user.uid}");
-        var tokenResult = await user.getIdToken();
-        print("token= $tokenResult");
-        await SharedPreferencesManager.instance.setStringValue(
-            SharedPreferencesKey.TOKEN,
-            tokenResult.toString()); //save token to sharedPrefs.
         return user;
       }
       return null;
@@ -86,5 +71,77 @@ class GoogleSignHelper {
     } catch (e) {
       return null;
     }
+  }
+
+  //kayıt edip signin oluyor!!!! return UserCredential or error message
+  Future<dynamic> signUpWithEmailAndPassword(
+      String email, String password) async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+      return userCredential;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+        return LocaleKeys.authentication_WEAK_PASSWORD.locale;
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+        return LocaleKeys.authentication_ACCOUNT_ALREADY_EXIST.locale;
+      }
+      return e.message;
+    } catch (e) {
+      print(e);
+      return e.toString();
+    }
+  }
+
+  //helper functions
+
+  Future<GoogleSignInAccount> _signIn() async {
+    final user = await _googleSignIn.signIn();
+    if (user != null) {
+      return user;
+    }
+    return null;
+  }
+
+  Future<GoogleSignInAuthentication> _googleAuthenticate() async {
+    if (await _googleSignIn.isSignedIn()) {
+      final GoogleSignInAccount user = _googleSignIn.currentUser;
+      final GoogleSignInAuthentication userData = await user.authentication;
+      return userData;
+    }
+    return null;
+  }
+
+  Future<void> _saveUserToCache(User user) async {
+    var tokenResult = await user.getIdToken();
+    await _setSharedPrefToken(tokenResult.toString());
+    await _setSharedPrefUid(user.uid.toString());
+    await _setSharedPrefRefreshToken(user.refreshToken.toString());
+  }
+
+  Future<void> _deleteUserFromCache() async {
+    await _sharedPreferencesManager
+        .deletePreferencesKey(SharedPreferencesKey.TOKEN);
+    await _sharedPreferencesManager
+        .deletePreferencesKey(SharedPreferencesKey.UID);
+    await _sharedPreferencesManager
+        .deletePreferencesKey(SharedPreferencesKey.REFRESHTOKEN);
+  }
+
+  Future<void> _setSharedPrefUid(String uid) async {
+    return await _sharedPreferencesManager.setStringValue(
+        SharedPreferencesKey.UID, uid);
+  }
+
+  Future<void> _setSharedPrefRefreshToken(String refreshToken) async {
+    return await _sharedPreferencesManager.setStringValue(
+        SharedPreferencesKey.REFRESHTOKEN, refreshToken);
+  }
+
+  Future<void> _setSharedPrefToken(String tokenResult) async {
+    return await _sharedPreferencesManager.setStringValue(
+        SharedPreferencesKey.TOKEN, tokenResult.toString());
   }
 }

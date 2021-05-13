@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:medication_app_v0/core/base/viewmodel/base_viewmodel.dart';
+import 'package:medication_app_v0/core/components/models/others/user_data_model.dart';
 import 'package:medication_app_v0/core/constants/navigation/navigation_constants.dart';
 import 'package:medication_app_v0/core/init/locale_keys.g.dart';
+import 'package:medication_app_v0/core/init/services/auth_manager.dart';
 import 'package:medication_app_v0/core/init/services/google_sign_helper.dart';
 import 'package:medication_app_v0/views/home/model/home_model.dart';
 import 'package:medication_app_v0/core/extention/string_extention.dart';
@@ -28,6 +30,7 @@ abstract class _HomeViewmodelBase with Store, BaseViewModel {
   void setContext(BuildContext context) => this.context = context;
   void init() async {
     changeLoading();
+    denemeGet();
     final _selectedDay = DateTime.now();
 
     events = {
@@ -161,8 +164,8 @@ abstract class _HomeViewmodelBase with Store, BaseViewModel {
   }
 
   void logoutIconButtonOnPress() async {
-    if (await GoogleSignHelper.instance.signOut())
-      navigation.navigateToPageClear(path: NavigationConstants.SPLASH_VIEW);
+    await GoogleSignHelper.instance.signOut();
+    navigation.navigateToPageClear(path: NavigationConstants.SPLASH_VIEW);
   }
 
   void navigateCovidTurkey() {
@@ -171,5 +174,10 @@ abstract class _HomeViewmodelBase with Store, BaseViewModel {
 
   void navigateInventory() {
     navigation.navigateToPage(path: NavigationConstants.INVENTORY_VIEW);
+  }
+
+  Future<void> denemeGet() async {
+    UserDataModel udm = await AuthManager.instance.getUserData();
+    print(udm.toString());
   }
 }
