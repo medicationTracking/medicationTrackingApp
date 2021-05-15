@@ -45,5 +45,16 @@
         "PASSWORD_ERROR_TEXT":"Büyük Harf, Küçük Harf, Rakam İçermelidir",
         "SAVE_BUTTON":"KAYDET"
 
+    },
+
+    "allergens":{
+        "ALLERGEN": "ALERJEN MADDELER",
+        "INSERT_ALLERGEN" : "Alerjen Madde Giriniz",
+        "INSERT_ALLERGEN_HINT": "ör. Parasetamol",
+        "ADD": "EKLE",
+        "CANCEL": "VAZGEÇ",
+        "DELETE": "SİL",
+        "DELETE_ALLERGEN": "Bu Alerjen Maddeyi Sil?",
+        "EMPTY_SCREEN": "Alerjen Maddeleri Buraya Giriniz"
     }
 }

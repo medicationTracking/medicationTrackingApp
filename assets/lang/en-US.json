@@ -44,5 +44,16 @@
         "PASSWORD_ERROR_TEXT":"Must Contain Uppercase, Lowercase, Number",
         "SAVE_BUTTON":"SAVE"
 
+    },
+
+    "allergens":{
+        "ALLERGEN": "ALLERGENS",
+        "INSERT_ALLERGEN" : "Insert Allergen",
+        "INSERT_ALLERGEN_HINT": "ie. Parasetamol",
+        "ADD": "ADD",
+        "CANCEL": "CANCEL",
+        "DELETE": "DELETE",
+        "DELETE_ALLERGEN": "Delete This Allergen?",
+        "EMPTY_SCREEN": "Insert Allergens Here"
     }
 }

@@ -43,5 +43,14 @@ abstract class  LocaleKeys {
   static const profile_PASSWORD_ERROR_TEXT = 'profile.PASSWORD_ERROR_TEXT';
   static const profile_SAVE_BUTTON = 'profile.SAVE_BUTTON';
   static const profile = 'profile';
+  static const allergens_ALLERGEN = 'allergens.ALLERGEN';
+  static const allergens_INSERT_ALLERGEN = 'allergens.INSERT_ALLERGEN';
+  static const allergens_INSERT_ALLERGEN_HINT = 'allergens.INSERT_ALLERGEN_HINT';
+  static const allergens_ADD = 'allergens.ADD';
+  static const allergens_CANCEL = 'allergens.CANCEL';
+  static const allergens_DELETE = 'allergens.DELETE';
+  static const allergens_DELETE_ALLERGEN = 'allergens.DELETE_ALLERGEN';
+  static const allergens_EMPTY_SCREEN = 'allergens.EMPTY_SCREEN';
+  static const allergens = 'allergens';
 
 }

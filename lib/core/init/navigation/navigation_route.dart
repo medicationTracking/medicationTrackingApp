@@ -5,6 +5,7 @@ import 'package:medication_app_v0/core/init/navigation/transitions/scale_rotate_
 import 'package:medication_app_v0/core/init/navigation/transitions/scale_route.dart';
 import 'package:medication_app_v0/core/init/navigation/transitions/size_route.dart';
 import 'package:medication_app_v0/core/init/navigation/transitions/slide_route.dart';
+import 'package:medication_app_v0/views/allergens/view/allergens.view.dart';
 import 'package:medication_app_v0/views/authenticate/forgot_password/view/forgot_password_view.dart';
 import 'package:medication_app_v0/views/authenticate/reset_password/view/reset_password_view.dart';
 import 'package:medication_app_v0/views/authenticate/verify_mail_code/view/verify_mail_code_view.dart';
@@ -38,6 +39,8 @@ class NavigationRoute {
         return _navigateToFadeDeafult(VerifyMailCodeView(), settings);
       case NavigationConstants.PROFILE_VIEW:
         return _navigateToFadeDeafult(ProfileView(), settings);
+      case NavigationConstants.ALLERGENS_VIEW:
+        return _navigateToFadeDeafult(AllergensView(), settings);
       default:
         return _normalNavigate(Scaffold(
           body: Text("Not Found"),
