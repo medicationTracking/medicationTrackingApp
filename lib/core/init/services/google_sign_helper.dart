@@ -63,6 +63,8 @@ class GoogleSignHelper {
           email: email, password: password);
       User user = result.user;
       if (result != null) {
+        //String tempToken = await user.getIdToken();
+        //print(tempToken);
         return user;
       }
       return null;
