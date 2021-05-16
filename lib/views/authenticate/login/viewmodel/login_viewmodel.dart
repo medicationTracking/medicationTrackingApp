@@ -92,8 +92,7 @@ abstract class _LoginViewModelBase with Store, BaseViewModel {
   Future<void> loginEmailAndPassword() async {
     if (formState.currentState.validate()) {
       await AuthManager.instance
-                  .appAuth(mailController.text, passwordController.text) ==
-              null
+              .appAuth(mailController.text, passwordController.text)
           ? loginFailedSnackBar()
           : navigateHomePage();
     }
