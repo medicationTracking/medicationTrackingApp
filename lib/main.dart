@@ -39,8 +39,12 @@ class MyApp extends StatelessWidget {
       title: 'Material App',
       navigatorKey: NavigationService.instance.navigatorKey,
       onGenerateRoute: NavigationRoute.instance.generateRoute,
+<<<<<<< HEAD
       initialRoute: NavigationConstants.SPLASH_VIEW,
       //home: CovidView(),
+=======
+      initialRoute: NavigationConstants.ALLERGENS_VIEW,
+>>>>>>> account_page
       debugShowCheckedModeBanner: false,
     );
   } //Home degisebilir

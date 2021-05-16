@@ -26,5 +26,39 @@
     "home":{
         "HOME":"Welcome",
         "CANCEL":"Cancel"
+    },
+    "profile":{
+        "FIRST_NAME": "Name",
+        "FIRST_NAME_HINT_TEXT":"Enter Your Name",
+        "LAST_NAME": "Surname",
+        "LAST_NAME_HINT_TEXT":"Enter Your Surname",
+        "AGE": "Age",
+        "AGE_HINT_TEXT":"Enter Your Age",  
+        "WEIGHT":"Enter Your Weight",
+        "WEIGHT_HINT_TEXT": "Enter Your Weight",
+        "GENDER": "Gender",
+        "GENDER_HINT_TEXT": "Enter Your Gender",
+        "FEMALE": "Female",
+        "MALE": "Male",
+        "OTHER": "Other",
+        "MAIL": "E-mail",
+        "MAIL_HINT_TEXT":"Enter Your E-mail",
+        "MAIL_ERROR_TEXT":"Enter a valid e-mail address",
+        "PASSWORD": "Password",
+        "PASSWORD_HINT_TEXT":"Enter your password",
+        "PASSWORD_ERROR_TEXT":"Must Contain Uppercase, Lowercase, Number",
+        "SAVE_BUTTON":"SAVE"
+
+    },
+
+    "allergens":{
+        "ALLERGEN": "ALLERGENS",
+        "INSERT_ALLERGEN" : "Insert Allergen",
+        "INSERT_ALLERGEN_HINT": "ie. Parasetamol",
+        "ADD": "ADD",
+        "CANCEL": "CANCEL",
+        "DELETE": "DELETE",
+        "DELETE_ALLERGEN": "Delete This Allergen?",
+        "EMPTY_SCREEN": "Insert Allergens Here"
     }
 }

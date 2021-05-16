@@ -4,10 +4,10 @@
         "SIGNUP":"Kayıt ol",
         "SIGN_WITH_GOOGLE":"Google hesabı ile giriş yap",
         "EMAIL":"EMAIL",
-        "MAIL_HINT_TEXT":"E-mailinizi girin",
+        "MAIL_HINT_TEXT":"E-mailinizi Giriniz",
         "MAIL_ERROR_TEXT":"Doğru bir e-mail adresi giriniz",
         "PASSWORD":"PAROLA",
-        "PASSWORD_HINT_TEXT":"Parolanızı giriniz",
+        "PASSWORD_HINT_TEXT":"Parolanızı Giriniz",
         "REQUIRED_TEXT":"Bu alan boş bırakılamaz",
         "FORGOT_PASSWORD":"Parolanızı mı unuttunuz?",
         "SIGNUP_PAGE":"Hesap Oluştur",
@@ -26,5 +26,40 @@
     "home":{
         "HOME":"Hoşgeldin",
         "CANCEL":"iptal"
+    },
+
+    "profile":{
+        "FIRST_NAME": "Ad",
+        "FIRST_NAME_HINT_TEXT":"Adınızı Giriniz",
+        "LAST_NAME": "Soyad",
+        "LAST_NAME_HINT_TEXT":"Soyadınızı Giriniz",
+        "AGE": "Yaş",
+        "AGE_HINT_TEXT":"Yaşınızı Giriniz",
+        "WEIGHT":"Kilo",
+        "WEIGHT_HINT_TEXT": "Kilonuzu Giriniz",
+        "GENDER": "Cinsiyet",
+        "GENDER_HINT_TEXT": "Cinsiyetinizi Giriniz",
+        "FEMALE": "Kadın",
+        "MALE": "Erkek",
+        "OTHER": "Diğer",
+        "MAIL": "E-mail",
+        "MAIL_HINT_TEXT":"E-mailinizi Giriniz",
+        "PASSWORD": "Şifre",
+        "MAIL_ERROR_TEXT":"Doğru bir e-mail adresi giriniz",
+        "PASSWORD_HINT_TEXT":"Parolanızı Giriniz",
+        "PASSWORD_ERROR_TEXT":"Büyük Harf, Küçük Harf, Rakam İçermelidir",
+        "SAVE_BUTTON":"KAYDET"
+
+    },
+
+    "allergens":{
+        "ALLERGEN": "ALERJEN MADDELER",
+        "INSERT_ALLERGEN" : "Alerjen Madde Giriniz",
+        "INSERT_ALLERGEN_HINT": "ör. Parasetamol",
+        "ADD": "EKLE",
+        "CANCEL": "VAZGEÇ",
+        "DELETE": "SİL",
+        "DELETE_ALLERGEN": "Bu Alerjen Maddeyi Sil?",
+        "EMPTY_SCREEN": "Alerjen Maddeleri Buraya Giriniz"
     }
 }

@@ -27,5 +27,35 @@ abstract class  LocaleKeys {
   static const home_HOME = 'home.HOME';
   static const home_CANCEL = 'home.CANCEL';
   static const home = 'home';
+  static const profile_FIRST_NAME = 'profile.FIRST_NAME';
+  static const profile_FIRST_NAME_HINT_TEXT = 'profile.FIRST_NAME_HINT_TEXT';
+  static const profile_LAST_NAME = 'profile.LAST_NAME';
+  static const profile_LAST_NAME_HINT_TEXT = 'profile.LAST_NAME_HINT_TEXT';
+  static const profile_AGE = 'profile.AGE';
+  static const profile_AGE_HINT_TEXT = 'profile.AGE_HINT_TEXT';
+  static const profile_WEIGHT = 'profile.WEIGHT';
+  static const profile_WEIGHT_HINT_TEXT = 'profile.WEIGHT_HINT_TEXT';
+  static const profile_GENDER = 'profile.GENDER';
+  static const profile_GENDER_HINT_TEXT = 'profile.GENDER_HINT_TEXT';
+  static const profile_FEMALE = 'profile.FEMALE';
+  static const profile_MALE = 'profile.MALE';
+  static const profile_OTHER = 'profile.OTHER';
+  static const profile_MAIL = 'profile.MAIL';
+  static const profile_MAIL_HINT_TEXT = 'profile.MAIL_HINT_TEXT';
+  static const profile_MAIL_ERROR_TEXT = 'profile.MAIL_ERROR_TEXT';
+  static const profile_PASSWORD = 'profile.PASSWORD';
+  static const profile_PASSWORD_HINT_TEXT = 'profile.PASSWORD_HINT_TEXT';
+  static const profile_PASSWORD_ERROR_TEXT = 'profile.PASSWORD_ERROR_TEXT';
+  static const profile_SAVE_BUTTON = 'profile.SAVE_BUTTON';
+  static const profile = 'profile';
+  static const allergens_ALLERGEN = 'allergens.ALLERGEN';
+  static const allergens_INSERT_ALLERGEN = 'allergens.INSERT_ALLERGEN';
+  static const allergens_INSERT_ALLERGEN_HINT = 'allergens.INSERT_ALLERGEN_HINT';
+  static const allergens_ADD = 'allergens.ADD';
+  static const allergens_CANCEL = 'allergens.CANCEL';
+  static const allergens_DELETE = 'allergens.DELETE';
+  static const allergens_DELETE_ALLERGEN = 'allergens.DELETE_ALLERGEN';
+  static const allergens_EMPTY_SCREEN = 'allergens.EMPTY_SCREEN';
+  static const allergens = 'allergens';
 
 }

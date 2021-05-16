@@ -10,6 +10,8 @@ import 'package:medication_app_v0/views/authenticate/forgot_password/view/forgot
 import 'package:medication_app_v0/views/authenticate/reset_password/view/reset_password_view.dart';
 import 'package:medication_app_v0/views/authenticate/verify_mail_code/view/verify_mail_code_view.dart';
 import 'package:medication_app_v0/views/covid/view/covid_view.dart';
+import 'package:medication_app_v0/views/allergens/view/allergens.view.dart';
+import 'package:medication_app_v0/views/profile/view/profile_view.dart';
 import 'package:medication_app_v0/views/splash/view/splash_view.dart';
 import '../../../views/home/view/home_view.dart';
 import '../../constants/navigation/navigation_constants.dart';
@@ -41,6 +43,10 @@ class NavigationRoute {
         return _navigateToSlideDeafult(InventoryView(), settings);
       case NavigationConstants.COVID_TURKEY_VIEW:
         return _navigateToSlideDeafult(CovidView(), settings);
+      case NavigationConstants.PROFILE_VIEW:
+        return _navigateToFadeDeafult(ProfileView(), settings);
+      case NavigationConstants.ALLERGENS_VIEW:
+        return _navigateToFadeDeafult(AllergensView(), settings);
       default:
         return _normalNavigate(Scaffold(
           body: Text("Not Found"),
