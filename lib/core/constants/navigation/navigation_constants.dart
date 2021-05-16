@@ -6,11 +6,8 @@ class NavigationConstants {
   static const FORGOT_PASSWORD_VIEW = "/forgot_password";
   static const VERIFY_MAIL_CODE_VIEW = "/verify_mail_code";
   static const RESET_PASSWORD_VIEW = "/reset_password";
-<<<<<<< HEAD
   static const INVENTORY_VIEW = "/inventory";
   static const COVID_TURKEY_VIEW = "/covid_turkey";
-=======
   static const PROFILE_VIEW = "/profile";
   static const ALLERGENS_VIEW = "/allergens";
->>>>>>> account_page
 }
