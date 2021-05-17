@@ -57,5 +57,12 @@ abstract class  LocaleKeys {
   static const allergens_DELETE_ALLERGEN = 'allergens.DELETE_ALLERGEN';
   static const allergens_EMPTY_SCREEN = 'allergens.EMPTY_SCREEN';
   static const allergens = 'allergens';
+  static const reminder_SET_REMINDER = 'reminder.SET_REMINDER';
+  static const reminder_SAVE_REMINDER = 'reminder.SAVE_REMINDER';
+  static const reminder_DATE = 'reminder.DATE';
+  static const reminder_FIRST_TIME = 'reminder.FIRST_TIME';
+  static const reminder_TIMES = 'reminder.TIMES';
+  static const reminder_PERIOD = 'reminder.PERIOD';
+  static const reminder = 'reminder';
 
 }

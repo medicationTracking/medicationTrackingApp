@@ -1,4 +1,5 @@
 import 'package:medication_app_v0/core/base/viewmodel/base_viewmodel.dart';
+import 'package:medication_app_v0/core/constants/navigation/navigation_constants.dart';
 import 'package:medication_app_v0/views/Inventory/model/inventory_model.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter/material.dart';
@@ -53,5 +54,10 @@ abstract class _InventoryViewModelBase with Store, BaseViewModel {
   @action
   void changeLoading() {
     isLoading = !isLoading;
+  }
+
+  void navigateIntakeView(InventoryModel model) {
+    navigation.navigateToPage(
+        path: NavigationConstants.INTAKE_VIEW, object: model);
   }
 }

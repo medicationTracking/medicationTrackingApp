@@ -146,7 +146,8 @@ class SignUpView extends StatelessWidget {
     );
   }
 
-  Widget buildDatePickerButton(viewmodel, BuildContext context) {
+  Widget buildDatePickerButton(
+      SignupViewModel viewmodel, BuildContext context) {
     return Row(
       children: [
         Icon(Icons.date_range_sharp),

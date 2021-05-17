@@ -61,5 +61,15 @@
         "DELETE": "SİL",
         "DELETE_ALLERGEN": "Bu Alerjen Maddeyi Sil?",
         "EMPTY_SCREEN": "Alerjen Maddeleri Buraya Giriniz"
+    },
+
+    "reminder":{
+        "SET_REMINDER":"Hatırlatıcı Ekle",
+        "SAVE_REMINDER":"Hatırlatıcıyı kaydet",
+        "DATE":"Baslangıç Tarihi",
+        "FIRST_TIME":"İlk zaman",
+        "TIMES":"Tekrar sayısı",
+        "PERIOD":"Periyod"
     }
+
 }

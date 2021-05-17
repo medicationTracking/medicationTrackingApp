@@ -10,4 +10,5 @@ class NavigationConstants {
   static const COVID_TURKEY_VIEW = "/covid_turkey";
   static const PROFILE_VIEW = "/profile";
   static const ALLERGENS_VIEW = "/allergens";
+  static const INTAKE_VIEW = "/intake";
 }

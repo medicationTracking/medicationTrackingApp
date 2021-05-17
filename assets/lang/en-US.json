@@ -60,5 +60,14 @@
         "DELETE": "DELETE",
         "DELETE_ALLERGEN": "Delete This Allergen?",
         "EMPTY_SCREEN": "Insert Allergens Here"
+    },
+
+    "reminder":{
+        "SET_REMINDER":"Set Reminder",
+        "SAVE_REMINDER":"Save Reminder",
+        "DATE":"Start Date",
+        "FIRST_TIME":"First Time",
+        "TIMES":"Times",
+        "PERIOD":"Period"
     }
 }

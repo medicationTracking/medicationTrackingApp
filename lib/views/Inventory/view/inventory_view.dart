@@ -48,6 +48,7 @@ class _InventoryViewState extends State<InventoryView> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             print("add medicine");
+            viewmodel.navigateIntakeView(viewmodel.getMedList[1]);
           },
           child: Icon(Icons.add),
         ),
