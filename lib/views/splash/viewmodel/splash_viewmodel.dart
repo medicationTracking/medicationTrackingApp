@@ -14,14 +14,20 @@ abstract class _SplashViewModelBase with Store, BaseViewModel {
   @observable
   bool isLoading = false;
   void setContext(BuildContext context) => this.context = context;
-  void init() {}
+  void init() {
+    asyncInit();
+  }
 
+  Future<void> asyncInit() async {
+    await Future.delayed(Duration(seconds: 2));
+    await Future.microtask(() => splashLoginButtonOnPress());
+  }
   void navigateLogin() {
-    navigation.navigateToPage(path: NavigationConstants.LOGIN_VIEW);
+    navigation.navigateToPageClear(path: NavigationConstants.LOGIN_VIEW);
   }
 
   void navigateHome() {
-    navigation.navigateToPage(path: NavigationConstants.HOME_VIEW);
+    navigation.navigateToPageClear(path: NavigationConstants.HOME_VIEW);
   }
 
   void changeLanguage(BuildContext context) {
