@@ -23,7 +23,6 @@ abstract class _InventoryViewModelBase with Store, BaseViewModel {
   @override
   void setContext(BuildContext context) => this.context = context;
 
-  @action
   Future<List<InventoryModel>> get getMedList async {
     return await AuthManager.instance.getMedicationList();
   }

@@ -15,10 +15,15 @@ class AddMedicationViewModel = _AddMedicationViewModelBase
 abstract class _AddMedicationViewModelBase with Store, BaseViewModel {
   void setContext(BuildContext context) => this.context = context;
   void init() {
-    manuelBarcodeController = TextEditingController();
+    medicationNameController = TextEditingController();
+    companyController = TextEditingController();
+    activeIngredientController = TextEditingController();
   }
 
-  TextEditingController manuelBarcodeController;
+  TextEditingController medicationNameController;
+  TextEditingController companyController;
+  TextEditingController activeIngredientController;
+
   String _scanBarcode;
 
   //scan barcode (qr and normal type barcode is readable.)
@@ -33,6 +38,14 @@ abstract class _AddMedicationViewModelBase with Store, BaseViewModel {
     }
     _scanBarcode = barcodeScanRes;
     print(_scanBarcode);
+  }
+
+  String emptyCheck(String value) {
+    if (value == null) {
+      return null;
+    } else {
+      return "Medication name cannot be empyt!";
+    }
   }
 
   String validateBarcode(String value) {
