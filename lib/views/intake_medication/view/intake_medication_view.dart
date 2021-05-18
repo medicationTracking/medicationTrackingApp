@@ -155,7 +155,11 @@ class IntakeMedicationView extends StatelessWidget {
       },
       child: InventoryMedicationCard(
           model: medication ??
-              InventoryModel("barcode", "name", "activeIngredient", "company")),
+              InventoryModel(
+                  barcode: "barcode",
+                  name: "name",
+                  activeIngredient: "activeIngredient",
+                  company: "company")),
     );
   }
 }

@@ -8,6 +8,7 @@ import 'package:medication_app_v0/core/init/cache/shared_preferences_manager.dar
 import 'package:medication_app_v0/core/init/navigation/navigation_service.dart';
 import 'package:medication_app_v0/core/init/services/firebase_services.dart';
 import 'package:medication_app_v0/core/init/services/google_sign_helper.dart';
+import 'package:medication_app_v0/views/Inventory/model/inventory_model.dart';
 
 class AuthManager {
   static AuthManager _instance;
@@ -89,5 +90,13 @@ class AuthManager {
     } else {
       return singupResponse ?? LocaleKeys.authentication_SIGNUP_FAILED.locale;
     }
+  }
+
+  Future postMedication(InventoryModel data) async {
+    await _firebaseService.postMedication(_getUid, _getToken, data);
+  }
+
+  Future<List<InventoryModel>> getMedicationList() async {
+    return await _firebaseService.getMedications(_getToken, _getUid);
   }
 }

@@ -48,7 +48,7 @@ class _InventoryViewState extends State<InventoryView> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             print("add medicine");
-            viewmodel.navigateIntakeView(viewmodel.getMedList[1]);
+            //viewmodel.navigateIntakeView(viewmodel.getMedList[1]);
           },
           child: Icon(Icons.add),
         ),
@@ -73,12 +73,17 @@ class _InventoryViewState extends State<InventoryView> {
                   ],
                 ),
               ),
-              Expanded(
-                flex: 9,
-                child: ListView.builder(
-                  itemCount: medicationList.length,
-                  itemBuilder: (context, index) => InventoryMedicationCard(
-                      model: viewmodel.getMedList[index]),
+              Observer(
+                builder: (_) => Expanded(
+                  flex: 9,
+                  child: medicationList.isEmpty
+                      ? Text("Inventory is empty")
+                      : ListView.builder(
+                          itemCount: medicationList.length,
+                          itemBuilder: (context, index) =>
+                              InventoryMedicationCard(
+                                  model: medicationList[index]),
+                        ),
                 ),
               ),
             ],

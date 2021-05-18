@@ -71,12 +71,11 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                 : buildCalendarAndEvent(context, viewmodel)));
   }
 
-  // Belki başka bir yerede konulabilir
   FloatingActionButton buildFloatingActionButton(HomeViewmodel viewmodel) {
     return FloatingActionButton(
       onPressed: () {
-        //this part may change to set reminder !!!
-        viewmodel.scanQR();
+        viewmodel.navigateAddMedication();
+        //viewmodel.scanQR();
       },
       child: Icon(Icons.add),
     );

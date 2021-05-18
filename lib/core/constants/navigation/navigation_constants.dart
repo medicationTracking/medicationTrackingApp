@@ -11,4 +11,5 @@ class NavigationConstants {
   static const PROFILE_VIEW = "/profile";
   static const ALLERGENS_VIEW = "/allergens";
   static const INTAKE_VIEW = "/intake";
+  static const ADD_MEDICATION = "/add_medication";
 }

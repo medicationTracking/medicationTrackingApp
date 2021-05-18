@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:medication_app_v0/core/components/models/others/firebase_auth_error.dart';
 import 'package:medication_app_v0/core/components/models/others/user_data_model.dart';
 import 'package:medication_app_v0/core/components/models/others/user_request.dart';
+import 'package:medication_app_v0/views/Inventory/model/inventory_model.dart';
 
 class FirebaseService {
   final dio = Dio(BaseOptions(
@@ -46,6 +47,36 @@ class FirebaseService {
     if (response.statusCode == HttpStatus.ok) {
       print(response.data.toString());
       return true;
+    }
+  }
+
+  Future<List<InventoryModel>> getMedications(String token, String uid) async {
+    String path = '/medications/$uid.json';
+    List<InventoryModel> modelList = [];
+    var response = await dio.get(path, queryParameters: {'auth': token});
+    var data = response.data;
+    if (response.statusCode == HttpStatus.ok) {
+      if (data is Map) {
+        //convert json to List of InventoryModel
+        data.forEach((key, value) {
+          modelList.add(InventoryModel.fromJson(value));
+        });
+        return modelList;
+      } else {
+        print("Firebase Medication Error");
+      }
+    }
+    return [];
+  }
+
+  Future postMedication(String uid, String token, InventoryModel model) async {
+    String path = '/medications/$uid.json';
+    var response = await dio
+        .post(path, data: model.toJson(), queryParameters: {'auth': token});
+    if (response.statusCode == HttpStatus.ok) {
+      print(response.data.toString());
+    } else {
+      print("postmedication error!!");
     }
   }
 }

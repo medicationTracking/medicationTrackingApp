@@ -176,6 +176,10 @@ abstract class _HomeViewmodelBase with Store, BaseViewModel {
     navigation.navigateToPage(path: NavigationConstants.INVENTORY_VIEW);
   }
 
+  void navigateAddMedication() {
+    navigation.navigateToPage(path: NavigationConstants.ADD_MEDICATION);
+  }
+
   Future<void> denemeGet() async {
     UserDataModel udm = await AuthManager.instance.getUserData();
     print(udm.toString());
