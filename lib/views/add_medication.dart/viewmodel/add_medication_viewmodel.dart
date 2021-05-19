@@ -26,7 +26,6 @@ abstract class _AddMedicationViewModelBase with Store, BaseViewModel {
     medicationNameController = TextEditingController();
     companyController = TextEditingController();
     activeIngredientController = TextEditingController();
-    manuelBarcodeController = TextEditingController();
     _networkServices = MedicationService();
     _pharmacyService = new PharmacyService();
   }
@@ -57,6 +56,8 @@ abstract class _AddMedicationViewModelBase with Store, BaseViewModel {
     } else {
       return "Medication name cannot be empyt!";
     }
+  }
+
   Future<List<Pharmacy>> getPharmacy() async {
     final Response result = await _pharmacyService.getPharmacyByPlace("karşıyaka", "izmir");
     final List<Pharmacy> pharmacies = [];
