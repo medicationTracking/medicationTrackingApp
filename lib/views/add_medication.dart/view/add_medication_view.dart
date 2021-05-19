@@ -49,8 +49,11 @@ class AddMedicationView extends StatelessWidget {
                     },
                     child: Text("med post deneme")),
                 ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       viewmodel.getMed();
+//                      final InventoryModel medication = await viewmodel.getMedicationFromBarcode("8699569570257");
+//                      print(medication.name);
+                        //viewmodel.getPharmacy();
                     },
                     child: Text("get deneme")),*/
                 InventoryMedicationCard(
@@ -115,3 +118,4 @@ class AddMedicationView extends StatelessWidget {
     );
   }
 }
+
