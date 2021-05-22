@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:medication_app_v0/core/base/view/base_widget.dart';
+import 'package:medication_app_v0/core/constants/enums/shared_preferences_enum.dart';
 import 'package:medication_app_v0/core/init/locale_keys.g.dart';
 import 'package:medication_app_v0/core/init/text/locale_text.dart';
 import 'package:medication_app_v0/core/init/theme/color_theme.dart';
 import 'package:medication_app_v0/views/allergens/viewmodel/allergens_viewmodel.dart';
 import 'package:medication_app_v0/core/extention/string_extention.dart';
 import 'package:medication_app_v0/core/extention/context_extention.dart';
+import 'package:medication_app_v0/core/init/cache/shared_preferences_manager.dart';
+
 import 'package:mobx/mobx.dart';
 
 class AllergensView extends StatefulWidget {
@@ -14,7 +17,7 @@ class AllergensView extends StatefulWidget {
 }
 
 class _AllergensViewState extends State<AllergensView> {
-  List<String> allergens = [];
+  //List<String> allergens = [];
   @override
   void initState() {
     super.initState();
@@ -48,7 +51,7 @@ class _AllergensViewState extends State<AllergensView> {
   }
 
   isEmpty(BuildContext context, AllergensViewModel viewModel) {
-    if (allergens.length != 0) {
+    if (viewModel.allergens.length != 0) {
       return listViewBuilder(context, viewModel);
     } else {
       return buildContainer(context, viewModel);
@@ -74,9 +77,9 @@ class _AllergensViewState extends State<AllergensView> {
 
   Widget listViewBuilder(BuildContext context, AllergensViewModel viewModel) {
     return ListView.builder(
-      itemCount: allergens.length,
+      itemCount: viewModel.allergens.length,
       itemBuilder: (context, index) {
-        final allergen = allergens[index];
+        final allergen = viewModel.allergens[index];
         return Card(
             child: ListTile(
           title: Text(allergen),
@@ -112,8 +115,10 @@ class _AllergensViewState extends State<AllergensView> {
                 child: Text(LocaleKeys.allergens_ADD.locale),
                 onPressed: () {
                   setState(() {
-                    allergens.insert(0, viewModel.allergenFieldController.text);
-                    debugPrint(allergens[0]);
+                    viewModel.allergens
+                        .insert(0, viewModel.allergenFieldController.text);
+                    viewModel.setSharedPrefAllergen(viewModel.allergens);
+                    debugPrint(viewModel.allergens[0]);
                   });
                   Navigator.of(context).pop();
                 },
@@ -141,7 +146,8 @@ class _AllergensViewState extends State<AllergensView> {
                     child: Text(LocaleKeys.allergens_DELETE.locale),
                     onPressed: () {
                       setState(() {
-                        allergens.removeAt(index);
+                        viewModel.allergens.removeAt(index);
+                        viewModel.setSharedPrefAllergen(viewModel.allergens);
                         Navigator.of(context).pop();
                       });
                     })

@@ -1,4 +1,5 @@
 import 'package:medication_app_v0/core/constants/enums/shared_preferences_enum.dart';
+import 'package:medication_app_v0/views/allergens/view/allergens.view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesManager {
@@ -30,11 +31,19 @@ class SharedPreferencesManager {
     await _preferences.setBool(key.toString(), value);
   }
 
+  Future<void> setListValue(
+      SharedPreferencesKey key, List<String> value) async {
+    await _preferences.setStringList(key.toString(), value);
+  }
+
   String getStringValue(SharedPreferencesKey key) =>
       _preferences.getString(key.toString()) ?? '';
 
   bool getBoolValue(SharedPreferencesKey key) =>
       _preferences.getBool(key.toString()) ?? false;
+
+  List<String> getStringListValue(SharedPreferencesKey key) =>
+      _preferences.getStringList(key.toString()) ?? [];
 
   Future<bool> deletePreferencesKey(SharedPreferencesKey key) async {
     return await _preferences.remove(key.toString());

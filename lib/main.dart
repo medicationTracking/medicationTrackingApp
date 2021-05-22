@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
       title: 'Material App',
       navigatorKey: NavigationService.instance.navigatorKey,
       onGenerateRoute: NavigationRoute.instance.generateRoute,
-      initialRoute: NavigationConstants.SPLASH_VIEW,
+      initialRoute: NavigationConstants.ALLERGENS_VIEW,
       //home: CovidView(),
       debugShowCheckedModeBanner: false,
     );
