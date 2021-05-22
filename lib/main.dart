@@ -14,7 +14,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   SharedPreferencesManager.preferencesInit();
-  await Firebase.initializeApp();
+  final FirebaseApp app = await Firebase.initializeApp();
 
   runApp(
     MultiProvider(

@@ -4,6 +4,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:medication_app_v0/core/constants/image/image_constants.dart';
 import 'package:medication_app_v0/core/extention/context_extention.dart';
+import 'package:medication_app_v0/core/init/services/auth_manager.dart';
 import 'package:medication_app_v0/views/Inventory/model/inventory_model.dart';
 
 class InventoryMedicationCard extends StatelessWidget {
@@ -65,21 +66,28 @@ class InventoryMedicationCard extends StatelessWidget {
       children: [
         Expanded(
             flex: 2,
-            child: AutoSizeText(
-              model.name,
-              style: context.textTheme.headline5.copyWith(
-                  fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
-            )),
+            child: model.name == null
+                ? Text("")
+                : AutoSizeText(
+                    model.name,
+                    style: context.textTheme.headline5.copyWith(
+                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.bold),
+                  )),
         Expanded(
-            child: AutoSizeText(
-          model.activeIngredient,
-          style: context.textTheme.bodyText1,
-        )),
+            child: model.activeIngredient == null
+                ? Text("")
+                : AutoSizeText(
+                    model.activeIngredient,
+                    style: context.textTheme.bodyText1,
+                  )),
         Expanded(
-            child: AutoSizeText(
-          model.company,
-          style: context.textTheme.subtitle1,
-        ))
+            child: model.company == null
+                ? Text("")
+                : AutoSizeText(
+                    model.company,
+                    style: context.textTheme.subtitle1,
+                  ))
       ],
     );
   }
@@ -87,8 +95,10 @@ class InventoryMedicationCard extends StatelessWidget {
   //navigate to see medication details
   IconButton buildSeeDetailButton(BuildContext context) {
     return IconButton(
-      onPressed: () {},
-      icon: Icon(Icons.search_rounded),
+      onPressed: () async {
+        await AuthManager.instance.deleteMedication(model);
+      },
+      icon: Icon(Icons.restore_from_trash),
       iconSize: context.height * 0.07,
     );
   }

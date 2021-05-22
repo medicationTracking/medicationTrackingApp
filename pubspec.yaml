@@ -30,6 +30,7 @@ dependencies:
   easy_localization: ^3.0.0
   firebase_auth: ^1.1.1
   firebase_core: ^1.1.0
+  firebase_database: ^6.1.2
   flutter_barcode_scanner: ^1.0.2
   flutter_mobx: ^1.1.0+2
   google_sign_in: ^5.0.2

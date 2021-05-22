@@ -92,11 +92,15 @@ class AuthManager {
     }
   }
 
-  Future postMedication(InventoryModel data) async {
-    await _firebaseService.postMedication(_getUid, _getToken, data);
+  Future<bool> postMedication(InventoryModel data) async {
+    return await _firebaseService.postMedication(_getUid, _getToken, data);
   }
 
   Future<List<InventoryModel>> getMedicationList() async {
     return await _firebaseService.getMedications(_getToken, _getUid);
+  }
+
+  Future deleteMedication(InventoryModel model) async {
+    return await _firebaseService.deleteMedication(_getUid, _getToken, model);
   }
 }

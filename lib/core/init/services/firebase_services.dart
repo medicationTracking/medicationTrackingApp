@@ -69,14 +69,24 @@ class FirebaseService {
     return [];
   }
 
-  Future postMedication(String uid, String token, InventoryModel model) async {
+  Future<bool> postMedication(
+      String uid, String token, InventoryModel model) async {
     String path = '/medications/$uid.json';
     var response = await dio
         .post(path, data: model.toJson(), queryParameters: {'auth': token});
     if (response.statusCode == HttpStatus.ok) {
       print(response.data.toString());
+      return true;
     } else {
       print("postmedication error!!");
+      return false;
     }
+  }
+
+  Future deleteMedication(
+      String uid, String token, InventoryModel model) async {
+    String path = '/medications/$uid.json';
+    var response = await dio.delete(path, queryParameters: {'auth': token});
+    print(response);
   }
 }

@@ -39,29 +39,27 @@ class AddMedicationView extends StatelessWidget {
                   "Scan qr code",
                   style: context.textTheme.subtitle1,
                 ),
-                /*ElevatedButton(
-                    onPressed: () {
-                      viewmodel.postMed(InventoryModel(
-                          barcode: "1234567",
-                          activeIngredient: "active2",
-                          company: "company2",
-                          name: "name2"));
-                    },
-                    child: Text("med post deneme")),
+                InventoryMedicationCard(model: viewmodel.getMedicine),
                 ElevatedButton(
                     onPressed: () async {
-                      viewmodel.getMed();
-//                      final InventoryModel medication = await viewmodel.getMedicationFromBarcode("8699569570257");
-//                      print(medication.name);
-                        //viewmodel.getPharmacy();
+                      bool saveResult =
+                          await viewmodel.saveManuelMedicationToFirebase();
+                      String saveResultString = saveResult
+                          ? "addition succesfull"
+                          : "addition failed";
+                      if (saveResult) {
+                        viewmodel.barcodeController.text = "";
+                        viewmodel.activeIngredientController.text = "";
+                        viewmodel.companyController.text = "";
+                        viewmodel.medicationNameController.text = "";
+                      }
+                      final _snackBar = SnackBar(
+                        content: Text(saveResultString),
+                        backgroundColor: saveResult ? Colors.green : Colors.red,
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(_snackBar);
                     },
-                    child: Text("get deneme")),*/
-                InventoryMedicationCard(
-                    model: InventoryModel(
-                  name: viewmodel.medicationNameController.text,
-                  company: viewmodel.companyController.text,
-                  activeIngredient: viewmodel.activeIngredientController.text,
-                ))
+                    child: Center(child: Text("Add medication")))
               ],
             ),
           ),
@@ -73,6 +71,7 @@ class AddMedicationView extends StatelessWidget {
   Form buildMedicationForm(AddMedicationViewModel viewmodel) {
     return Form(
       autovalidateMode: AutovalidateMode.always,
+      key: viewmodel.medicationFormState,
       child: Column(
         children: [
           TextFormField(
@@ -104,8 +103,9 @@ class AddMedicationView extends StatelessWidget {
       BuildContext context, AddMedicationViewModel viewmodel) {
     return Container(
       child: IconButton(
-        onPressed: () {
-          viewmodel.scanQR();
+        onPressed: () async {
+          String scannedBarcode = await viewmodel.scanQR();
+          viewmodel.fillCardWithScannedMedication(scannedBarcode);
         },
         icon: Icon(
           Icons.qr_code_scanner_rounded,
@@ -118,4 +118,3 @@ class AddMedicationView extends StatelessWidget {
     );
   }
 }
-
