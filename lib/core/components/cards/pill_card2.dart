@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:medication_app_v0/core/init/theme/color_theme.dart';
 import 'package:medication_app_v0/core/extention/context_extention.dart';
-import 'package:medication_app_v0/views/home/model/home_model.dart';
+import 'package:medication_app_v0/views/home/Calendar/model/reminder.dart';
 
 class PillCard2 extends StatelessWidget {
-  final HomeModel model;
+  final ReminderModel model;
 
   const PillCard2({Key key, @required this.model}) : super(key: key);
 

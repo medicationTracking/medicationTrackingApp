@@ -68,6 +68,9 @@
         "DATE":"Start Date",
         "FIRST_TIME":"First Time",
         "TIMES":"Times",
-        "PERIOD":"Period"
+        "PERIOD":"Period",
+        "PERIOD_MONTHLY":"Montly",
+        "PERIOD_WEEKLY":"Weekly",
+        "PERIOD_DAILY":"Daily"
     }
 }

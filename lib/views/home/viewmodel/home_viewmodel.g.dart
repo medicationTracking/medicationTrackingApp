@@ -27,13 +27,13 @@ mixin _$HomeViewmodel on _HomeViewmodelBase, Store {
   final _$eventsAtom = Atom(name: '_HomeViewmodelBase.events');
 
   @override
-  Map<DateTime, List<HomeModel>> get events {
+  Map<DateTime, List<ReminderModel>> get events {
     _$eventsAtom.reportRead();
     return super.events;
   }
 
   @override
-  set events(Map<DateTime, List<HomeModel>> value) {
+  set events(Map<DateTime, List<ReminderModel>> value) {
     _$eventsAtom.reportWrite(value, super.events, () {
       super.events = value;
     });
@@ -42,13 +42,13 @@ mixin _$HomeViewmodel on _HomeViewmodelBase, Store {
   final _$selectedEventsAtom = Atom(name: '_HomeViewmodelBase.selectedEvents');
 
   @override
-  List<HomeModel> get selectedEvents {
+  List<ReminderModel> get selectedEvents {
     _$selectedEventsAtom.reportRead();
     return super.selectedEvents;
   }
 
   @override
-  set selectedEvents(List<HomeModel> value) {
+  set selectedEvents(List<ReminderModel> value) {
     _$selectedEventsAtom.reportWrite(value, super.selectedEvents, () {
       super.selectedEvents = value;
     });

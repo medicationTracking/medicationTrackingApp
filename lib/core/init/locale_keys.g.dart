@@ -63,6 +63,9 @@ abstract class  LocaleKeys {
   static const reminder_FIRST_TIME = 'reminder.FIRST_TIME';
   static const reminder_TIMES = 'reminder.TIMES';
   static const reminder_PERIOD = 'reminder.PERIOD';
+  static const reminder_PERIOD_MONTHLY = 'reminder.PERIOD_MONTHLY';
+  static const reminder_PERIOD_WEEKLY = 'reminder.PERIOD_WEEKLY';
+  static const reminder_PERIOD_DAILY = 'reminder.PERIOD_DAILY';
   static const reminder = 'reminder';
 
 }

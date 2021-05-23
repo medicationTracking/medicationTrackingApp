@@ -3,7 +3,9 @@ import 'dart:math';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:medication_app_v0/core/constants/image/image_constants.dart';
+import 'package:medication_app_v0/core/constants/navigation/navigation_constants.dart';
 import 'package:medication_app_v0/core/extention/context_extention.dart';
+import 'package:medication_app_v0/core/init/navigation/navigation_service.dart';
 import 'package:medication_app_v0/core/init/services/auth_manager.dart';
 import 'package:medication_app_v0/views/Inventory/model/inventory_model.dart';
 
@@ -96,9 +98,12 @@ class InventoryMedicationCard extends StatelessWidget {
   IconButton buildSeeDetailButton(BuildContext context) {
     return IconButton(
       onPressed: () async {
-        await AuthManager.instance.deleteMedication(model);
+        //await AuthManager.instance.deleteMedication(model);
+        NavigationService navigation = NavigationService.instance;
+        navigation.navigateToPage(
+            path: NavigationConstants.INTAKE_VIEW, object: model);
       },
-      icon: Icon(Icons.restore_from_trash),
+      icon: Icon(Icons.alarm_add),
       iconSize: context.height * 0.07,
     );
   }

@@ -41,12 +41,47 @@ class IntakeMedicationView extends StatelessWidget {
             buildSelectTimes(viewmodel),
             buildTimePicker(viewmodel),
             buildDatePicker(viewmodel, context),
+            Padding(
+              padding: context.paddingHighHorizontal,
+              child: TextField(
+                controller: viewmodel.numberOfReminderController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: "number of reminder",
+                ),
+              ),
+            ),
             ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  bool hasReminderSaved = await viewmodel
+                      .saveMedicationIntakeButtonOnPress(medication);
+                  final _snackBar = SnackBar(
+                    content: hasReminderSaved
+                        ? Text("Reminder saved Succesfully")
+                        : Text("Reminder failed"),
+                    backgroundColor:
+                        hasReminderSaved ? Colors.green : Colors.red,
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(_snackBar);
+                },
                 child: LocaleText(text: LocaleKeys.reminder_SAVE_REMINDER))
           ],
         ),
       ),
+    );
+  }
+
+  Row buildReminderNumberPicker(IntakeMedicationViewModel viewmodel) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Text("İlaç alım sayısı:"),
+        TextField(
+          keyboardType: TextInputType.number,
+          controller: viewmodel.numberOfReminderController,
+          decoration: InputDecoration(),
+        )
+      ],
     );
   }
 

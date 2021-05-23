@@ -69,7 +69,12 @@
         "DATE":"Baslangıç Tarihi",
         "FIRST_TIME":"İlk zaman",
         "TIMES":"Tekrar sayısı",
-        "PERIOD":"Periyod"
+        "PERIOD":"Periyod",
+        "PERIOD_MONTHLY":"Ayda",
+        "PERIOD_WEEKLY":"Haftada",
+        "PERIOD_DAILY":"Günde"
+
+
     }
 
 }
