@@ -6,7 +6,7 @@ class PharmacyService{
   final String _pharmacyURL = 'https://api.collectapi.com/health/dutyPharmacy';
 
   PharmacyService(){
-    _dio.options.headers['authorization'] = 'apikey 42AynkVdloEEEGbnCOVJal:2IQngX64ozoRPHoi1qFmug';
+    _dio.options.headers['authorization'] = 'apikey 5VQAoUaRhJodLQx7WLPRyl:35asmUQsCCZlVArCnYD5Jd';
   }
 
   Future<Response> getPharmacyByPlace(String district, String city) async {
