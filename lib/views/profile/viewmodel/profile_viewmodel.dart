@@ -23,10 +23,10 @@ abstract class _ProfileViewModelBase with Store, BaseViewModel {
   bool isPasswordVisible = false;
 
   void setContext(BuildContext context) => this.context = context;
-  void init(){
+  void init() {
     profileFormState = GlobalKey();
-    profileNameController =TextEditingController();
-    profileSurnameController =TextEditingController();
+    profileNameController = TextEditingController();
+    profileSurnameController = TextEditingController();
     profileAgeController = TextEditingController();
     profileWeightcontroller = TextEditingController();
     profileGenderController = TextEditingController();
@@ -34,7 +34,7 @@ abstract class _ProfileViewModelBase with Store, BaseViewModel {
     profilePasswordController = TextEditingController();
   }
 
-   String validateEmail(String value) {
+  String validateEmail(String value) {
     Pattern pattern =
         r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
         r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
@@ -46,13 +46,12 @@ abstract class _ProfileViewModelBase with Store, BaseViewModel {
       return null;
   }
 
-  String validatePassword(String value){
-    Pattern  pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$';
+  String validatePassword(String value) {
+    Pattern pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$';
     RegExp regExp = new RegExp(pattern);
-    if(!regExp.hasMatch(value) || value == null || value.length < 8){
-        return LocaleKeys.profile_PASSWORD_ERROR_TEXT.locale;
-    }
-    else
+    if (!regExp.hasMatch(value) || value == null || value.length < 8) {
+      return LocaleKeys.profile_PASSWORD_ERROR_TEXT.locale;
+    } else
       return null;
   }
 
@@ -64,7 +63,4 @@ abstract class _ProfileViewModelBase with Store, BaseViewModel {
   void navigateForgotPasswordPage() {
     navigation.navigateToPage(path: NavigationConstants.FORGOT_PASSWORD_VIEW);
   }
-
-
-
 }

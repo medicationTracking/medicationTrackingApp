@@ -42,6 +42,7 @@ dependencies:
   provider: 5.0.0
   shared_preferences: ^2.0.5
   table_calendar: ^2.3.0
+  geolocator: ^7.0.3
 
 dev_dependencies:
   flutter_test:
