@@ -1,17 +1,16 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:medication_app_v0/core/base/view/base_widget.dart';
 import 'package:medication_app_v0/core/components/cards/pill_card2.dart';
 import 'package:medication_app_v0/core/components/widgets/custom_bottom_appbar.dart';
 import 'package:medication_app_v0/core/components/widgets/loading_inducator.dart';
-import 'package:medication_app_v0/core/init/locale_keys.g.dart';
-import 'package:medication_app_v0/core/init/services/google_sign_helper.dart';
-import 'package:medication_app_v0/core/init/text/locale_text.dart';
-import 'package:medication_app_v0/views/authenticate/login/viewmodel/login_viewmodel.dart';
-import 'package:medication_app_v0/views/home/viewmodel/home_viewmodel.dart';
 import 'package:medication_app_v0/core/extention/context_extention.dart';
-import 'package:medication_app_v0/core/init/theme/color_theme.dart';
 import 'package:medication_app_v0/core/extention/string_extention.dart';
+import 'package:medication_app_v0/core/init/locale_keys.g.dart';
+import 'package:medication_app_v0/core/init/theme/color_theme.dart';
+import 'package:medication_app_v0/views/home/Calendar/model/reminder.dart';
+import 'package:medication_app_v0/views/home/viewmodel/home_viewmodel.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class HomeView extends StatefulWidget {
@@ -137,13 +136,85 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   }
 
   Widget _buildEventList(HomeViewmodel viewmodel) {
+    bool taken;
     viewmodel.selectedEvents.sort((a, b) => a.time.compareTo(b.time));
     return Observer(
       builder: (_) => ListView.builder(
           itemCount: viewmodel.selectedEvents.length,
           itemBuilder: (context, index) => PillCard2(
+                onTap: () async {
+                  ReminderModel reminder = viewmodel.selectedEvents[index];
+                  taken = await showDialog<bool>(
+                    context: context,
+                    builder: (context){
+                     return reminderDialog(context, reminder);
+                    }
+                  );
+                  setState(() {
+                    if(taken != null){
+                      reminder.isTaken = taken;
+                      viewmodel.storeReminders();
+                    }
+                  });
+                },
                 model: viewmodel.selectedEvents[index],
               )),
     );
+  }
+
+  AlertDialog reminderDialog(BuildContext context, ReminderModel reminder) {
+    return AlertDialog(
+      title: Text("Medication Reminder"),
+      content: dialogContent(context, reminder),
+      actions: [
+        TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text("Skip", style: context.textTheme.bodyText1.copyWith(color: Colors.red),)),
+        TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: reminder.isTaken ? null
+                : Text("Take", style: context.textTheme.bodyText1.copyWith(color: ColorTheme.PETRONAS_GREEN))),
+      ],
+    );
+  }
+
+  Column dialogContent(BuildContext context, ReminderModel reminder) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        diaglogIconRow,
+        context.emptySizedHeightBoxLow3x,
+        Text(
+          reminder.pillName,
+          style: context.textTheme.headline6,
+        ),
+        context.emptySizedHeightBoxLow3x,
+        Text(
+          reminder.isTaken ? "Taken" : "Missed",
+          style: context.textTheme.bodyText1.copyWith(
+              color:
+                  reminder.isTaken ? ColorTheme.PETRONAS_GREEN : Colors.red),
+        ),
+        context.emptySizedHeightBoxLow3x,
+        Row(
+          children: [
+            Icon(Icons.access_alarms),
+            context.emptySizedWidthBoxLow3x,
+            Text(
+              DateFormat('kk:mm').format(reminder.time),
+              style: context.textTheme.headline6,
+            ),
+          ],
+        )
+      ],
+    );
+  }
+
+  Row get diaglogIconRow {
+    return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [Icon(Icons.delete), Icon(Icons.edit)],
+        );
   }
 }

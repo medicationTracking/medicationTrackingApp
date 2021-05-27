@@ -73,6 +73,23 @@ abstract class _HomeViewmodelBase with Store, BaseViewModel {
     print('CALLBACK: _onVisibleDaysChanged');
   }
 
+  Future<void> storeReminders() async {
+    List<String> reminders = [];
+    try {
+      //add new reminders to the old reminders List.
+      events.values.forEach((value) {
+        for(ReminderModel reminder in value){
+          reminders.add(reminder.toJson());
+        }
+      });
+      //save to sharedPreferences
+      await _sharedPreferencesManager.setListValue(SharedPreferencesKey.REMINDERMODELS, reminders);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   void onCalendarCreated(DateTime first, DateTime last, CalendarFormat format) {
     print('CALLBACK: _onCalendarCreated');
   }
@@ -146,76 +163,3 @@ abstract class _HomeViewmodelBase with Store, BaseViewModel {
     return eventMap;
   }
 }
-
-/*previous Event!
- events = {
-      _selectedDay.subtract(Duration(days: 30)): [
-        HomeModel("Teraflu",
-            _selectedDay.subtract(Duration(days: 30, hours: 4)), 25, true),
-        HomeModel("Calpol", _selectedDay.subtract(Duration(days: 30, hours: 1)),
-            25, false),
-      ],
-      _selectedDay.subtract(Duration(days: 27)): [
-        HomeModel("Teraflu",
-            _selectedDay.subtract(Duration(days: 27, hours: 2)), 35, true),
-      ],
-      _selectedDay.subtract(Duration(days: 20)): [
-        HomeModel("Teraflu",
-            _selectedDay.subtract(Duration(days: 20, hours: 3)), 40, false),
-        HomeModel("Calpol", _selectedDay.subtract(Duration(days: 20, hours: 2)),
-            25, false),
-        HomeModel("Jolessa",
-            _selectedDay.subtract(Duration(days: 20, hours: 1)), 25, true),
-        HomeModel(
-            "Paromymcin", _selectedDay.subtract(Duration(days: 20)), 25, true),
-      ],
-      _selectedDay.subtract(Duration(days: 16)): [
-        HomeModel("Calpol", _selectedDay.subtract(Duration(days: 16, hours: 4)),
-            25, false),
-        HomeModel("Jolessa",
-            _selectedDay.subtract(Duration(days: 16, hours: 3)), 25, false),
-      ],
-      _selectedDay.subtract(Duration(days: 10)): [
-        HomeModel("Calpol", _selectedDay.subtract(Duration(days: 10, hours: 2)),
-            25, true),
-        HomeModel("Jolessa",
-            _selectedDay.subtract(Duration(days: 10, hours: 1)), 25, true),
-        HomeModel(
-            "Paromymcin", _selectedDay.subtract(Duration(days: 10)), 25, true),
-      ],
-      _selectedDay.subtract(Duration(days: 4)): [
-        HomeModel("Teraflu", _selectedDay.subtract(Duration(days: 4, hours: 4)),
-            25, true),
-        HomeModel("Calpol", _selectedDay.subtract(Duration(days: 4, hours: 3)),
-            25, false),
-        HomeModel("Jolessa", _selectedDay.subtract(Duration(days: 4, hours: 1)),
-            25, true),
-      ],
-      _selectedDay.subtract(Duration(days: 2)): [
-        HomeModel("Jolessa", _selectedDay.subtract(Duration(days: 2, hours: 2)),
-            25, false),
-        HomeModel("Paromymcin",
-            _selectedDay.subtract(Duration(days: 2, hours: 5)), 25, true),
-      ],
-      _selectedDay: [
-        HomeModel(
-            "Jolessa", _selectedDay.subtract(Duration(hours: 5)), 25, true),
-        HomeModel(
-            "Paromymcin", _selectedDay.subtract(Duration(hours: 4)), 25, true),
-        HomeModel(
-            "Jolessa", _selectedDay.subtract(Duration(hours: 2)), 25, true),
-        HomeModel("Paromymcin", _selectedDay, 25, true),
-      ],
-      _selectedDay.add(Duration(days: 7)): [
-        HomeModel(
-            "Jolessa", _selectedDay.add(Duration(days: 7, hours: 1)), 25, true),
-        HomeModel("Paromymcin", _selectedDay.add(Duration(days: 7, hours: 2)),
-            25, true),
-        HomeModel(
-            "Teraflu", _selectedDay.add(Duration(days: 7, hours: 3)), 25, true),
-        HomeModel(
-            "Calpol", _selectedDay.add(Duration(days: 7, hours: 4)), 25, false),
-        HomeModel(
-            "Jolessa", _selectedDay.add(Duration(days: 7, hours: 5)), 25, true),
-      ],
-    };*/

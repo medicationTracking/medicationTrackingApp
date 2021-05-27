@@ -4,7 +4,7 @@ class ReminderModel {
   final String pillName;
   final DateTime time;
   final int amount;
-  final bool isTaken;
+  bool isTaken;
 
   ReminderModel(
     this.pillName,
