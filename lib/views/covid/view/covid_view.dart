@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:medication_app_v0/core/base/view/base_widget.dart';
@@ -5,9 +6,11 @@ import 'package:medication_app_v0/core/components/cards/covid_card.dart';
 import 'package:medication_app_v0/core/components/cards/date_card.dart';
 import 'package:medication_app_v0/core/components/widgets/custom_bottom_appbar.dart';
 import 'package:medication_app_v0/core/components/widgets/loading_inducator.dart';
+import 'package:medication_app_v0/core/init/locale_keys.g.dart';
 import 'package:medication_app_v0/core/init/theme/color_theme.dart';
 import 'package:medication_app_v0/views/covid/viewmodel/covid_viewmodel.dart';
 import 'package:medication_app_v0/core/extention/context_extention.dart';
+import 'package:medication_app_v0/core/extention/string_extention.dart';
 
 class CovidView extends StatelessWidget {
   const CovidView({Key key}) : super(key: key);
@@ -22,7 +25,7 @@ class CovidView extends StatelessWidget {
         },
         builder: (BuildContext context, CovidViewModel viewmodel) => Scaffold(
               appBar: AppBar(
-                title: Text("Covid Turkey"),
+                title: AutoSizeText(LocaleKeys.covid_COVID_TITLE.locale),
               ),
               bottomNavigationBar: CustomBottomAppBar(),
               body: Observer(
@@ -37,7 +40,7 @@ class CovidView extends StatelessWidget {
         ? buildCovidCards(context, viewmodel)
         : Column(
             children: [
-              Text("Data empty!"),
+              AutoSizeText(LocaleKeys.covid_DATA_EMPTY.locale),
             ],
           );
   }
@@ -52,20 +55,20 @@ class CovidView extends StatelessWidget {
           Expanded(
             flex: 3,
             child: CovidCard(
-                leftTitle: "Toplam Vaka Sayısı",
+                leftTitle: LocaleKeys.covid_TOTAL_CASE.locale,
                 leftValue: viewmodel.turkeySummaryList.last.confirmed,
                 leftColor: Colors.amber,
-                rightTitle: "Toplam Aktif hasta",
+                rightTitle: LocaleKeys.covid_ACTIVE_CASE.locale,
                 rightValue: viewmodel.turkeySummaryList.last.active,
                 rightColor: Colors.blue),
           ),
           Expanded(
             flex: 3,
             child: CovidCard(
-                leftTitle: "Toplam iyileşen",
+                leftTitle: LocaleKeys.covid_RECOVERY_TOTAL.locale,
                 leftValue: viewmodel.turkeySummaryList.last.recovered,
                 leftColor: Colors.green,
-                rightTitle: "Toplam ölüm",
+                rightTitle: LocaleKeys.covid_TOTAL_DEATH.locale,
                 rightValue: viewmodel.turkeySummaryList.last.death,
                 rightColor: Colors.red),
           ),
@@ -76,14 +79,14 @@ class CovidView extends StatelessWidget {
           Expanded(
             flex: 3,
             child: CovidCard(
-                leftTitle: "Bugun Vaka Sayısı",
+                leftTitle: LocaleKeys.covid_DAILY_CASE.locale,
                 leftValue: viewmodel.turkeySummaryList.last.confirmed -
                     viewmodel
                         .turkeySummaryList[
                             viewmodel.turkeySummaryList.length - 2]
                         .confirmed,
                 leftColor: Colors.amber,
-                rightTitle: "Günlük Hasta sayısı değişimi",
+                rightTitle: LocaleKeys.covid_DIF_ACTIVE_CASE.locale,
                 rightValue: viewmodel.turkeySummaryList.last.active -
                     viewmodel
                         .turkeySummaryList[
@@ -94,14 +97,14 @@ class CovidView extends StatelessWidget {
           Expanded(
             flex: 3,
             child: CovidCard(
-                leftTitle: "Bugun İyileşen",
+                leftTitle: LocaleKeys.covid_RECOVERY_DAILY.locale,
                 leftValue: viewmodel.turkeySummaryList.last.recovered -
                     viewmodel
                         .turkeySummaryList[
                             viewmodel.turkeySummaryList.length - 2]
                         .recovered,
                 leftColor: Colors.green,
-                rightTitle: "Bugun ölüm",
+                rightTitle: LocaleKeys.covid_DAILY_DEATH.locale,
                 rightValue: viewmodel.turkeySummaryList.last.death -
                     viewmodel
                         .turkeySummaryList[

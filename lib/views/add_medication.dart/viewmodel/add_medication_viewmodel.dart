@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:medication_app_v0/core/constants/enums/shared_preferences_enum.dart';
 import 'package:medication_app_v0/core/extention/string_extention.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:medication_app_v0/core/base/viewmodel/base_viewmodel.dart';
+import 'package:medication_app_v0/core/init/cache/shared_preferences_manager.dart';
 import 'package:medication_app_v0/core/init/locale_keys.g.dart';
 import 'package:medication_app_v0/core/init/services/auth_manager.dart';
 import 'package:medication_app_v0/core/init/services/medication_service.dart';
@@ -24,6 +26,7 @@ abstract class _AddMedicationViewModelBase with Store, BaseViewModel {
   PharmacyService _pharmacyService;
   InventoryModel medication;
   GlobalKey<FormState> medicationFormState;
+  bool isAllergenic;
 
   void setContext(BuildContext context) => this.context = context;
   void init() {
@@ -34,8 +37,10 @@ abstract class _AddMedicationViewModelBase with Store, BaseViewModel {
     _networkServices = MedicationService();
     _pharmacyService = new PharmacyService();
     medicationFormState = GlobalKey();
+    isAllergenic = false;
   }
 
+  DateTime expiredDate;
   TextEditingController medicationNameController;
   TextEditingController companyController;
   TextEditingController activeIngredientController;
@@ -51,20 +56,22 @@ abstract class _AddMedicationViewModelBase with Store, BaseViewModel {
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
-    return _validBarcode(
-        barcodeScanRes.toString()); //valid barcode returned or barcodeError!
+    return barcodeScanRes;
     //if scanner cancels, return -1
     //var temp = _scanBarcode[0];
     //print(temp.compareTo(""));
   }
 
-  //Todo:bu çalışmıyor olabilir tekrar gözedn geçir!!!
+  //show scanned med in the add medication view
   Future<void> fillCardWithScannedMedication(String barcode) async {
-    if (barcode.compareTo(barcodeError) != 0) {
+    expiredDate = _convertQRtoExpiredDate(barcode);
+    String validBarcode = _validBarcode(barcode);
+    if (validBarcode.compareTo(barcodeError) != 0) {
       Response response =
-          await _networkServices.getMedicationFromBarcode(barcode);
+          await _networkServices.getMedicationFromBarcode(validBarcode);
       if (response.statusCode == HttpStatus.ok) {
-        InventoryModel scannedMed = InventoryModel.fromJson(response.data);
+        InventoryModel scannedMed = InventoryModel.fromMap(response.data);
+        scannedMed.expiredDate = expiredDate;
         medicationNameController.text = scannedMed.name;
         activeIngredientController.text = scannedMed.activeIngredient;
         companyController.text = scannedMed.company;
@@ -86,7 +93,8 @@ abstract class _AddMedicationViewModelBase with Store, BaseViewModel {
     if (value == null) {
       return null;
     } else {
-      return "Medication name cannot be empyt!";
+      return LocaleKeys
+          .add_medication_MEDICATION_NAME_FIELD_ERROR_MESSAGE.locale;
     }
   }
 
@@ -121,18 +129,22 @@ abstract class _AddMedicationViewModelBase with Store, BaseViewModel {
 
   InventoryModel get getMedicine {
     return InventoryModel(
-      name: medicationNameController.text,
-      company: companyController.text,
-      activeIngredient: activeIngredientController.text,
-    );
+        name: medicationNameController.text,
+        company: companyController.text,
+        activeIngredient: activeIngredientController.text,
+        expiredDate: expiredDate ?? DateTime(2100));
   }
 
   //Controllers.texts send to the firebase
   Future<bool> saveManuelMedicationToFirebase() async {
     //manuel addition
     if (medicationFormState.currentState.validate()) {
-      return await postMedToFirebase(getMedicine);
+      await allergensCheck(getMedicine);
+      if (!isAllergenic) {
+        return await postMedToFirebase(getMedicine);
+      }
     }
+    isAllergenic = false; //reset allergenic attribute
     return false;
   }
 
@@ -181,5 +193,51 @@ abstract class _AddMedicationViewModelBase with Store, BaseViewModel {
     } catch (e) {
       return barcodeError;
     }
+  }
+
+  Future<void> allergensCheck(InventoryModel medication) async {
+    List<String> allergensList = await SharedPreferencesManager.instance
+        .getStringListValue(SharedPreferencesKey.ALLERGENS);
+    for (String allergen in allergensList) {
+      if (allergen.compareTo(medication.activeIngredient) == 0) {
+        //alerbox
+        return await allergenWarning();
+      }
+    }
+  }
+
+  Future<void> allergenWarning() {
+    return showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(LocaleKeys.add_medication_ALLERGEN_WARNING.locale),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text(LocaleKeys.add_medication_ALLERGEN_TEXT1.locale),
+                  Text(LocaleKeys.add_medication_ALLERGEN_TEXT2.locale),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text(LocaleKeys.add_medication_ADD.locale),
+                onPressed: () {
+                  isAllergenic = false;
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: Text(LocaleKeys.add_medication_CANCEL.locale),
+                onPressed: () {
+                  isAllergenic = true;
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
   }
 }

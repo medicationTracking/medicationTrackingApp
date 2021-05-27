@@ -45,49 +45,66 @@ class _InventoryViewState extends State<InventoryView> {
   Scaffold buildScaffold(BuildContext context, InventoryViewModel viewmodel) {
     return Scaffold(
         bottomNavigationBar: CustomBottomAppBar(),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            print("add medicine");
-            //viewmodel.navigateIntakeView(viewmodel.getMedList[1]);
-          },
-          child: Icon(Icons.add),
-        ),
+        floatingActionButton: buildFab,
         appBar: AppBar(title: Text("Medication List")),
         body: Padding(
           padding: context.paddingNormal,
           child: Column(
             children: [
               Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                        child: TextButton(
-                            onPressed: () {}, child: Text("Important"))),
-                    Expanded(
-                      child: TextButton(
-                          onPressed: () {}, child: Text("Expired Soon")),
-                    ),
-                    Expanded(
-                        child: TextButton(onPressed: () {}, child: Text("All")))
-                  ],
-                ),
+                child: buildTextButtons(viewmodel),
               ),
-              Observer(
-                builder: (_) => Expanded(
-                  flex: 9,
-                  child: medicationList.isEmpty
-                      ? Text("Inventory is empty")
-                      : ListView.builder(
-                          itemCount: medicationList.length,
-                          itemBuilder: (context, index) =>
-                              InventoryMedicationCard(
-                                  model: medicationList[index]),
-                        ),
-                ),
-              ),
+              buildMedications(viewmodel),
             ],
           ),
         ));
+  }
+
+  Observer buildMedications(InventoryViewModel viewmodel) {
+    return Observer(
+      builder: (_) => Expanded(
+        flex: 9,
+        child: viewmodel.medicationList.isEmpty
+            ? Text("Inventory is empty")
+            : ListView.builder(
+                itemCount: viewmodel.medicationList.length,
+                itemBuilder: (context, index) => InventoryMedicationCard(
+                    model: viewmodel.medicationList[index]),
+              ),
+      ),
+    );
+  }
+
+  Row buildTextButtons(InventoryViewModel viewmodel) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(child: TextButton(onPressed: () {}, child: Text("Important"))),
+        Expanded(
+          child: TextButton(
+              onPressed: () {
+                viewmodel.sortMedList();
+                setState(() {});
+              },
+              child: Text("Expired Soon")),
+        ),
+        Expanded(
+            child: TextButton(
+                onPressed: () async {
+                  viewmodel.medicationList = await viewmodel.getMedList;
+                },
+                child: Text("All")))
+      ],
+    );
+  }
+
+  FloatingActionButton get buildFab {
+    return FloatingActionButton(
+      onPressed: () {
+        print("add medicine");
+        //viewmodel.navigateIntakeView(viewmodel.getMedList[1]);
+      },
+      child: Icon(Icons.add),
+    );
   }
 }

@@ -73,8 +73,29 @@
         "PERIOD_MONTHLY":"Ayda",
         "PERIOD_WEEKLY":"Haftada",
         "PERIOD_DAILY":"Günde"
-
-
+    },
+    "add_medication":{
+        "ADD_SUCCESFULLY":"İlacınız kaydedildi.",
+        "ADD_FAILED":"ilacınız kaydedilmedi.",
+        "MEDICATION_NAME_FIELD_ERROR_MESSAGE":"İlacınızın ismini girmek zorunludur.",
+        "ALLERGEN_WARNING":"Alerjen Uyarısı!",
+        "ALLERGEN_TEXT1":"Bu ilaca alerjiniz var.",
+        "ALLERGEN_TEXT2":"Bu ilacı eklemek istediğinize emin misiniz?",
+        "CANCEL":"Vazgeç",
+        "ADD":"İlacı ekle",
+        "EXPIRED_DATE":"son kullanma tarihi"
+    },
+    "covid":{
+        "COVID_TITLE":"Covid-19 Türkiye",
+        "DATA_EMPTY":"Veri Mevcut değil",
+        "TOTAL_CASE":"Toplam Vaka Sayısı",
+        "DAILY_CASE":"Günlük Vaka Sayısı",
+        "ACTIVE_CASE":"Aktif hasta Sayısı",
+        "DIF_ACTIVE_CASE":"Aktif Hasta Sayısı Değişimi",
+        "RECOVERY_TOTAL":"Toplam İyileşen Sayısı",
+        "RECOVERY_DAILY":"Günlük İyileşen sayısı",
+        "TOTAL_DEATH":"Toplam Ölüm Sayısı",
+        "DAILY_DEATH":"Günlük Ölüm Sayısı"
     }
 
 }

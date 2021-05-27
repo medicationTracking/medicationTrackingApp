@@ -8,7 +8,8 @@ import 'package:medication_app_v0/views/home/Calendar/model/reminder.dart';
 class PillCard2 extends StatelessWidget {
   final ReminderModel model;
   final VoidCallback onTap;
-  const PillCard2({Key key, @required this.model, this.onTap}) : super(key: key);
+  const PillCard2({Key key, @required this.model, this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +17,13 @@ class PillCard2 extends StatelessWidget {
       height: context.height * 0.15,
       width: double.infinity,
       child: GestureDetector(
-        onTap: onTap  ,
+        onTap: onTap,
         child: Card(
           shadowColor: Colors.black,
-          color: model.isTaken ? ColorTheme.GREEN_ACCENT : ColorTheme.RED_BUTTON.withOpacity(0.7),
+          color: _getColor(),
           elevation: 10,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           child: Row(
             children: [
               Expanded(
@@ -30,7 +32,8 @@ class PillCard2 extends StatelessWidget {
                   padding: context.paddingMedium,
                   child: Row(
                     children: [
-                      Image(image: AssetImage(ImageConstants.instance.pill4Logo)),
+                      Image(
+                          image: AssetImage(ImageConstants.instance.pill4Logo)),
                       context.emptySizedWidthBoxLow,
                       Text(
                         model.pillName,
@@ -52,7 +55,10 @@ class PillCard2 extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.access_alarms,color: Colors.white,),
+                        Icon(
+                          Icons.access_alarms,
+                          color: Colors.white,
+                        ),
                         context.emptySizedWidthBoxLow3x,
                         Text(
                           DateFormat('kk:mm').format(model.time),
@@ -72,5 +78,16 @@ class PillCard2 extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Color _getColor() {
+    if (DateTime.now().isAfter(model.time)) {
+      if (model.isTaken) {
+        return ColorTheme.GREEN_ACCENT;
+      } else {
+        return ColorTheme.RED_BUTTON.withOpacity(0.7);
+      }
+    }
+    return ColorTheme.BACKGROUND_WHITE;
   }
 }

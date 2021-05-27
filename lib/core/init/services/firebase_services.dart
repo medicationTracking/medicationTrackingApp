@@ -59,7 +59,8 @@ class FirebaseService {
       if (data is Map) {
         //convert json to List of InventoryModel
         data.forEach((key, value) {
-          modelList.add(InventoryModel.fromJson(value));
+          //.fromJson change to .fromMap! firebase response is map!
+          modelList.add(InventoryModel.fromMap(value));
         });
         return modelList;
       } else {

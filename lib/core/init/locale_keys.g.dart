@@ -67,5 +67,26 @@ abstract class  LocaleKeys {
   static const reminder_PERIOD_WEEKLY = 'reminder.PERIOD_WEEKLY';
   static const reminder_PERIOD_DAILY = 'reminder.PERIOD_DAILY';
   static const reminder = 'reminder';
+  static const add_medication_ADD_SUCCESFULLY = 'add_medication.ADD_SUCCESFULLY';
+  static const add_medication_ADD_FAILED = 'add_medication.ADD_FAILED';
+  static const add_medication_MEDICATION_NAME_FIELD_ERROR_MESSAGE = 'add_medication.MEDICATION_NAME_FIELD_ERROR_MESSAGE';
+  static const add_medication_ALLERGEN_WARNING = 'add_medication.ALLERGEN_WARNING';
+  static const add_medication_ALLERGEN_TEXT1 = 'add_medication.ALLERGEN_TEXT1';
+  static const add_medication_ALLERGEN_TEXT2 = 'add_medication.ALLERGEN_TEXT2';
+  static const add_medication_CANCEL = 'add_medication.CANCEL';
+  static const add_medication_ADD = 'add_medication.ADD';
+  static const add_medication_EXPIRED_DATE = 'add_medication.EXPIRED_DATE';
+  static const add_medication = 'add_medication';
+  static const covid_COVID_TITLE = 'covid.COVID_TITLE';
+  static const covid_DATA_EMPTY = 'covid.DATA_EMPTY';
+  static const covid_TOTAL_CASE = 'covid.TOTAL_CASE';
+  static const covid_DAILY_CASE = 'covid.DAILY_CASE';
+  static const covid_ACTIVE_CASE = 'covid.ACTIVE_CASE';
+  static const covid_DIF_ACTIVE_CASE = 'covid.DIF_ACTIVE_CASE';
+  static const covid_RECOVERY_TOTAL = 'covid.RECOVERY_TOTAL';
+  static const covid_RECOVERY_DAILY = 'covid.RECOVERY_DAILY';
+  static const covid_TOTAL_DEATH = 'covid.TOTAL_DEATH';
+  static const covid_DAILY_DEATH = 'covid.DAILY_DEATH';
+  static const covid = 'covid';
 
 }

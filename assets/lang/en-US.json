@@ -72,5 +72,28 @@
         "PERIOD_MONTHLY":"Montly",
         "PERIOD_WEEKLY":"Weekly",
         "PERIOD_DAILY":"Daily"
+    },
+    "add_medication":{
+        "ADD_SUCCESFULLY":"The medicine was successfully added.",
+        "ADD_FAILED":"The medicine addition failed.",
+        "MEDICATION_NAME_FIELD_ERROR_MESSAGE":"Medications must have a name.",
+        "ALLERGEN_WARNING":"Allergen Warning!",
+        "ALLERGEN_TEXT1":"you are allergic to the medication.",
+        "ALLERGEN_TEXT2":"Are you sure you want to add the medication?",
+        "CANCEL":"Cancel",
+        "ADD":"Add the Medication",
+        "EXPIRED_DATE":"expired date"
+    },
+    "covid":{
+        "COVID_TITLE":"Covid Turkey",
+        "DATA_EMPTY":"Data Empty",
+        "TOTAL_CASE":"Total Cases",
+        "DAILY_CASE":"Daily Cases",
+        "ACTIVE_CASE":"Active Cases",
+        "DIF_ACTIVE_CASE":"Change in the Number of Active Patients",
+        "RECOVERY_TOTAL":"Total Recovery",
+        "RECOVERY_DAILY":"Daily Recovery",
+        "TOTAL_DEATH":"Total Death",
+        "DAILY_DEATH":"Daily Death"
     }
 }

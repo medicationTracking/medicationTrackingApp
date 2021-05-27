@@ -1,12 +1,14 @@
 import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:medication_app_v0/core/constants/image/image_constants.dart';
 import 'package:medication_app_v0/core/constants/navigation/navigation_constants.dart';
 import 'package:medication_app_v0/core/extention/context_extention.dart';
+import 'package:medication_app_v0/core/extention/string_extention.dart';
+import 'package:medication_app_v0/core/init/locale_keys.g.dart';
 import 'package:medication_app_v0/core/init/navigation/navigation_service.dart';
-import 'package:medication_app_v0/core/init/services/auth_manager.dart';
 import 'package:medication_app_v0/views/Inventory/model/inventory_model.dart';
 
 class InventoryMedicationCard extends StatelessWidget {
@@ -89,7 +91,15 @@ class InventoryMedicationCard extends StatelessWidget {
                 : AutoSizeText(
                     model.company,
                     style: context.textTheme.subtitle1,
-                  ))
+                  )),
+        Expanded(
+            child: model.expiredDate.compareTo(DateTime(2100)) == 0
+                ? Text("")
+                : Text(LocaleKeys.add_medication_EXPIRED_DATE.locale +
+                    " : " +
+                    DateFormat("dd-MM-yyyy")
+                        .format(model.expiredDate)
+                        .toString()))
       ],
     );
   }

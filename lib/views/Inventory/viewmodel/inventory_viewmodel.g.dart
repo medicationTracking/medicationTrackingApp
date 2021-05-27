@@ -9,6 +9,22 @@ part of 'inventory_viewmodel.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$InventoryViewModel on _InventoryViewModelBase, Store {
+  final _$medicationListAtom =
+      Atom(name: '_InventoryViewModelBase.medicationList');
+
+  @override
+  List<InventoryModel> get medicationList {
+    _$medicationListAtom.reportRead();
+    return super.medicationList;
+  }
+
+  @override
+  set medicationList(List<InventoryModel> value) {
+    _$medicationListAtom.reportWrite(value, super.medicationList, () {
+      super.medicationList = value;
+    });
+  }
+
   final _$isLoadingAtom = Atom(name: '_InventoryViewModelBase.isLoading');
 
   @override
@@ -39,8 +55,20 @@ mixin _$InventoryViewModel on _InventoryViewModelBase, Store {
   }
 
   @override
+  void sortMedList() {
+    final _$actionInfo = _$_InventoryViewModelBaseActionController.startAction(
+        name: '_InventoryViewModelBase.sortMedList');
+    try {
+      return super.sortMedList();
+    } finally {
+      _$_InventoryViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
+medicationList: ${medicationList},
 isLoading: ${isLoading}
     ''';
   }

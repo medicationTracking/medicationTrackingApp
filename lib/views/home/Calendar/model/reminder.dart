@@ -13,7 +13,6 @@ class ReminderModel {
     this.isTaken,
   );
 
-
   ReminderModel copyWith({
     String pillName,
     DateTime time,
@@ -48,7 +47,8 @@ class ReminderModel {
 
   String toJson() => json.encode(toMap());
 
-  factory ReminderModel.fromJson(String source) => ReminderModel.fromMap(json.decode(source));
+  factory ReminderModel.fromJson(String source) =>
+      ReminderModel.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -58,19 +58,19 @@ class ReminderModel {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is ReminderModel &&
-      other.pillName == pillName &&
-      other.time == time &&
-      other.amount == amount &&
-      other.isTaken == isTaken;
+        other.pillName == pillName &&
+        other.time == time &&
+        other.amount == amount &&
+        other.isTaken == isTaken;
   }
 
   @override
   int get hashCode {
     return pillName.hashCode ^
-      time.hashCode ^
-      amount.hashCode ^
-      isTaken.hashCode;
+        time.hashCode ^
+        amount.hashCode ^
+        isTaken.hashCode;
   }
 }

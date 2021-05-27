@@ -5,7 +5,12 @@ import 'package:medication_app_v0/core/extention/context_extention.dart';
 import 'package:medication_app_v0/views/add_medication.dart/viewmodel/add_medication_viewmodel.dart';
 import "package:medication_app_v0/views/Inventory/model/inventory_model.dart";
 
-class AddMedicationView extends StatelessWidget {
+class AddMedicationView extends StatefulWidget {
+  @override
+  _AddMedicationViewState createState() => _AddMedicationViewState();
+}
+
+class _AddMedicationViewState extends State<AddMedicationView> {
   @override
   Widget build(BuildContext context) {
     return BaseView(
@@ -40,32 +45,35 @@ class AddMedicationView extends StatelessWidget {
                   style: context.textTheme.subtitle1,
                 ),
                 InventoryMedicationCard(model: viewmodel.getMedicine),
-                ElevatedButton(
-                    onPressed: () async {
-                      bool saveResult =
-                          await viewmodel.saveManuelMedicationToFirebase();
-                      String saveResultString = saveResult
-                          ? "addition succesfull"
-                          : "addition failed";
-                      if (saveResult) {
-                        viewmodel.barcodeController.text = "";
-                        viewmodel.activeIngredientController.text = "";
-                        viewmodel.companyController.text = "";
-                        viewmodel.medicationNameController.text = "";
-                      }
-                      final _snackBar = SnackBar(
-                        content: Text(saveResultString),
-                        backgroundColor: saveResult ? Colors.green : Colors.red,
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(_snackBar);
-                    },
-                    child: Center(child: Text("Add medication")))
+                buildAddMedicationButton(viewmodel, context)
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  ElevatedButton buildAddMedicationButton(
+      AddMedicationViewModel viewmodel, BuildContext context) {
+    return ElevatedButton(
+        onPressed: () async {
+          bool saveResult = await viewmodel.saveManuelMedicationToFirebase();
+          String saveResultString =
+              saveResult ? "addition succesfull" : "addition failed";
+          if (saveResult) {
+            viewmodel.barcodeController.text = "";
+            viewmodel.activeIngredientController.text = "";
+            viewmodel.companyController.text = "";
+            viewmodel.medicationNameController.text = "";
+          }
+          final _snackBar = SnackBar(
+            content: Text(saveResultString),
+            backgroundColor: saveResult ? Colors.green : Colors.red,
+          );
+          ScaffoldMessenger.of(context).showSnackBar(_snackBar);
+        },
+        child: Center(child: Text("Add medication")));
   }
 
   Form buildMedicationForm(AddMedicationViewModel viewmodel) {
@@ -105,7 +113,8 @@ class AddMedicationView extends StatelessWidget {
       child: IconButton(
         onPressed: () async {
           String scannedBarcode = await viewmodel.scanQR();
-          viewmodel.fillCardWithScannedMedication(scannedBarcode);
+          await viewmodel.fillCardWithScannedMedication(scannedBarcode);
+          setState(() {});
         },
         icon: Icon(
           Icons.qr_code_scanner_rounded,

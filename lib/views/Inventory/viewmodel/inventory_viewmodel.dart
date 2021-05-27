@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 part 'inventory_viewmodel.g.dart';
 
 class InventoryViewModel = _InventoryViewModelBase with _$InventoryViewModel;
-@observable
-List<InventoryModel> medicationList;
 
 abstract class _InventoryViewModelBase with Store, BaseViewModel {
+  @observable
+  List<InventoryModel> medicationList;
   @observable
   bool isLoading = false;
   @override
@@ -35,5 +35,10 @@ abstract class _InventoryViewModelBase with Store, BaseViewModel {
   void navigateIntakeView(InventoryModel model) {
     navigation.navigateToPage(
         path: NavigationConstants.INTAKE_VIEW, object: model);
+  }
+
+  @action
+  void sortMedList() {
+    medicationList.sort((a, b) => a.expiredDate.compareTo(b.expiredDate));
   }
 }
