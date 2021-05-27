@@ -2,7 +2,7 @@ import 'dart:convert';
 
 class ReminderModel {
   final String pillName;
-  final DateTime time;
+  DateTime time;
   final int amount;
   bool isTaken;
 

@@ -136,7 +136,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   }
 
   Widget _buildEventList(HomeViewmodel viewmodel) {
-    bool taken;
+    bool isDelete = false;
     viewmodel.selectedEvents.sort((a, b) => a.time.compareTo(b.time));
     return Observer(
       builder: (_) => ListView.builder(
@@ -144,15 +144,17 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
           itemBuilder: (context, index) => PillCard2(
                 onTap: () async {
                   ReminderModel reminder = viewmodel.selectedEvents[index];
-                  taken = await showDialog<bool>(
+                  isDelete = await showDialog<bool>(
                     context: context,
                     builder: (context){
                      return reminderDialog(context, reminder);
                     }
                   );
                   setState(() {
-                    if(taken != null){
-                      reminder.isTaken = taken;
+                    if(isDelete != null){
+                      if(isDelete){
+                        viewmodel.selectedEvents.remove(viewmodel.selectedEvents[index]);
+                      }
                       viewmodel.storeReminders();
                     }
                   });
@@ -168,10 +170,16 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
       content: dialogContent(context, reminder),
       actions: [
         TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
+            onPressed: () {
+              reminder.isTaken = false;
+              Navigator.of(context).pop();
+            },
             child: Text("Skip", style: context.textTheme.bodyText1.copyWith(color: Colors.red),)),
         TextButton(
-            onPressed: () => Navigator.of(context).pop(true),
+            onPressed: () {
+              reminder.isTaken = true;
+              Navigator.of(context).pop();
+            },
             child: reminder.isTaken ? null
                 : Text("Take", style: context.textTheme.bodyText1.copyWith(color: ColorTheme.PETRONAS_GREEN))),
       ],
@@ -183,7 +191,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        diaglogIconRow,
+        dialogIconRow(reminder),
         context.emptySizedHeightBoxLow3x,
         Text(
           reminder.pillName,
@@ -211,10 +219,26 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
     );
   }
 
-  Row get diaglogIconRow {
+  Row dialogIconRow(ReminderModel reminder) {
     return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Icon(Icons.delete), Icon(Icons.edit)],
-        );
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        IconButton(
+          onPressed: () async {
+            TimeOfDay picked = await showTimePicker(context: context, initialTime: TimeOfDay.fromDateTime(reminder.time));
+            DateTime newTime = DateTime(reminder.time.year,reminder.time.month,reminder.time.day,picked.hour,picked.minute);
+            reminder.time = newTime;
+            Navigator.of(context).pop();
+          },
+          icon:Icon(Icons.edit),
+        ),
+        IconButton(
+          onPressed: () async {
+            Navigator.of(context).pop(true);
+          },
+          icon:Icon(Icons.delete)
+        ),
+      ],
+    );
   }
 }
