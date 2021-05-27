@@ -5,7 +5,8 @@ import '../../../../core/base/viewmodel/base_viewmodel.dart';
 
 part 'forgot_password_viewmodel.g.dart';
 
-class ForgotPasswordViewModel = _ForgotPasswordViewModelBase with _$ForgotPasswordViewModel;
+class ForgotPasswordViewModel = _ForgotPasswordViewModelBase
+    with _$ForgotPasswordViewModel;
 
 abstract class _ForgotPasswordViewModelBase with Store, BaseViewModel {
   void setContext(BuildContext context) => this.context = context;
@@ -22,10 +23,11 @@ abstract class _ForgotPasswordViewModelBase with Store, BaseViewModel {
     else
       return null;
   }
-  
+
   void navigateLoginPage() {
     navigation.navigateToPage(path: NavigationConstants.LOGIN_VIEW);
   }
+
   void navigateVerifyMailCodePage() {
     navigation.navigateToPage(path: NavigationConstants.VERIFY_MAIL_CODE_VIEW);
   }

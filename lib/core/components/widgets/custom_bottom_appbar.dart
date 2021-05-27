@@ -18,12 +18,16 @@ class CustomBottomAppBar extends StatelessWidget {
               iconSize: context.height * 0.05,
               icon: Icon(Icons.home_outlined),
               onPressed: () {
-                navigation.navigateToPageClear(path: NavigationConstants.HOME_VIEW);
+                navigation.navigateToPageClear(
+                    path: NavigationConstants.HOME_VIEW);
               }),
           //not determined
           IconButton(
               icon: Icon(Icons.medical_services_outlined),
-              onPressed: () {},
+              onPressed: () {
+                navigation.navigateToPageClear(
+                    path: NavigationConstants.PHARMACY_VIEW);
+              },
               iconSize: context.height * 0.05),
           //covid page
           IconButton(
