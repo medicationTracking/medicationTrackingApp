@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medication_app_v0/core/init/theme/color_theme.dart';
+import 'app_theme.dart';
 import 'color_theme.dart';
 
 class AppThemeLight extends AppTheme {
@@ -34,7 +35,7 @@ class AppThemeLight extends AppTheme {
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(ColorTheme
-                    .PRIMARY_BLUE) // TODO HAL�L BURAYA BAKARSAN SEN�N BUTONLARIN RENG�N� ANLARSIN
+                    .PRIMARY_BLUE) //
                 )),
         //primaryTextTheme: _primaryTextTheme,
         iconTheme: IconThemeData(color: ColorTheme.PRIMARY_BLUE),
@@ -78,6 +79,3 @@ class AppThemeLight extends AppTheme {
   }
 }
 
-class AppTheme {
-  ThemeData theme; //gereksiz gibi düşünmek lazım
-}

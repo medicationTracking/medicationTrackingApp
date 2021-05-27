@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:medication_app_v0/core/init/theme/color_theme.dart';
+import 'package:medication_app_v0/core/constants/image/image_constants.dart';
 import 'package:medication_app_v0/core/extention/context_extention.dart';
+import 'package:medication_app_v0/core/init/theme/color_theme.dart';
 import 'package:medication_app_v0/views/home/Calendar/model/reminder.dart';
 
 class PillCard2 extends StatelessWidget {
@@ -12,22 +13,33 @@ class PillCard2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: context.height * 0.2,
+      height: context.height * 0.15,
       width: double.infinity,
       child: Card(
         shadowColor: Colors.black,
-        color: model.isTaken ? ColorTheme.GREEN_ACCENT : ColorTheme.RED_ACCENT,
-        elevation: 5,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        color: model.isTaken ? ColorTheme.GREEN_ACCENT : ColorTheme.RED_BUTTON.withOpacity(0.7),
+        elevation: 10,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Row(
           children: [
             Expanded(
               flex: 3,
               child: Padding(
                 padding: context.paddingMedium,
-                child: Text(
-                  DateFormat('kk:mm').format(model.time),
-                  style: context.textTheme.headline3,
+                child: Row(
+                  children: [
+                    Image(image: AssetImage(ImageConstants.instance.pill4Logo)),
+                    context.emptySizedWidthBoxLow,
+                    Text(
+                      model.pillName,
+                      style: context.textTheme.headline6,
+                    ),
+//                    Icon(Icons.access_alarms),
+//                    Text(
+//                      DateFormat('kk:mm').format(model.time),
+//                      style: context.textTheme.headline6,
+//                    ),
+                  ],
                 ),
               ),
             ),
@@ -36,13 +48,19 @@ class PillCard2 extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    model.pillName,
-                    style: context.textTheme.headline6,
+                  Row(
+                    children: [
+                      Icon(Icons.access_alarms,color: Colors.white,),
+                      context.emptySizedWidthBoxLow3x,
+                      Text(
+                        DateFormat('kk:mm').format(model.time),
+                        style: context.textTheme.headline6,
+                      ),
+                    ],
                   ),
                   Text(
-                    "${model.amount} gr",
-                    style: context.textTheme.headline6,
+                    "${model.amount} more reminder left",
+                    style: context.textTheme.bodyText2,
                   ),
                 ],
               ),
