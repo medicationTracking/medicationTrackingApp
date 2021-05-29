@@ -146,4 +146,15 @@ class GoogleSignHelper {
     return await _sharedPreferencesManager.setStringValue(
         SharedPreferencesKey.TOKEN, tokenResult.toString());
   }
+
+  Future<String> changePassword(String newPassword) async {
+    try {
+      await _auth.currentUser.updatePassword(newPassword);
+      return "password changed!";
+    } on FirebaseAuthException catch (e) {
+      return e.message;
+    } catch (e) {
+      return "error";
+    }
+  }
 }

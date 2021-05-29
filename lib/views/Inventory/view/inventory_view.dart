@@ -4,6 +4,7 @@ import 'package:medication_app_v0/core/base/view/base_widget.dart';
 import 'package:medication_app_v0/core/components/cards/inventory_medication_card.dart';
 import 'package:medication_app_v0/core/components/widgets/custom_bottom_appbar.dart';
 import 'package:medication_app_v0/core/components/widgets/loading_inducator.dart';
+import 'package:medication_app_v0/core/init/services/auth_manager.dart';
 import 'package:medication_app_v0/views/Inventory/model/inventory_model.dart';
 import 'package:medication_app_v0/views/Inventory/viewmodel/inventory_viewmodel.dart';
 import 'package:medication_app_v0/core/extention/context_extention.dart';
@@ -100,11 +101,17 @@ class _InventoryViewState extends State<InventoryView> {
 
   FloatingActionButton get buildFab {
     return FloatingActionButton(
-      onPressed: () {
-        print("add medicine");
+      onPressed: () async {
+        /*String result = await AuthManager.instance.changePassword("654321");
+        final _snackBar = SnackBar(
+          content: Text(result),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(_snackBar);*/
+        //var x = await AuthManager.instance.setUserData();
+        //print(x.toString());
         //viewmodel.navigateIntakeView(viewmodel.getMedList[1]);
       },
-      child: Icon(Icons.add),
+      child: Icon(Icons.remove_red_eye_rounded),
     );
   }
 }

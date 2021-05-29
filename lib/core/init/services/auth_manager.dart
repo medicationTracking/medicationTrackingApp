@@ -83,13 +83,18 @@ class AuthManager {
     var singupResponse = await _googleSignHelper.signUpWithEmailAndPassword(
         userDataModel.mail, password);
     if (singupResponse is UserCredential) {
+      String token = await singupResponse.user.getIdToken();
       bool isSuccess = await _firebaseService.putUserData(
-          singupResponse.user.uid, userDataModel);
+          singupResponse.user.uid, token, userDataModel);
       if (isSuccess) return LocaleKeys.authentication_SIGNUP_SUCCESFUL.locale;
       return LocaleKeys.authentication_SIGNUP_FAILED.locale;
     } else {
       return singupResponse ?? LocaleKeys.authentication_SIGNUP_FAILED.locale;
     }
+  }
+
+  Future<bool> setUserData(UserDataModel userData) async {
+    return await _firebaseService.putUserData(_getUid, _getToken, userData);
   }
 
   Future<bool> postMedication(InventoryModel data) async {
@@ -102,5 +107,9 @@ class AuthManager {
 
   Future deleteMedication(InventoryModel model) async {
     return await _firebaseService.deleteMedication(_getUid, _getToken, model);
+  }
+
+  Future<String> changePassword(String newPassword) async {
+    return await _googleSignHelper.changePassword(newPassword);
   }
 }

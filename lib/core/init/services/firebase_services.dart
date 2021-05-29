@@ -41,9 +41,11 @@ class FirebaseService {
     }
   }
 
-  Future putUserData(String uid, UserDataModel userDataModel) async {
+  Future putUserData(
+      String uid, String token, UserDataModel userDataModel) async {
     String path = '/users/$uid.json';
-    var response = await dio.put(path, data: userDataModel.toJson());
+    var response = await dio.put(path,
+        data: userDataModel.toJson(), queryParameters: {'auth': token});
     if (response.statusCode == HttpStatus.ok) {
       print(response.data.toString());
       return true;
