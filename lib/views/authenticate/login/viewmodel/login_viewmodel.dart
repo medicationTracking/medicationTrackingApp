@@ -83,9 +83,9 @@ abstract class _LoginViewModelBase with Store, BaseViewModel {
 
   //if login Failed,show snackbar, go to homepage
   Future<void> loginWithGoogle() async {
-    await AuthManager.instance.googleAuth() == null
-        ? loginFailedSnackBar()
-        : navigateHomePage();
+    await AuthManager.instance.googleAuth()
+        ? navigateHomePage()
+        : loginFailedSnackBar();
   }
 
   //if login Failed,show snackbar, go to home page
