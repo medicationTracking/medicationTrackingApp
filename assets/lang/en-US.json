@@ -95,5 +95,14 @@
         "RECOVERY_DAILY":"Daily Recovery",
         "TOTAL_DEATH":"Total Death",
         "DAILY_DEATH":"Daily Death"
+    },
+    "pharmacy":{
+        "PHARMACY_TITLE":"Night Pharmacies",
+        "AWAY_FROM":" km away from the pharmacy.",
+        "YOU_ARE":"You are",
+        "OK":"Ok",
+        "ADDRESS":"Address",
+        "PHONE":"Phone"
     }
+    
 }

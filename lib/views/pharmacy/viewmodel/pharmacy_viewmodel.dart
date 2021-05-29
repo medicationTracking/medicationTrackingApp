@@ -1,7 +1,8 @@
-import 'dart:math' show cos, sqrt, asin;
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:medication_app_v0/core/constants/app_constants/app_constants.dart';
 import 'package:mobx/mobx.dart';
 import 'package:medication_app_v0/core/base/viewmodel/base_viewmodel.dart';
 import 'package:medication_app_v0/core/init/services/pharmacy_service.dart';
@@ -13,17 +14,26 @@ class PharmacyViewModel = _PharmacyViewModelBase with _$PharmacyViewModel;
 
 abstract class _PharmacyViewModelBase with Store, BaseViewModel {
   PharmacyService _pharmacyServiceNew;
+  GoogleMapController googleMapController;
   @observable
   List<Pharmacy> pharmacies = [];
 
+  Pharmacy closestPharmacy;
+
   @observable
-  bool isLoading = true;
+  bool isLoading = false;
+
+  static final CameraPosition _defaultMapCoordinates =
+      CameraPosition(target: AppConstants.TURKEY_CENTER_LAT_LONG, zoom: 7);
 
   void setContext(BuildContext context) => this.context = context;
   void init() async {
+    changeLoading();
     _pharmacyServiceNew = new PharmacyService();
     pharmacies = await getPharmacy();
     await getClosestPharmacy();
+    closestPharmacy = theClosestPharmacyModel();
+    changeLoading();
   }
 
   @action
@@ -66,16 +76,13 @@ abstract class _PharmacyViewModelBase with Store, BaseViewModel {
           userPosition.longitude);
       pharmacies[i].distance = distance;
     }
-    changeLoading();
+    pharmacies.sort((a, b) => (a.distance - b.distance).toInt());
   }
 
-  double calculateDistance(lat1, lon1, lat2, lon2) {
-    var p = 0.017453292519943295;
-    var c = cos;
-    var a = 0.5 -
-        c((lat2 - lat1) * p) / 2 +
-        c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
-    return 12742 * asin(sqrt(a));
+  double calculateDistance(
+      startLatitude, startLongitude, endLatitude, endLongitude) {
+    return Geolocator.distanceBetween(
+        startLatitude, startLongitude, endLatitude, endLongitude);
   }
 
   Future<Position> determinePosition() async {
@@ -113,5 +120,66 @@ abstract class _PharmacyViewModelBase with Store, BaseViewModel {
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
     return await Geolocator.getCurrentPosition();
+  }
+
+  GoogleMap displayPharmacyOnMap() {
+    try {
+      return GoogleMap(
+        mapType: MapType.normal,
+        initialCameraPosition: pharmacyToCameraPosition(closestPharmacy),
+        onMapCreated: (map) {
+          mapsInit(map);
+        },
+        markers: _createMarker(),
+      );
+    } catch (e) {
+      return GoogleMap(
+        mapType: MapType.normal,
+        initialCameraPosition: _defaultMapCoordinates,
+        onMapCreated: (map) {
+          mapsInit(map);
+        },
+      );
+    }
+  }
+
+  void goToPharmacy(Pharmacy p) {
+    googleMapController.animateCamera(
+        CameraUpdate.newCameraPosition(pharmacyToCameraPosition(p)));
+  }
+
+  Pharmacy theClosestPharmacyModel() {
+    if (pharmacies.isEmpty) return null;
+    Pharmacy closest = pharmacies.first;
+    for (Pharmacy pharmacy in pharmacies) {
+      if (closest.distance > pharmacy.distance) {
+        closest = pharmacy;
+      }
+    }
+    return closest;
+  }
+
+  CameraPosition pharmacyToCameraPosition(Pharmacy pharmacy) {
+    return CameraPosition(
+        target: LatLng(
+            double.tryParse(pharmacy.lat), double.tryParse(pharmacy.long)),
+        zoom: 19.151926040649414);
+  }
+
+  void mapsInit(GoogleMapController controller) {
+    this.googleMapController = controller;
+  }
+
+  Set<Marker> _createMarker() {
+    return pharmacies
+        .map((element) => Marker(
+            markerId: MarkerId(element.hashCode.toString()),
+            position: LatLng(
+                double.tryParse(element.lat), double.tryParse(element.long)),
+            icon:
+                BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+            zIndex: 10,
+            infoWindow: InfoWindow(title: element.name)))
+        .toSet();
   }
 }

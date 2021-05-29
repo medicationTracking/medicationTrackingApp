@@ -88,5 +88,12 @@ abstract class  LocaleKeys {
   static const covid_TOTAL_DEATH = 'covid.TOTAL_DEATH';
   static const covid_DAILY_DEATH = 'covid.DAILY_DEATH';
   static const covid = 'covid';
+  static const pharmacy_PHARMACY_TITLE = 'pharmacy.PHARMACY_TITLE';
+  static const pharmacy_AWAY_FROM = 'pharmacy.AWAY_FROM';
+  static const pharmacy_YOU_ARE = 'pharmacy.YOU_ARE';
+  static const pharmacy_OK = 'pharmacy.OK';
+  static const pharmacy_ADDRESS = 'pharmacy.ADDRESS';
+  static const pharmacy_PHONE = 'pharmacy.PHONE';
+  static const pharmacy = 'pharmacy';
 
 }

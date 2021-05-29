@@ -96,6 +96,14 @@
         "RECOVERY_DAILY":"Günlük İyileşen sayısı",
         "TOTAL_DEATH":"Toplam Ölüm Sayısı",
         "DAILY_DEATH":"Günlük Ölüm Sayısı"
+    },
+    "pharmacy":{
+        "PHARMACY_TITLE":"Nöbetçi Eczaneler",
+        "AWAY_FROM":"km uzaktasın.",
+        "YOU_ARE":"Şuan bu eczaneden",
+        "OK":"Tamam",
+        "ADDRESS":"Adress",
+        "PHONE":"Tel"
     }
 
 }
