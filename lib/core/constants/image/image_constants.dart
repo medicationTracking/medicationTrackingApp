@@ -1,5 +1,3 @@
-import 'package:medication_app_v0/core/constants/navigation/navigation_constants.dart';
-
 class ImageConstants {
   static ImageConstants _instance;
 
@@ -20,6 +18,7 @@ class ImageConstants {
   String get pill4Logo => toPng("pill4");
   String get pill3Logo => toPng("pill3");
   String get profileAvatar => toPng("profile_avatar");
+  String get inventoryPhoto => toPng("add_medicine_to_inventory");
 
   String toPng(String name) => "assets/images/$name.png";
 }

@@ -41,4 +41,8 @@ abstract class _InventoryViewModelBase with Store, BaseViewModel {
   void sortMedList() {
     medicationList.sort((a, b) => a.expiredDate.compareTo(b.expiredDate));
   }
+
+  void navigateAddMedication() {
+    navigation.navigateToPage(path: NavigationConstants.ADD_MEDICATION);
+  }
 }

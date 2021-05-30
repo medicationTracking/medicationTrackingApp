@@ -4,6 +4,7 @@ import 'package:medication_app_v0/core/base/view/base_widget.dart';
 import 'package:medication_app_v0/core/components/cards/inventory_medication_card.dart';
 import 'package:medication_app_v0/core/components/widgets/custom_bottom_appbar.dart';
 import 'package:medication_app_v0/core/components/widgets/loading_inducator.dart';
+import 'package:medication_app_v0/core/constants/image/image_constants.dart';
 import 'package:medication_app_v0/core/init/services/auth_manager.dart';
 import 'package:medication_app_v0/views/Inventory/model/inventory_model.dart';
 import 'package:medication_app_v0/views/Inventory/viewmodel/inventory_viewmodel.dart';
@@ -46,7 +47,7 @@ class _InventoryViewState extends State<InventoryView> {
   Scaffold buildScaffold(BuildContext context, InventoryViewModel viewmodel) {
     return Scaffold(
         bottomNavigationBar: CustomBottomAppBar(),
-        floatingActionButton: buildFab,
+        floatingActionButton: buildFab(viewmodel),
         appBar: AppBar(title: Text("Medication List")),
         body: Padding(
           padding: context.paddingNormal,
@@ -66,7 +67,22 @@ class _InventoryViewState extends State<InventoryView> {
       builder: (_) => Expanded(
         flex: 9,
         child: viewmodel.medicationList.isEmpty
-            ? Text("Inventory is empty")
+            ? SizedBox(
+                height: context.height * 0.5,
+                child: Padding(
+                  padding: context.paddingMedium,
+                  child: Column(
+                    children: [
+                      Text(
+                        "Inventory is empty!",
+                        style: context.textTheme.subtitle2,
+                      ),
+                      Image(
+                          image: AssetImage(
+                              ImageConstants.instance.inventoryPhoto)),
+                    ],
+                  ),
+                ))
             : ListView.builder(
                 itemCount: viewmodel.medicationList.length,
                 itemBuilder: (context, index) => InventoryMedicationCard(
@@ -99,9 +115,10 @@ class _InventoryViewState extends State<InventoryView> {
     );
   }
 
-  FloatingActionButton get buildFab {
+  FloatingActionButton buildFab(InventoryViewModel viewModel) {
     return FloatingActionButton(
       onPressed: () async {
+        viewModel.navigateAddMedication();
         /*String result = await AuthManager.instance.changePassword("654321");
         final _snackBar = SnackBar(
           content: Text(result),
@@ -111,7 +128,7 @@ class _InventoryViewState extends State<InventoryView> {
         //print(x.toString());
         //viewmodel.navigateIntakeView(viewmodel.getMedList[1]);
       },
-      child: Icon(Icons.remove_red_eye_rounded),
+      child: Icon(Icons.add),
     );
   }
 }

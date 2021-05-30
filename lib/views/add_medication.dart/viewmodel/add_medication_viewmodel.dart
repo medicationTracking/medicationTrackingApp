@@ -70,6 +70,7 @@ abstract class _AddMedicationViewModelBase with Store, BaseViewModel {
       Response response =
           await _networkServices.getMedicationFromBarcode(validBarcode);
       if (response.statusCode == HttpStatus.ok) {
+        print("qr code okundu ilaç geldi!");
         InventoryModel scannedMed = InventoryModel.fromMap(response.data);
         scannedMed.expiredDate = expiredDate;
         medicationNameController.text = scannedMed.name;

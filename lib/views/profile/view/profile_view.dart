@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medication_app_v0/core/base/view/base_widget.dart';
 import 'package:medication_app_v0/core/components/models/others/user_data_model.dart';
+import 'package:medication_app_v0/core/components/widgets/custom_bottom_appbar.dart';
 import 'package:medication_app_v0/core/components/widgets/loading_inducator.dart';
 import 'package:medication_app_v0/core/constants/image/image_constants.dart';
 import 'package:medication_app_v0/core/init/locale_keys.g.dart';
@@ -34,13 +35,17 @@ class _ProfileViewState extends State<ProfileView> {
         },
         builder: (BuildContext context, ProfileViewModel viewModel) => Observer(
               builder: (_) => viewModel.isLoading
-                  ? Scaffold(body: PulseLoadingIndicatorWidget())
+                  ? Scaffold(
+                      body: PulseLoadingIndicatorWidget(),
+                      bottomNavigationBar: CustomBottomAppBar(),
+                    )
                   : buildScaffold(viewModel, context),
             ));
   }
 
   Scaffold buildScaffold(ProfileViewModel viewModel, BuildContext context) {
     return Scaffold(
+        bottomNavigationBar: CustomBottomAppBar(),
         body: SingleChildScrollView(
             child: SizedBox(
                 height: context.height,

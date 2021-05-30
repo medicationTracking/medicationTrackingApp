@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:medication_app_v0/core/base/view/base_widget.dart';
+import 'package:medication_app_v0/core/components/widgets/custom_bottom_appbar.dart';
 import 'package:medication_app_v0/core/components/widgets/loading_inducator.dart';
 import 'package:medication_app_v0/core/init/locale_keys.g.dart';
 import 'package:medication_app_v0/core/init/theme/color_theme.dart';
@@ -38,6 +39,7 @@ class _PharmacyViewState extends State<PharmacyView> {
       appBar: AppBar(
         title: Text(LocaleKeys.pharmacy_PHARMACY_TITLE.locale),
       ),
+      bottomNavigationBar: CustomBottomAppBar(),
       body: Column(
         children: [
           Expanded(child: buildListView(context, viewModel)),
@@ -65,7 +67,7 @@ class _PharmacyViewState extends State<PharmacyView> {
               final phar = viewModel.pharmacies[index];
               return Column(children: <Widget>[
                 Card(
-                    color: ColorTheme.PRIMARY_BLUE.withOpacity(0.7),
+                    color: ColorTheme.PRIMARY_BLUE,
                     elevation: 4,
                     margin: EdgeInsets.all(9),
                     child: ListTile(
