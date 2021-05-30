@@ -50,8 +50,18 @@ class AuthManager {
   }
 
   Future<bool> googleAuth() async {
+    //signin and send the user data to firebase
     try {
-      if (await _googleSignHelper.firebaseSigninWithGoogle() != null) {
+      User googleUser = await _googleSignHelper.firebaseSigninWithGoogle();
+      if (googleUser != null) {
+        //first signin
+        if (await getUserData() == null) {
+          UserDataModel userData = UserDataModel(
+              birthDay: "",
+              fullName: googleUser.displayName,
+              mail: googleUser.email);
+          setUserData(userData);
+        }
         return true;
       }
     } catch (e) {

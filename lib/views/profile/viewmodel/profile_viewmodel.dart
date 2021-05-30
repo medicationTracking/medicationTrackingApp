@@ -86,8 +86,12 @@ abstract class _ProfileViewModelBase with Store, BaseViewModel {
   }
 
   String getAge(String date) {
-    int birthYear = int.parse(date.split("/")[2]);
-    int age = 2021 - birthYear;
-    return age.toString();
+    try {
+      int birthYear = int.parse(date.split("/")[2]);
+      int age = 2021 - birthYear;
+      return age.toString();
+    } catch (e) {
+      return "";
+    }
   }
 }
