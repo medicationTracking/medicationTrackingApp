@@ -28,14 +28,11 @@
         "CANCEL":"Cancel"
     },
     "profile":{
+        "PROFILE": "Profile",
         "FIRST_NAME": "Name",
         "FIRST_NAME_HINT_TEXT":"Enter Your Name",
-        "LAST_NAME": "Surname",
-        "LAST_NAME_HINT_TEXT":"Enter Your Surname",
         "AGE": "Age",
         "AGE_HINT_TEXT":"Enter Your Age",  
-        "WEIGHT":"Enter Your Weight",
-        "WEIGHT_HINT_TEXT": "Enter Your Weight",
         "GENDER": "Gender",
         "GENDER_HINT_TEXT": "Enter Your Gender",
         "FEMALE": "Female",

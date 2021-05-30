@@ -62,7 +62,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
           ],
         ),
         floatingActionButton: buildFloatingActionButton(viewmodel),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         bottomNavigationBar: CustomBottomAppBar(),
         body: Observer(
             builder: (context) => viewmodel.isLoading
@@ -145,15 +145,15 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                 onTap: () async {
                   ReminderModel reminder = viewmodel.selectedEvents[index];
                   isDelete = await showDialog<bool>(
-                    context: context,
-                    builder: (context){
-                     return reminderDialog(context, reminder);
-                    }
-                  );
+                      context: context,
+                      builder: (context) {
+                        return reminderDialog(context, reminder);
+                      });
                   setState(() {
-                    if(isDelete != null){
-                      if(isDelete){
-                        viewmodel.selectedEvents.remove(viewmodel.selectedEvents[index]);
+                    if (isDelete != null) {
+                      if (isDelete) {
+                        viewmodel.selectedEvents
+                            .remove(viewmodel.selectedEvents[index]);
                       }
                       viewmodel.storeReminders();
                     }
@@ -174,14 +174,20 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
               reminder.isTaken = false;
               Navigator.of(context).pop();
             },
-            child: Text("Skip", style: context.textTheme.bodyText1.copyWith(color: Colors.red),)),
+            child: Text(
+              "Skip",
+              style: context.textTheme.bodyText1.copyWith(color: Colors.red),
+            )),
         TextButton(
             onPressed: () {
               reminder.isTaken = true;
               Navigator.of(context).pop();
             },
-            child: reminder.isTaken ? null
-                : Text("Take", style: context.textTheme.bodyText1.copyWith(color: ColorTheme.PETRONAS_GREEN))),
+            child: reminder.isTaken
+                ? null
+                : Text("Take",
+                    style: context.textTheme.bodyText1
+                        .copyWith(color: ColorTheme.PETRONAS_GREEN))),
       ],
     );
   }
@@ -201,8 +207,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
         Text(
           reminder.isTaken ? "Taken" : "Missed",
           style: context.textTheme.bodyText1.copyWith(
-              color:
-                  reminder.isTaken ? ColorTheme.PETRONAS_GREEN : Colors.red),
+              color: reminder.isTaken ? ColorTheme.PETRONAS_GREEN : Colors.red),
         ),
         context.emptySizedHeightBoxLow3x,
         Row(
@@ -225,19 +230,21 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
       children: [
         IconButton(
           onPressed: () async {
-            TimeOfDay picked = await showTimePicker(context: context, initialTime: TimeOfDay.fromDateTime(reminder.time));
-            DateTime newTime = DateTime(reminder.time.year,reminder.time.month,reminder.time.day,picked.hour,picked.minute);
+            TimeOfDay picked = await showTimePicker(
+                context: context,
+                initialTime: TimeOfDay.fromDateTime(reminder.time));
+            DateTime newTime = DateTime(reminder.time.year, reminder.time.month,
+                reminder.time.day, picked.hour, picked.minute);
             reminder.time = newTime;
             Navigator.of(context).pop();
           },
-          icon:Icon(Icons.edit),
+          icon: Icon(Icons.edit),
         ),
         IconButton(
-          onPressed: () async {
-            Navigator.of(context).pop(true);
-          },
-          icon:Icon(Icons.delete)
-        ),
+            onPressed: () async {
+              Navigator.of(context).pop(true);
+            },
+            icon: Icon(Icons.delete)),
       ],
     );
   }

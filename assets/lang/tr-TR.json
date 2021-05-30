@@ -29,14 +29,11 @@
     },
 
     "profile":{
+        "PROFILE": "Profil",
         "FIRST_NAME": "Ad",
         "FIRST_NAME_HINT_TEXT":"Adınızı Giriniz",
-        "LAST_NAME": "Soyad",
-        "LAST_NAME_HINT_TEXT":"Soyadınızı Giriniz",
         "AGE": "Yaş",
         "AGE_HINT_TEXT":"Yaşınızı Giriniz",
-        "WEIGHT":"Kilo",
-        "WEIGHT_HINT_TEXT": "Kilonuzu Giriniz",
         "GENDER": "Cinsiyet",
         "GENDER_HINT_TEXT": "Cinsiyetinizi Giriniz",
         "FEMALE": "Kadın",
