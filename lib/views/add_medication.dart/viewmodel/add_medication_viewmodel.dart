@@ -63,22 +63,27 @@ abstract class _AddMedicationViewModelBase with Store, BaseViewModel {
   }
 
   //show scanned med in the add medication view
-  Future<void> fillCardWithScannedMedication(String barcode) async {
-    expiredDate = _convertQRtoExpiredDate(barcode);
-    String validBarcode = _validBarcode(barcode);
-    if (validBarcode.compareTo(barcodeError) != 0) {
-      Response response =
-          await _networkServices.getMedicationFromBarcode(validBarcode);
-      if (response.statusCode == HttpStatus.ok) {
-        print("qr code okundu ilaç geldi!");
-        InventoryModel scannedMed = InventoryModel.fromMap(response.data);
-        scannedMed.expiredDate = expiredDate;
-        medicationNameController.text = scannedMed.name;
-        activeIngredientController.text = scannedMed.activeIngredient;
-        companyController.text = scannedMed.company;
-        barcodeController.text = scannedMed.barcode;
+  Future<bool> fillCardWithScannedMedication(String barcode) async {
+    try {
+      expiredDate = _convertQRtoExpiredDate(barcode);
+      String validBarcode = _validBarcode(barcode);
+      if (validBarcode.compareTo(barcodeError) != 0) {
+        Response response =
+            await _networkServices.getMedicationFromBarcode(validBarcode);
+        if (response.statusCode == HttpStatus.ok) {
+          print("qr code okundu ilaç geldi!");
+          InventoryModel scannedMed = InventoryModel.fromMap(response.data);
+          scannedMed.expiredDate = expiredDate;
+          medicationNameController.text = scannedMed.name;
+          activeIngredientController.text = scannedMed.activeIngredient;
+          companyController.text = scannedMed.company;
+          barcodeController.text = scannedMed.barcode;
+          return true;
+        }
       }
-    }
+    } catch (e) {}
+
+    return false;
   }
 
   //return barcode or barcodeError

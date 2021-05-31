@@ -92,14 +92,15 @@ class PillCard2 extends StatelessWidget {
   }
 
   Color _getColor() {
-    if (DateTime.now().isAfter(model.time)) {
-      if (model.isTaken) {
-        return ColorTheme.GREEN_ACCENT;
-      } else {
+    if (model.isTaken) {
+      return ColorTheme.GREEN_ACCENT;
+    } else {
+      if (DateTime.now().isAfter(model.time)) {
         return ColorTheme.RED_BUTTON.withOpacity(0.7);
+      } else {
+        return ColorTheme.BACKGROUND_WHITE;
       }
     }
-    return ColorTheme.BACKGROUND_WHITE;
   }
 
   //create random pill logo

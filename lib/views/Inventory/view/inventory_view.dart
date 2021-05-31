@@ -40,7 +40,7 @@ class _InventoryViewState extends State<InventoryView> {
             Observer(
                 //display Loading lottie or buildScaffold
                 builder: (context) => viewmodel.isLoading
-                    ? PulseLoadingIndicatorWidget()
+                    ? Scaffold(body: PulseLoadingIndicatorWidget())
                     : buildScaffold(context, viewmodel)));
   }
 

@@ -113,7 +113,15 @@ class _AddMedicationViewState extends State<AddMedicationView> {
       child: IconButton(
         onPressed: () async {
           String scannedBarcode = await viewmodel.scanQR();
-          await viewmodel.fillCardWithScannedMedication(scannedBarcode);
+          bool scanResult =
+              await viewmodel.fillCardWithScannedMedication(scannedBarcode);
+          if (!scanResult) {
+            final _snackBar = SnackBar(
+              content: Text("Invalid Barcode"),
+              backgroundColor: Colors.red,
+            );
+            ScaffoldMessenger.of(context).showSnackBar(_snackBar);
+          }
           setState(() {});
         },
         icon: Icon(
