@@ -8,6 +8,7 @@ import 'package:medication_app_v0/core/components/widgets/loading_inducator.dart
 import 'package:medication_app_v0/core/extention/context_extention.dart';
 import 'package:medication_app_v0/core/extention/string_extention.dart';
 import 'package:medication_app_v0/core/init/locale_keys.g.dart';
+import 'package:medication_app_v0/core/init/notification/notification_manager.dart';
 import 'package:medication_app_v0/core/init/theme/color_theme.dart';
 import 'package:medication_app_v0/views/home/Calendar/model/reminder.dart';
 import 'package:medication_app_v0/views/home/viewmodel/home_viewmodel.dart';
@@ -88,6 +89,10 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
         Divider(
           thickness: 2,
         ),
+        ElevatedButton(onPressed:(){
+          ReminderModel reminder = ReminderModel("Alperen", DateTime.now().add(Duration(minutes: 5)), 2, true);
+          NotificationManager.instance.scheduleReminderNotification(reminder);
+        }, child: Text("Notification")),
         Expanded(
             child: Padding(
           padding: context.paddingNormal,

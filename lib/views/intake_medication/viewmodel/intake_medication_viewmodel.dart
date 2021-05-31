@@ -4,6 +4,8 @@ import 'package:medication_app_v0/core/constants/enums/shared_preferences_enum.d
 import 'package:medication_app_v0/core/init/cache/shared_preferences_manager.dart';
 import 'package:medication_app_v0/core/init/locale_keys.g.dart';
 import 'package:medication_app_v0/core/extention/string_extention.dart';
+import 'package:medication_app_v0/core/init/notification/medication_notification.dart';
+import 'package:medication_app_v0/core/init/notification/notification_manager.dart';
 import 'package:medication_app_v0/views/Inventory/model/inventory_model.dart';
 import 'package:medication_app_v0/views/home/Calendar/model/reminder.dart';
 import 'package:mobx/mobx.dart';
@@ -86,6 +88,10 @@ abstract class _IntakeMedicationViewModelBase with Store, BaseViewModel {
   Future<bool> saveMedicationIntakeButtonOnPress(
       InventoryModel medication) async {
     List<ReminderModel> modelsList = getListOfReminderModel(medication);
+    for(ReminderModel reminder in modelsList){
+      NotificationManager.instance.scheduleReminderNotification(reminder);
+      print("Notification added");
+    }
     return await storeNewReminders(modelsList);
   }
 
