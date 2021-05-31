@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
@@ -44,15 +46,9 @@ class NotificationManager {
   Future<void> scheduleNotification(MedicationNotification notification) async {
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
         "Medication", "Medicine", "Medication",
-        icon: 'app_icon',
+        icon: 'app_icon2',
         largeIcon: DrawableResourceAndroidBitmap('app_icon'),
-        autoCancel: false,
-        enableLights: true,
-        playSound: true,
-        color: Colors.green,
-        ledColor: const Color.fromARGB(255, 255, 0, 0),
-        ledOnMs: 1000,
-        ledOffMs: 500);
+);
     var iOSPlatformChannelSpecifics = IOSNotificationDetails(
         presentAlert: true,
         presentBadge: true,
@@ -77,7 +73,8 @@ class NotificationManager {
         scheduledDate,
         platformChannelSpecifics,
         payload: notification.payload,
-    androidAllowWhileIdle: true);
+    androidAllowWhileIdle: true,
+    uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime);
   }
 
 
@@ -99,14 +96,16 @@ class NotificationManager {
 
   void scheduleReminderNotification(ReminderModel reminder) {
     if (reminder.time.isAfter(DateTime.now())) {
+      var random = Random(); // keep this somewhere in a static variable. Just make sure to initialize only once.
       MedicationNotification notification = MedicationNotification(
           notificationTitle: reminder.pillName + " Medication Time",
-          notificationID: reminder.time.millisecond,
+          notificationID: random.nextInt(pow(2, 31) - 1),
           notificationTime: reminder.time,
           notificationBody:
           "${reminder.pillName} -  ${reminder.time.hour}:${reminder.time.minute}",
           payload: "emtpy");
-      this.scheduleNotification(notification);
+      print("notification scheduled");
+        this.scheduleNotification(notification);
     }
   }
 }
