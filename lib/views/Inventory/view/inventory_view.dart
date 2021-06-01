@@ -98,7 +98,7 @@ class _InventoryViewState extends State<InventoryView> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Expanded(child: TextButton(onPressed: () {}, child: Text("Important"))),
+        //Expanded(child: TextButton(onPressed: () {}, child: Text("Important"))),
         Expanded(
           child: TextButton(
               onPressed: () {

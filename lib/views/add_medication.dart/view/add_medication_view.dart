@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:medication_app_v0/core/base/view/base_widget.dart';
 import 'package:medication_app_v0/core/components/cards/inventory_medication_card.dart';
+import 'package:medication_app_v0/core/constants/navigation/navigation_constants.dart';
 import 'package:medication_app_v0/core/extention/context_extention.dart';
+import 'package:medication_app_v0/core/init/navigation/navigation_service.dart';
 import 'package:medication_app_v0/views/add_medication.dart/viewmodel/add_medication_viewmodel.dart';
 import "package:medication_app_v0/views/Inventory/model/inventory_model.dart";
 import 'package:medication_app_v0/core/components/widgets/drawer.dart';
@@ -59,11 +61,12 @@ class _AddMedicationViewState extends State<AddMedicationView> {
 
   ElevatedButton buildAddMedicationButton(
       AddMedicationViewModel viewmodel, BuildContext context) {
+    final NavigationService navigation = NavigationService.instance;
     return ElevatedButton(
         onPressed: () async {
           bool saveResult = await viewmodel.saveManuelMedicationToFirebase();
           String saveResultString =
-              saveResult ? "addition succesfull" : "addition failed";
+              saveResult ? "Medication successfully added" : "addition failed";
           if (saveResult) {
             viewmodel.barcodeController.text = "";
             viewmodel.activeIngredientController.text = "";
@@ -75,6 +78,8 @@ class _AddMedicationViewState extends State<AddMedicationView> {
             backgroundColor: saveResult ? Colors.green : Colors.red,
           );
           ScaffoldMessenger.of(context).showSnackBar(_snackBar);
+          navigation.navigateToPageClear(
+              path: NavigationConstants.INVENTORY_VIEW);
         },
         child: Center(child: Text("Add medication")));
   }
