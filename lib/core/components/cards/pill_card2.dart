@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:medication_app_v0/core/constants/image/image_constants.dart';
 import 'package:medication_app_v0/core/extention/context_extention.dart';
+import 'package:medication_app_v0/core/init/locale_keys.g.dart';
 import 'package:medication_app_v0/core/init/theme/color_theme.dart';
 import 'package:medication_app_v0/views/home/Calendar/model/reminder.dart';
 
@@ -80,7 +81,7 @@ class PillCard2 extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  "${model.amount} more reminder left",
+                  "${model.amount} ${LocaleKeys.home_REMINDER_LEFT.toString()}",
                   style: context.textTheme.bodyText2,
                 ),
               ],

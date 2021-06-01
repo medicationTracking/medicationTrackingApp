@@ -27,6 +27,7 @@ class _AddMedicationViewState extends State<AddMedicationView> {
   Scaffold buildScaffold(
       BuildContext context, AddMedicationViewModel viewmodel) {
     return Scaffold(
+      key: viewmodel.scaffoldKey,
       appBar: AppBar(
         title: Text("Add Medication"),
       ),

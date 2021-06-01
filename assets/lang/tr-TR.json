@@ -25,7 +25,13 @@
     },
     "home":{
         "HOME":"Hoşgeldin",
-        "CANCEL":"iptal"
+        "CANCEL":"iptal",
+        "REMINDER": "İlaç Hatırlatıcı",
+        "SKIP" : "Almadım",
+        "TAKE" : "Al",
+        "TAKEN": "Alındı",
+        "MISSED": "Unutuldu",
+        "REMINDER_LEFT" : "hatırlatıcı daha mevcut"
     },
 
     "profile":{

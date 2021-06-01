@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:medication_app_v0/core/constants/enums/shared_preferences_enum.dart';
-import 'package:medication_app_v0/core/extention/string_extention.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:medication_app_v0/core/base/viewmodel/base_viewmodel.dart';
+import 'package:medication_app_v0/core/constants/enums/shared_preferences_enum.dart';
+import 'package:medication_app_v0/core/extention/string_extention.dart';
 import 'package:medication_app_v0/core/init/cache/shared_preferences_manager.dart';
 import 'package:medication_app_v0/core/init/locale_keys.g.dart';
 import 'package:medication_app_v0/core/init/services/auth_manager.dart';
@@ -15,6 +15,7 @@ import 'package:medication_app_v0/core/init/services/pharmacy_service.dart';
 import 'package:medication_app_v0/views/Inventory/model/inventory_model.dart';
 import 'package:medication_app_v0/views/add_medication.dart/model/pharmacy.dart';
 import 'package:mobx/mobx.dart';
+
 part 'add_medication_viewmodel.g.dart';
 
 class AddMedicationViewModel = _AddMedicationViewModelBase
@@ -23,19 +24,19 @@ class AddMedicationViewModel = _AddMedicationViewModelBase
 abstract class _AddMedicationViewModelBase with Store, BaseViewModel {
   String barcodeError = "not valid!";
   MedicationService _networkServices;
-  PharmacyService _pharmacyService;
+  GlobalKey<ScaffoldState> scaffoldKey;
   InventoryModel medication;
   GlobalKey<FormState> medicationFormState;
   bool isAllergenic;
 
   void setContext(BuildContext context) => this.context = context;
   void init() {
+    scaffoldKey = GlobalKey();
     medicationNameController = TextEditingController();
     companyController = TextEditingController();
     barcodeController = TextEditingController();
     activeIngredientController = TextEditingController();
     _networkServices = MedicationService();
-    _pharmacyService = new PharmacyService();
     medicationFormState = GlobalKey();
     isAllergenic = false;
   }
@@ -68,10 +69,9 @@ abstract class _AddMedicationViewModelBase with Store, BaseViewModel {
       expiredDate = _convertQRtoExpiredDate(barcode);
       String validBarcode = _validBarcode(barcode);
       if (validBarcode.compareTo(barcodeError) != 0) {
-        Response response =
-            await _networkServices.getMedicationFromBarcode(validBarcode);
+        Response response = await _networkServices.getMedicationFromBarcode(validBarcode);
+        print(response);
         if (response.statusCode == HttpStatus.ok) {
-          print("qr code okundu ilaç geldi!");
           InventoryModel scannedMed = InventoryModel.fromMap(response.data);
           scannedMed.expiredDate = expiredDate;
           medicationNameController.text = scannedMed.name;
@@ -81,12 +81,28 @@ abstract class _AddMedicationViewModelBase with Store, BaseViewModel {
           return true;
         }
       }
-    } catch (e) {}
-
+    } catch (e) {
+      final response = e.response;
+      if (response.statusCode == HttpStatus.serviceUnavailable) {
+        final _snackBar = SnackBar(
+          content: Text("Server Error"),
+          backgroundColor: Colors.red,
+        );
+        ScaffoldMessenger.of(context).showSnackBar(_snackBar);
+        return true; //if false it means barcode problem?
+      }
+      else if (response.statusCode == HttpStatus.notFound) {
+        final _snackBar = SnackBar(
+          content: Text("Barcode could not be found in the system"),
+          backgroundColor: Colors.red,
+        );
+        ScaffoldMessenger.of(context).showSnackBar(_snackBar);
+        return true;
+      }    }
     return false;
   }
 
-  //return barcode or barcodeError
+  //return barcode or barcodeErrorz
   String _validBarcode(String barcode) {
     if (barcode.length == 13)
       return barcode;
@@ -102,21 +118,6 @@ abstract class _AddMedicationViewModelBase with Store, BaseViewModel {
       return LocaleKeys
           .add_medication_MEDICATION_NAME_FIELD_ERROR_MESSAGE.locale;
     }
-  }
-
-  Future<List<Pharmacy>> getPharmacy() async {
-    final Response result =
-        await _pharmacyService.getPharmacyByPlace("karşıyaka", "izmir");
-    final List<Pharmacy> pharmacies = [];
-    if (result.statusCode == 200) {
-      //error check gerekli belki liste boş mu diye bakılabilir.
-      final Iterable iterable = result.data['result'];
-      iterable.forEach((pharmacy) {
-        print(pharmacy);
-        pharmacies.add(Pharmacy.fromJson(pharmacy));
-      });
-    }
-    return pharmacies;
   }
 
   Future<InventoryModel> getMedicationFromBarcode(String barcode) async {
@@ -245,5 +246,27 @@ abstract class _AddMedicationViewModelBase with Store, BaseViewModel {
             ],
           );
         });
+  }
+}
+
+
+class DialogSnackWidget extends StatelessWidget {
+  final String text;
+  final IconData icon;
+  const DialogSnackWidget({
+    Key key,
+    this.text,
+    this.icon,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        icon == null ? Icon(Icons.warning) : Icon(icon),
+        Spacer(),
+        Expanded(flex: 24, child: Text(text)),
+      ],
+    );
   }
 }

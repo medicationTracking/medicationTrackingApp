@@ -26,6 +26,12 @@ abstract class  LocaleKeys {
   static const authentication = 'authentication';
   static const home_HOME = 'home.HOME';
   static const home_CANCEL = 'home.CANCEL';
+  static const home_REMINDER = 'home.REMINDER';
+  static const home_SKIP = 'home.SKIP';
+  static const home_TAKE = 'home.TAKE';
+  static const home_TAKEN = 'home.TAKEN';
+  static const home_MISSED = 'home.MISSED';
+  static const home_REMINDER_LEFT = 'home.REMINDER_LEFT';
   static const home = 'home';
   static const profile_PROFILE = 'profile.PROFILE';
   static const profile_FIRST_NAME = 'profile.FIRST_NAME';

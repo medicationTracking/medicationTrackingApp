@@ -25,7 +25,14 @@
     },
     "home":{
         "HOME":"Welcome",
-        "CANCEL":"Cancel"
+        "CANCEL":"Cancel",
+        "REMINDER": "Medication Reminder",
+        "SKIP" : "Skip",
+        "TAKE" : "Take",
+        "TAKEN": "Taken",
+        "MISSED": "Missed",
+        "REMINDER_LEFT" : "more reminder left"
+
     },
     "profile":{
         "PROFILE": "Profile",

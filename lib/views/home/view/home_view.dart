@@ -94,7 +94,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
         ElevatedButton(
             onPressed: () {
               ReminderModel reminder = ReminderModel(
-                  "Alperen", DateTime.now().add(Duration(minutes: 5)), 2, true);
+                  "Alperen", DateTime.now().add(Duration(minutes: 1)), 2, true);
               NotificationManager.instance
                   .scheduleReminderNotification(reminder);
             },
@@ -177,7 +177,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
 
   AlertDialog reminderDialog(BuildContext context, ReminderModel reminder) {
     return AlertDialog(
-      title: Text("Medication Reminder"),
+      title: Text(LocaleKeys.home_REMINDER.toString()),
       content: dialogContent(context, reminder),
       actions: [
         TextButton(
@@ -186,7 +186,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
               Navigator.of(context).pop();
             },
             child: Text(
-              "Skip",
+              LocaleKeys.home_SKIP.toString(),
               style: context.textTheme.bodyText1.copyWith(color: Colors.red),
             )),
         TextButton(
@@ -196,7 +196,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
             },
             child: reminder.isTaken
                 ? null
-                : Text("Take",
+                : Text(LocaleKeys.home_TAKE.toString(),
                     style: context.textTheme.bodyText1
                         .copyWith(color: ColorTheme.PETRONAS_GREEN))),
       ],
@@ -216,7 +216,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
         ),
         context.emptySizedHeightBoxLow3x,
         Text(
-          reminder.isTaken ? "Taken" : "Missed",
+          reminder.isTaken ? LocaleKeys.home_TAKEN: DateTime.now().isBefore(reminder.time) ? "" : LocaleKeys.home_MISSED,
           style: context.textTheme.bodyText1.copyWith(
               color: reminder.isTaken ? ColorTheme.PETRONAS_GREEN : Colors.red),
         ),
