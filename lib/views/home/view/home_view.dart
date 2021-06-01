@@ -177,7 +177,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
 
   AlertDialog reminderDialog(BuildContext context, ReminderModel reminder) {
     return AlertDialog(
-      title: Text(LocaleKeys.home_REMINDER.toString()),
+      title: Text(LocaleKeys.home_REMINDER.locale),
       content: dialogContent(context, reminder),
       actions: [
         TextButton(
@@ -186,7 +186,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
               Navigator.of(context).pop();
             },
             child: Text(
-              LocaleKeys.home_SKIP.toString(),
+              LocaleKeys.home_SKIP.locale,
               style: context.textTheme.bodyText1.copyWith(color: Colors.red),
             )),
         TextButton(
@@ -196,7 +196,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
             },
             child: reminder.isTaken
                 ? null
-                : Text(LocaleKeys.home_TAKE.toString(),
+                : Text(LocaleKeys.home_TAKE.locale,
                     style: context.textTheme.bodyText1
                         .copyWith(color: ColorTheme.PETRONAS_GREEN))),
       ],
@@ -216,7 +216,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
         ),
         context.emptySizedHeightBoxLow3x,
         Text(
-          reminder.isTaken ? LocaleKeys.home_TAKEN: DateTime.now().isBefore(reminder.time) ? "" : LocaleKeys.home_MISSED,
+          reminder.isTaken ? LocaleKeys.home_TAKEN.locale: DateTime.now().isBefore(reminder.time) ? "" : LocaleKeys.home_MISSED.locale,
           style: context.textTheme.bodyText1.copyWith(
               color: reminder.isTaken ? ColorTheme.PETRONAS_GREEN : Colors.red),
         ),
