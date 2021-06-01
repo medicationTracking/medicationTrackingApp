@@ -5,6 +5,7 @@ import 'package:medication_app_v0/core/components/cards/inventory_medication_car
 import 'package:medication_app_v0/core/components/widgets/custom_bottom_appbar.dart';
 import 'package:medication_app_v0/core/components/widgets/loading_inducator.dart';
 import 'package:medication_app_v0/core/constants/image/image_constants.dart';
+import 'package:medication_app_v0/core/components/widgets/drawer.dart';
 import 'package:medication_app_v0/core/init/services/auth_manager.dart';
 import 'package:medication_app_v0/views/Inventory/model/inventory_model.dart';
 import 'package:medication_app_v0/views/Inventory/viewmodel/inventory_viewmodel.dart';
@@ -49,6 +50,7 @@ class _InventoryViewState extends State<InventoryView> {
         bottomNavigationBar: CustomBottomAppBar(),
         floatingActionButton: buildFab(viewmodel),
         appBar: AppBar(title: Text("Medication List")),
+        drawer: CustomDrawer(),
         body: Padding(
           padding: context.paddingNormal,
           child: Column(

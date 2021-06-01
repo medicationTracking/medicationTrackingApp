@@ -8,6 +8,7 @@ import 'package:medication_app_v0/core/init/text/locale_text.dart';
 import 'package:medication_app_v0/views/Inventory/model/inventory_model.dart';
 import 'package:medication_app_v0/views/intake_medication/viewmodel/intake_medication_viewmodel.dart';
 import 'package:medication_app_v0/core/extention/context_extention.dart';
+import 'package:medication_app_v0/core/components/widgets/drawer.dart';
 
 class IntakeMedicationView extends StatelessWidget {
   const IntakeMedicationView({Key key, this.medication}) : super(key: key);
@@ -31,6 +32,7 @@ class IntakeMedicationView extends StatelessWidget {
       appBar: AppBar(
         title: LocaleText(text: LocaleKeys.reminder_SET_REMINDER),
       ),
+      drawer: CustomDrawer(),
       body: Padding(
         padding: context.paddingLow,
         child: Column(

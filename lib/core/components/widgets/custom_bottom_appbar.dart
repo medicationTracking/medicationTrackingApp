@@ -45,13 +45,6 @@ class CustomBottomAppBar extends StatelessWidget {
                     path: NavigationConstants.INVENTORY_VIEW);
               },
               iconSize: context.height * 0.05),
-          IconButton(
-              icon: Icon(Icons.person_outline),
-              onPressed: () {
-                navigation.navigateToPageClear(
-                    path: NavigationConstants.PROFILE_VIEW);
-              },
-              iconSize: context.height * 0.05)
         ],
       ),
     );

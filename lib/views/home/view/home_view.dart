@@ -4,6 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:medication_app_v0/core/base/view/base_widget.dart';
 import 'package:medication_app_v0/core/components/cards/pill_card2.dart';
 import 'package:medication_app_v0/core/components/widgets/custom_bottom_appbar.dart';
+import 'package:medication_app_v0/core/components/widgets/drawer.dart';
 import 'package:medication_app_v0/core/components/widgets/loading_inducator.dart';
 import 'package:medication_app_v0/core/extention/context_extention.dart';
 import 'package:medication_app_v0/core/extention/string_extention.dart';
@@ -62,8 +63,9 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                 })
           ],
         ),
+        drawer: CustomDrawer(),
         floatingActionButton: buildFloatingActionButton(viewmodel),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: CustomBottomAppBar(),
         body: Observer(
             builder: (context) => viewmodel.isLoading
@@ -89,10 +91,14 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
         Divider(
           thickness: 2,
         ),
-        ElevatedButton(onPressed:(){
-          ReminderModel reminder = ReminderModel("Alperen", DateTime.now().add(Duration(minutes: 5)), 2, true);
-          NotificationManager.instance.scheduleReminderNotification(reminder);
-        }, child: Text("Notification")),
+        ElevatedButton(
+            onPressed: () {
+              ReminderModel reminder = ReminderModel(
+                  "Alperen", DateTime.now().add(Duration(minutes: 5)), 2, true);
+              NotificationManager.instance
+                  .scheduleReminderNotification(reminder);
+            },
+            child: Text("Notification")),
         Expanded(
             child: Padding(
           padding: context.paddingNormal,

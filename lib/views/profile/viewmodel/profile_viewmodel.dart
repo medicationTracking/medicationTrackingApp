@@ -55,22 +55,22 @@ abstract class _ProfileViewModelBase with Store, BaseViewModel {
       return null;
   }
 
-  String validatePassword(String value) {
+  /*String validatePassword(String value) {
     Pattern pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$';
     RegExp regExp = new RegExp(pattern);
     if (!regExp.hasMatch(value) || value == null || value.length < 8) {
       return LocaleKeys.profile_PASSWORD_ERROR_TEXT.locale;
     } else
       return null;
-  }
+  }*/
 
   @action
   void seePassword() {
     isPasswordVisible = !isPasswordVisible;
   }
 
-  void navigateForgotPasswordPage() {
-    navigation.navigateToPage(path: NavigationConstants.FORGOT_PASSWORD_VIEW);
+  void navigateResetPasswordPage() {
+    navigation.navigateToPage(path: NavigationConstants.RESET_PASSWORD_VIEW);
   }
 
   Future<UserDataModel> getData() async {
@@ -93,5 +93,14 @@ abstract class _ProfileViewModelBase with Store, BaseViewModel {
     } catch (e) {
       return "";
     }
+  }
+
+  void saveUserData() async {
+    UserDataModel currentUserData = UserDataModel(
+        birthDay: currentUser.birthDay,
+        fullName: profileNameController.text,
+        mail: profileMailController.text);
+    var x = await AuthManager.instance.setUserData(currentUserData);
+    print(x.toString());
   }
 }

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:medication_app_v0/core/base/view/base_widget.dart';
+import 'package:medication_app_v0/core/components/widgets/custom_bottom_appbar.dart';
 import 'package:medication_app_v0/core/init/locale_keys.g.dart';
 import 'package:medication_app_v0/core/init/text/locale_text.dart';
 import 'package:medication_app_v0/core/init/theme/color_theme.dart';
 import 'package:medication_app_v0/views/allergens/viewmodel/allergens_viewmodel.dart';
 import 'package:medication_app_v0/core/extention/string_extention.dart';
 import 'package:medication_app_v0/core/extention/context_extention.dart';
+import 'package:medication_app_v0/core/components/widgets/drawer.dart';
 import 'package:mobx/mobx.dart';
 
 class AllergensView extends StatefulWidget {
@@ -40,10 +42,13 @@ class _AllergensViewState extends State<AllergensView> {
       appBar: AppBar(
           backgroundColor: ColorTheme.PRIMARY_BLUE,
           title: Text(LocaleKeys.allergens_ALLERGEN.locale)),
+      bottomNavigationBar: CustomBottomAppBar(),
+      drawer: CustomDrawer(),
       body: isEmpty(context, viewModel),
       floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: () => displayDialog(context, viewModel)),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 

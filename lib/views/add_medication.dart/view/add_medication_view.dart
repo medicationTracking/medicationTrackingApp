@@ -4,6 +4,7 @@ import 'package:medication_app_v0/core/components/cards/inventory_medication_car
 import 'package:medication_app_v0/core/extention/context_extention.dart';
 import 'package:medication_app_v0/views/add_medication.dart/viewmodel/add_medication_viewmodel.dart';
 import "package:medication_app_v0/views/Inventory/model/inventory_model.dart";
+import 'package:medication_app_v0/core/components/widgets/drawer.dart';
 
 class AddMedicationView extends StatefulWidget {
   @override
@@ -29,6 +30,7 @@ class _AddMedicationViewState extends State<AddMedicationView> {
       appBar: AppBar(
         title: Text("Add Medication"),
       ),
+      drawer: CustomDrawer(),
       body: SingleChildScrollView(
         child: SizedBox(
           height: context.height * 0.9,

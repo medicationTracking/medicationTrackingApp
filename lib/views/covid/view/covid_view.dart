@@ -11,6 +11,7 @@ import 'package:medication_app_v0/core/init/theme/color_theme.dart';
 import 'package:medication_app_v0/views/covid/viewmodel/covid_viewmodel.dart';
 import 'package:medication_app_v0/core/extention/context_extention.dart';
 import 'package:medication_app_v0/core/extention/string_extention.dart';
+import 'package:medication_app_v0/core/components/widgets/drawer.dart';
 
 class CovidView extends StatelessWidget {
   const CovidView({Key key}) : super(key: key);
@@ -27,6 +28,7 @@ class CovidView extends StatelessWidget {
               appBar: AppBar(
                 title: AutoSizeText(LocaleKeys.covid_COVID_TITLE.locale),
               ),
+              drawer: CustomDrawer(),
               bottomNavigationBar: CustomBottomAppBar(),
               body: Observer(
                   builder: (context) => viewmodel.isLoading

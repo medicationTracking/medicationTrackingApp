@@ -11,6 +11,8 @@ import 'package:medication_app_v0/core/init/theme/color_theme.dart';
 import 'package:medication_app_v0/views/profile/viewmodel/profile_viewmodel.dart';
 import 'package:medication_app_v0/core/extention/context_extention.dart';
 import 'package:medication_app_v0/core/extention/string_extention.dart';
+import 'package:medication_app_v0/core/components/widgets/drawer.dart';
+
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
@@ -46,25 +48,24 @@ class _ProfileViewState extends State<ProfileView> {
   Scaffold buildScaffold(ProfileViewModel viewModel, BuildContext context) {
     return Scaffold(
         bottomNavigationBar: CustomBottomAppBar(),
-        body: SingleChildScrollView(
-            child: SizedBox(
-                height: context.height,
-                child: Column(children: [
-                  Expanded(flex: 2, child: buildContainer(context)),
-                  Expanded(
-                      flex: 5, child: buildInformation(context, viewModel)),
-                ]))));
+        drawer: CustomDrawer(),
+        body: SizedBox(
+            height: context.height,
+            child: Column(children: [
+              Expanded(flex: 2, child: buildContainer(context)),
+              Expanded(flex: 4, child: buildInformation(context, viewModel)),
+            ])));
   }
 
   SingleChildScrollView buildInformation(
       BuildContext context, ProfileViewModel viewModel) {
     return SingleChildScrollView(
         child: SizedBox(
-            height: context.height * 0.9,
+            height: context.height * 0.7,
             child: Padding(
                 padding: context.paddingMedium,
                 child: Column(children: [
-                  Expanded(flex: 5, child: buildForms(context, viewModel)),
+                  Expanded(flex: 4, child: buildForms(context, viewModel)),
                   Expanded(
                       flex: 1, child: buildButtonPadding(context, viewModel)),
                 ]))));
@@ -79,8 +80,9 @@ class _ProfileViewState extends State<ProfileView> {
           Expanded(flex: 1, child: buildFirstNameFormField(context, viewModel)),
           // Expanded(flex: 1, child: buildLastNameFormField(context, viewModel)),
           Expanded(flex: 1, child: buildMailFormField(context, viewModel)),
-          Expanded(flex: 1, child: buildPasswordField(context, viewModel)),
+          //Expanded(flex: 1, child: buildPasswordField(context, viewModel)),
           Expanded(flex: 1, child: buildAgeGenderFormField(context, viewModel)),
+          Expanded(flex: 1, child: buildResetPassword(viewModel))
         ],
       ),
     );
@@ -139,29 +141,6 @@ class _ProfileViewState extends State<ProfileView> {
     );
   }
 
-  Widget buildPasswordField(BuildContext context, ProfileViewModel viewModel) {
-    return Observer(builder: (_) {
-      return TextFormField(
-        controller: viewModel.profilePasswordController,
-        validator: (value) => viewModel.validatePassword(value),
-        obscureText: !viewModel.isPasswordVisible,
-        decoration: InputDecoration(
-            labelText: LocaleKeys.profile_PASSWORD.locale,
-            hintText: LocaleKeys.profile_PASSWORD.locale,
-            prefixIcon: Icon(Icons.lock),
-            suffixIcon: IconButton(
-              icon: viewModel.isPasswordVisible
-                  ? Icon(Icons.remove_red_eye_outlined)
-                  : Icon(Icons.remove_red_eye_sharp),
-              onPressed: () {
-                viewModel.seePassword();
-              },
-            ),
-            border: OutlineInputBorder()),
-      );
-    });
-  }
-
   Row buildAgeGenderFormField(
       BuildContext context, ProfileViewModel viewModel) {
     return Row(children: [
@@ -206,6 +185,15 @@ class _ProfileViewState extends State<ProfileView> {
         });
   }
 
+  TextButton buildResetPassword(ProfileViewModel viewModel) {
+    return TextButton(
+      onPressed: () {
+        viewModel.navigateResetPasswordPage();
+      },
+      child: Text('Change Password?'),
+    );
+  }
+
   Padding buildButtonPadding(BuildContext context, ProfileViewModel viewModel) {
     return Padding(
         padding: context.paddingMedium, child: buildButton(context, viewModel));
@@ -216,10 +204,12 @@ class _ProfileViewState extends State<ProfileView> {
       child: Center(
           child: LocaleText(text: LocaleKeys.profile_SAVE_BUTTON.locale)),
       onPressed: () {
+        viewModel.saveUserData();
         print("mail:" +
             viewModel.profileMailController.text +
             " password:" +
             viewModel.profilePasswordController.text);
+        setState(() {});
       },
       //EGER BELIRLEDIGIMIZ TEMA DISINDA BIR RENK VERMEK ISTERSEK COPYWITH DEYIP O SPESIFIK OZELLIGI DEGISTIRIYORUZ.
       style: Theme.of(context).elevatedButtonTheme.style.copyWith(

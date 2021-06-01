@@ -9,6 +9,7 @@ import 'package:medication_app_v0/views/pharmacy/model/pharmacy_model.dart';
 import 'package:medication_app_v0/views/pharmacy/viewmodel/pharmacy_viewmodel.dart';
 import 'package:medication_app_v0/core/extention/context_extention.dart';
 import 'package:medication_app_v0/core/extention/string_extention.dart';
+import 'package:medication_app_v0/core/components/widgets/drawer.dart';
 
 class PharmacyView extends StatefulWidget {
   @override
@@ -40,6 +41,7 @@ class _PharmacyViewState extends State<PharmacyView> {
         title: Text(LocaleKeys.pharmacy_PHARMACY_TITLE.locale),
       ),
       bottomNavigationBar: CustomBottomAppBar(),
+      drawer: CustomDrawer(),
       body: Column(
         children: [
           Expanded(child: buildListView(context, viewModel)),
