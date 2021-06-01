@@ -57,6 +57,46 @@ class CovidView extends StatelessWidget {
           Expanded(
             flex: 3,
             child: CovidCard(
+                leftTitle: LocaleKeys.covid_DAILY_CASE.locale,
+                leftValue: viewmodel.turkeySummaryList.last.confirmed -
+                    viewmodel
+                        .turkeySummaryList[
+                    viewmodel.turkeySummaryList.length - 2]
+                        .confirmed,
+                leftColor: Colors.amber,
+                rightTitle: LocaleKeys.covid_DIF_ACTIVE_CASE.locale,
+                rightValue: viewmodel.turkeySummaryList.last.active -
+                    viewmodel
+                        .turkeySummaryList[
+                    viewmodel.turkeySummaryList.length - 2]
+                        .active,
+                rightColor: Colors.blue),
+          ),
+          Expanded(
+            flex: 3,
+            child: CovidCard(
+                leftTitle: LocaleKeys.covid_RECOVERY_DAILY.locale,
+                leftValue: viewmodel.turkeySummaryList.last.recovered -
+                    viewmodel
+                        .turkeySummaryList[
+                    viewmodel.turkeySummaryList.length - 2]
+                        .recovered,
+                leftColor: Colors.green,
+                rightTitle: LocaleKeys.covid_DAILY_DEATH.locale,
+                rightValue: viewmodel.turkeySummaryList.last.death -
+                    viewmodel
+                        .turkeySummaryList[
+                    viewmodel.turkeySummaryList.length - 2]
+                        .death,
+                rightColor: Colors.red),
+          ),
+          Divider(
+            thickness: 3.0,
+            color: ColorTheme.PRIMARY_BLUE,
+          ),
+          Expanded(
+            flex: 3,
+            child: CovidCard(
                 leftTitle: LocaleKeys.covid_TOTAL_CASE.locale,
                 leftValue: viewmodel.turkeySummaryList.last.confirmed,
                 leftColor: Colors.amber,
@@ -72,46 +112,6 @@ class CovidView extends StatelessWidget {
                 leftColor: Colors.green,
                 rightTitle: LocaleKeys.covid_TOTAL_DEATH.locale,
                 rightValue: viewmodel.turkeySummaryList.last.death,
-                rightColor: Colors.red),
-          ),
-          Divider(
-            thickness: 3.0,
-            color: ColorTheme.PRIMARY_BLUE,
-          ),
-          Expanded(
-            flex: 3,
-            child: CovidCard(
-                leftTitle: LocaleKeys.covid_DAILY_CASE.locale,
-                leftValue: viewmodel.turkeySummaryList.last.confirmed -
-                    viewmodel
-                        .turkeySummaryList[
-                            viewmodel.turkeySummaryList.length - 2]
-                        .confirmed,
-                leftColor: Colors.amber,
-                rightTitle: LocaleKeys.covid_DIF_ACTIVE_CASE.locale,
-                rightValue: viewmodel.turkeySummaryList.last.active -
-                    viewmodel
-                        .turkeySummaryList[
-                            viewmodel.turkeySummaryList.length - 2]
-                        .active,
-                rightColor: Colors.blue),
-          ),
-          Expanded(
-            flex: 3,
-            child: CovidCard(
-                leftTitle: LocaleKeys.covid_RECOVERY_DAILY.locale,
-                leftValue: viewmodel.turkeySummaryList.last.recovered -
-                    viewmodel
-                        .turkeySummaryList[
-                            viewmodel.turkeySummaryList.length - 2]
-                        .recovered,
-                leftColor: Colors.green,
-                rightTitle: LocaleKeys.covid_DAILY_DEATH.locale,
-                rightValue: viewmodel.turkeySummaryList.last.death -
-                    viewmodel
-                        .turkeySummaryList[
-                            viewmodel.turkeySummaryList.length - 2]
-                        .death,
                 rightColor: Colors.red),
           ),
         ],
