@@ -4,6 +4,7 @@ import 'package:medication_app_v0/core/init/theme/color_theme.dart';
 import 'package:medication_app_v0/views/home/Calendar/model/reminder.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:medication_app_v0/core/extention/context_extention.dart';
+import 'package:medication_app_v0/core/components/widgets/drawer.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:medication_app_v0/core/extention/string_extention.dart';
 
@@ -145,6 +146,7 @@ class _CalendarViewState extends State<CalendarView>
       floatingActionButton: buildFloatingActionButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: buildBottomAppBar(),
+      drawer: CustomDrawer(),
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[

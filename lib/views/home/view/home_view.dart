@@ -1,17 +1,18 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:medication_app_v0/core/base/view/base_widget.dart';
 import 'package:medication_app_v0/core/components/cards/pill_card2.dart';
 import 'package:medication_app_v0/core/components/widgets/custom_bottom_appbar.dart';
+import 'package:medication_app_v0/core/components/widgets/drawer.dart';
 import 'package:medication_app_v0/core/components/widgets/loading_inducator.dart';
-import 'package:medication_app_v0/core/init/locale_keys.g.dart';
-import 'package:medication_app_v0/core/init/services/google_sign_helper.dart';
-import 'package:medication_app_v0/core/init/text/locale_text.dart';
-import 'package:medication_app_v0/views/authenticate/login/viewmodel/login_viewmodel.dart';
-import 'package:medication_app_v0/views/home/viewmodel/home_viewmodel.dart';
 import 'package:medication_app_v0/core/extention/context_extention.dart';
-import 'package:medication_app_v0/core/init/theme/color_theme.dart';
 import 'package:medication_app_v0/core/extention/string_extention.dart';
+import 'package:medication_app_v0/core/init/locale_keys.g.dart';
+import 'package:medication_app_v0/core/init/notification/notification_manager.dart';
+import 'package:medication_app_v0/core/init/theme/color_theme.dart';
+import 'package:medication_app_v0/views/home/Calendar/model/reminder.dart';
+import 'package:medication_app_v0/views/home/viewmodel/home_viewmodel.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class HomeView extends StatefulWidget {
@@ -62,6 +63,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                 })
           ],
         ),
+        drawer: CustomDrawer(),
         floatingActionButton: buildFloatingActionButton(viewmodel),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: CustomBottomAppBar(),
@@ -71,12 +73,11 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                 : buildCalendarAndEvent(context, viewmodel)));
   }
 
-  // Belki başka bir yerede konulabilir
   FloatingActionButton buildFloatingActionButton(HomeViewmodel viewmodel) {
     return FloatingActionButton(
       onPressed: () {
-        //this part may change to set reminder !!!
-        viewmodel.scanQR();
+        viewmodel.navigateAddMedication();
+        //viewmodel.scanQR();
       },
       child: Icon(Icons.add),
     );
@@ -90,6 +91,14 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
         Divider(
           thickness: 2,
         ),
+        ElevatedButton(
+            onPressed: () {
+              ReminderModel reminder = ReminderModel(
+                  "Alperen", DateTime.now().add(Duration(minutes: 1)), 2, true);
+              NotificationManager.instance
+                  .scheduleReminderNotification(reminder);
+            },
+            child: Text("Notification")),
         Expanded(
             child: Padding(
           padding: context.paddingNormal,
@@ -138,13 +147,116 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   }
 
   Widget _buildEventList(HomeViewmodel viewmodel) {
+    bool isDelete = false;
     viewmodel.selectedEvents.sort((a, b) => a.time.compareTo(b.time));
     return Observer(
       builder: (_) => ListView.builder(
           itemCount: viewmodel.selectedEvents.length,
           itemBuilder: (context, index) => PillCard2(
+                onTap: () async {
+                  ReminderModel reminder = viewmodel.selectedEvents[index];
+                  isDelete = await showDialog<bool>(
+                      context: context,
+                      builder: (context) {
+                        return reminderDialog(context, reminder);
+                      });
+                  setState(() {
+                    if (isDelete != null) {
+                      if (isDelete) {
+                        viewmodel.selectedEvents
+                            .remove(viewmodel.selectedEvents[index]);
+                      }
+                      viewmodel.storeReminders();
+                    }
+                  });
+                },
                 model: viewmodel.selectedEvents[index],
               )),
+    );
+  }
+
+  AlertDialog reminderDialog(BuildContext context, ReminderModel reminder) {
+    return AlertDialog(
+      title: Text(LocaleKeys.home_REMINDER.locale),
+      content: dialogContent(context, reminder),
+      actions: [
+        TextButton(
+            onPressed: () {
+              reminder.isTaken = false;
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              LocaleKeys.home_SKIP.locale,
+              style: context.textTheme.bodyText1.copyWith(color: Colors.red),
+            )),
+        TextButton(
+            onPressed: () {
+              reminder.isTaken = true;
+              Navigator.of(context).pop();
+            },
+            child: reminder.isTaken
+                ? null
+                : Text(LocaleKeys.home_TAKE.locale,
+                    style: context.textTheme.bodyText1
+                        .copyWith(color: ColorTheme.PETRONAS_GREEN))),
+      ],
+    );
+  }
+
+  Column dialogContent(BuildContext context, ReminderModel reminder) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        dialogIconRow(reminder),
+        context.emptySizedHeightBoxLow3x,
+        Text(
+          reminder.pillName,
+          style: context.textTheme.headline6,
+        ),
+        context.emptySizedHeightBoxLow3x,
+        Text(
+          reminder.isTaken ? LocaleKeys.home_TAKEN.locale: DateTime.now().isBefore(reminder.time) ? "" : LocaleKeys.home_MISSED.locale,
+          style: context.textTheme.bodyText1.copyWith(
+              color: reminder.isTaken ? ColorTheme.PETRONAS_GREEN : Colors.red),
+        ),
+        context.emptySizedHeightBoxLow3x,
+        Row(
+          children: [
+            Icon(Icons.access_alarms),
+            context.emptySizedWidthBoxLow3x,
+            Text(
+              DateFormat('kk:mm').format(reminder.time),
+              style: context.textTheme.headline6,
+            ),
+          ],
+        )
+      ],
+    );
+  }
+
+  Row dialogIconRow(ReminderModel reminder) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        IconButton(
+          onPressed: () async {
+            TimeOfDay picked = await showTimePicker(
+                context: context,
+                initialTime: TimeOfDay.fromDateTime(reminder.time));
+            DateTime newTime = DateTime(reminder.time.year, reminder.time.month,
+                reminder.time.day, picked.hour, picked.minute);
+            reminder.time = newTime;
+            Navigator.of(context).pop();
+          },
+          icon: Icon(Icons.edit),
+        ),
+        IconButton(
+            onPressed: () async {
+              Navigator.of(context).pop(true);
+            },
+            icon: Icon(Icons.delete)),
+      ],
     );
   }
 }

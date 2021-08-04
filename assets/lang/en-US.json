@@ -25,17 +25,21 @@
     },
     "home":{
         "HOME":"Welcome",
-        "CANCEL":"Cancel"
+        "CANCEL":"Cancel",
+        "REMINDER": "Medication Reminder",
+        "SKIP" : "Skip",
+        "TAKE" : "Take",
+        "TAKEN": "Taken",
+        "MISSED": "Missed",
+        "REMINDER_LEFT" : "more reminder left"
+
     },
     "profile":{
+        "PROFILE": "Profile",
         "FIRST_NAME": "Name",
         "FIRST_NAME_HINT_TEXT":"Enter Your Name",
-        "LAST_NAME": "Surname",
-        "LAST_NAME_HINT_TEXT":"Enter Your Surname",
         "AGE": "Age",
         "AGE_HINT_TEXT":"Enter Your Age",  
-        "WEIGHT":"Enter Your Weight",
-        "WEIGHT_HINT_TEXT": "Enter Your Weight",
         "GENDER": "Gender",
         "GENDER_HINT_TEXT": "Enter Your Gender",
         "FEMALE": "Female",
@@ -60,5 +64,49 @@
         "DELETE": "DELETE",
         "DELETE_ALLERGEN": "Delete This Allergen?",
         "EMPTY_SCREEN": "Insert Allergens Here"
+    },
+
+    "reminder":{
+        "SET_REMINDER":"Set Reminder",
+        "SAVE_REMINDER":"Save Reminder",
+        "DATE":"Start Date",
+        "FIRST_TIME":"First Time",
+        "TIMES":"Times",
+        "PERIOD":"Period",
+        "PERIOD_MONTHLY":"Montly",
+        "PERIOD_WEEKLY":"Weekly",
+        "PERIOD_DAILY":"Daily"
+    },
+    "add_medication":{
+        "ADD_SUCCESFULLY":"The medicine was successfully added.",
+        "ADD_FAILED":"The medicine addition failed.",
+        "MEDICATION_NAME_FIELD_ERROR_MESSAGE":"Medications must have a name.",
+        "ALLERGEN_WARNING":"Allergen Warning!",
+        "ALLERGEN_TEXT1":"you are allergic to the medication.",
+        "ALLERGEN_TEXT2":"Are you sure you want to add the medication?",
+        "CANCEL":"Cancel",
+        "ADD":"Add the Medication",
+        "EXPIRED_DATE":"expired date"
+    },
+    "covid":{
+        "COVID_TITLE":"Covid Turkey",
+        "DATA_EMPTY":"Data Empty",
+        "TOTAL_CASE":"Total Cases",
+        "DAILY_CASE":"Daily Cases",
+        "ACTIVE_CASE":"Active Cases",
+        "DIF_ACTIVE_CASE":"Change in the Number of Active Patients",
+        "RECOVERY_TOTAL":"Total Recovery",
+        "RECOVERY_DAILY":"Daily Recovery",
+        "TOTAL_DEATH":"Total Death",
+        "DAILY_DEATH":"Daily Death"
+    },
+    "pharmacy":{
+        "PHARMACY_TITLE":"Night Pharmacies",
+        "AWAY_FROM":" km away from the pharmacy.",
+        "YOU_ARE":"You are",
+        "OK":"Ok",
+        "ADDRESS":"Address",
+        "PHONE":"Phone"
     }
+    
 }

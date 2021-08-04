@@ -3,11 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:medication_app_v0/core/base/viewmodel/base_viewmodel.dart';
 import 'package:medication_app_v0/core/components/models/others/user_data_model.dart';
+import 'package:medication_app_v0/core/constants/enums/shared_preferences_enum.dart';
 import 'package:medication_app_v0/core/constants/navigation/navigation_constants.dart';
+import 'package:medication_app_v0/core/init/cache/shared_preferences_manager.dart';
 import 'package:medication_app_v0/core/init/locale_keys.g.dart';
 import 'package:medication_app_v0/core/init/services/auth_manager.dart';
 import 'package:medication_app_v0/core/init/services/google_sign_helper.dart';
-import 'package:medication_app_v0/views/home/model/home_model.dart';
+import 'package:medication_app_v0/views/Inventory/model/inventory_model.dart';
+import 'package:medication_app_v0/views/home/Calendar/model/reminder.dart';
 import 'package:medication_app_v0/core/extention/string_extention.dart';
 
 import 'package:mobx/mobx.dart';
@@ -20,10 +23,12 @@ abstract class _HomeViewmodelBase with Store, BaseViewModel {
   @observable
   bool isLoading = false;
   @observable
-  Map<DateTime, List<HomeModel>> events;
+  Map<DateTime, List<ReminderModel>> events;
   @observable
-  List<HomeModel> selectedEvents;
+  List<ReminderModel> selectedEvents;
   CalendarController calendarController;
+  final SharedPreferencesManager _sharedPreferencesManager =
+      SharedPreferencesManager.instance;
   //scan QR barcode
   String _scanBarcode = 'Unknown';
 
@@ -31,79 +36,12 @@ abstract class _HomeViewmodelBase with Store, BaseViewModel {
   void init() async {
     changeLoading();
     denemeGet();
-    final _selectedDay = DateTime.now();
+    final _selectedDay =
+        DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+    //_sharedPreferencesManager
+    //    .setListValue(SharedPreferencesKey.REMINDERMODELS, []);
+    events = await getEvents();
 
-    events = {
-      _selectedDay.subtract(Duration(days: 30)): [
-        HomeModel("Teraflu",
-            _selectedDay.subtract(Duration(days: 30, hours: 4)), 25, true),
-        HomeModel("Calpol", _selectedDay.subtract(Duration(days: 30, hours: 1)),
-            25, false),
-      ],
-      _selectedDay.subtract(Duration(days: 27)): [
-        HomeModel("Teraflu",
-            _selectedDay.subtract(Duration(days: 27, hours: 2)), 35, true),
-      ],
-      _selectedDay.subtract(Duration(days: 20)): [
-        HomeModel("Teraflu",
-            _selectedDay.subtract(Duration(days: 20, hours: 3)), 40, false),
-        HomeModel("Calpol", _selectedDay.subtract(Duration(days: 20, hours: 2)),
-            25, false),
-        HomeModel("Jolessa",
-            _selectedDay.subtract(Duration(days: 20, hours: 1)), 25, true),
-        HomeModel(
-            "Paromymcin", _selectedDay.subtract(Duration(days: 20)), 25, true),
-      ],
-      _selectedDay.subtract(Duration(days: 16)): [
-        HomeModel("Calpol", _selectedDay.subtract(Duration(days: 16, hours: 4)),
-            25, false),
-        HomeModel("Jolessa",
-            _selectedDay.subtract(Duration(days: 16, hours: 3)), 25, false),
-      ],
-      _selectedDay.subtract(Duration(days: 10)): [
-        HomeModel("Calpol", _selectedDay.subtract(Duration(days: 10, hours: 2)),
-            25, true),
-        HomeModel("Jolessa",
-            _selectedDay.subtract(Duration(days: 10, hours: 1)), 25, true),
-        HomeModel(
-            "Paromymcin", _selectedDay.subtract(Duration(days: 10)), 25, true),
-      ],
-      _selectedDay.subtract(Duration(days: 4)): [
-        HomeModel("Teraflu", _selectedDay.subtract(Duration(days: 4, hours: 4)),
-            25, true),
-        HomeModel("Calpol", _selectedDay.subtract(Duration(days: 4, hours: 3)),
-            25, false),
-        HomeModel("Jolessa", _selectedDay.subtract(Duration(days: 4, hours: 1)),
-            25, true),
-      ],
-      _selectedDay.subtract(Duration(days: 2)): [
-        HomeModel("Jolessa", _selectedDay.subtract(Duration(days: 2, hours: 2)),
-            25, false),
-        HomeModel("Paromymcin",
-            _selectedDay.subtract(Duration(days: 2, hours: 5)), 25, true),
-      ],
-      _selectedDay: [
-        HomeModel(
-            "Jolessa", _selectedDay.subtract(Duration(hours: 5)), 25, true),
-        HomeModel(
-            "Paromymcin", _selectedDay.subtract(Duration(hours: 4)), 25, true),
-        HomeModel(
-            "Jolessa", _selectedDay.subtract(Duration(hours: 2)), 25, true),
-        HomeModel("Paromymcin", _selectedDay, 25, true),
-      ],
-      _selectedDay.add(Duration(days: 7)): [
-        HomeModel(
-            "Jolessa", _selectedDay.add(Duration(days: 7, hours: 1)), 25, true),
-        HomeModel("Paromymcin", _selectedDay.add(Duration(days: 7, hours: 2)),
-            25, true),
-        HomeModel(
-            "Teraflu", _selectedDay.add(Duration(days: 7, hours: 3)), 25, true),
-        HomeModel(
-            "Calpol", _selectedDay.add(Duration(days: 7, hours: 4)), 25, false),
-        HomeModel(
-            "Jolessa", _selectedDay.add(Duration(days: 7, hours: 5)), 25, true),
-      ],
-    };
     selectedEvents = events[_selectedDay] ?? [];
     calendarController = CalendarController();
     //checking loading indicator
@@ -124,7 +62,7 @@ abstract class _HomeViewmodelBase with Store, BaseViewModel {
   @action
   void onDaySelected(DateTime day, List events, List holidays) {
     print('CALLBACK: _onDaySelected');
-    selectedEvents = events.cast<HomeModel>();
+    selectedEvents = events.cast<ReminderModel>();
   }
 
   @action
@@ -133,6 +71,23 @@ abstract class _HomeViewmodelBase with Store, BaseViewModel {
     calendarController.setSelectedDay(first);
     selectedEvents = events[first] ?? [];
     print('CALLBACK: _onVisibleDaysChanged');
+  }
+
+  Future<void> storeReminders() async {
+    List<String> reminders = [];
+    try {
+      //add new reminders to the old reminders List.
+      events.values.forEach((value) {
+        for(ReminderModel reminder in value){
+          reminders.add(reminder.toJson());
+        }
+      });
+      //save to sharedPreferences
+      await _sharedPreferencesManager.setListValue(SharedPreferencesKey.REMINDERMODELS, reminders);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   void onCalendarCreated(DateTime first, DateTime last, CalendarFormat format) {
@@ -176,8 +131,35 @@ abstract class _HomeViewmodelBase with Store, BaseViewModel {
     navigation.navigateToPage(path: NavigationConstants.INVENTORY_VIEW);
   }
 
+  void navigateAddMedication() {
+    navigation.navigateToPage(path: NavigationConstants.ADD_MEDICATION);
+  }
+
   Future<void> denemeGet() async {
     UserDataModel udm = await AuthManager.instance.getUserData();
     print(udm.toString());
+  }
+
+  Future<List<ReminderModel>> getModelListFromSharedPref() async {
+    List<String> jsons = await _sharedPreferencesManager
+        .getStringListValue(SharedPreferencesKey.REMINDERMODELS);
+    List<ReminderModel> results = [];
+    jsons.forEach((value) => results.add(ReminderModel.fromJson(value)));
+    return results;
+  }
+
+  Future<Map<DateTime, List<ReminderModel>>> getEvents() async {
+    List<ReminderModel> reminderModels = await getModelListFromSharedPref();
+    var eventMap = new Map<DateTime, List<ReminderModel>>();
+    reminderModels.forEach((value) {
+      DateTime theDay =
+          DateTime(value.time.year, value.time.month, value.time.day);
+      if (eventMap.containsKey(theDay)) {
+        eventMap[theDay].add(value);
+      } else {
+        eventMap[theDay] = [value];
+      }
+    });
+    return eventMap;
   }
 }

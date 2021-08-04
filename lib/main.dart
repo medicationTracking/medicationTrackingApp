@@ -4,6 +4,7 @@ import 'package:medication_app_v0/core/constants/navigation/navigation_constants
 import 'package:medication_app_v0/core/init/cache/shared_preferences_manager.dart';
 import 'package:medication_app_v0/core/init/navigation/navigation_service.dart';
 import 'package:medication_app_v0/core/init/navigation/navigation_route.dart';
+import 'package:medication_app_v0/core/init/notification/notification_manager.dart';
 import 'package:medication_app_v0/core/init/notifier/provider_list.dart';
 import 'package:medication_app_v0/core/init/notifier/theme_notifier.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +15,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   SharedPreferencesManager.preferencesInit();
-  await Firebase.initializeApp();
+  final FirebaseApp app = await Firebase.initializeApp();
+  NotificationManager.instance;
 
   runApp(
     MultiProvider(

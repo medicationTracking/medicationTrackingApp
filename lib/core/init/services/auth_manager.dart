@@ -8,6 +8,7 @@ import 'package:medication_app_v0/core/init/cache/shared_preferences_manager.dar
 import 'package:medication_app_v0/core/init/navigation/navigation_service.dart';
 import 'package:medication_app_v0/core/init/services/firebase_services.dart';
 import 'package:medication_app_v0/core/init/services/google_sign_helper.dart';
+import 'package:medication_app_v0/views/Inventory/model/inventory_model.dart';
 
 class AuthManager {
   static AuthManager _instance;
@@ -49,8 +50,18 @@ class AuthManager {
   }
 
   Future<bool> googleAuth() async {
+    //signin and send the user data to firebase
     try {
-      if (await _googleSignHelper.firebaseSigninWithGoogle() != null) {
+      User googleUser = await _googleSignHelper.firebaseSigninWithGoogle();
+      if (googleUser != null) {
+        //first signin
+        if (await getUserData() == null) {
+          UserDataModel userData = UserDataModel(
+              birthDay: "",
+              fullName: googleUser.displayName,
+              mail: googleUser.email);
+          setUserData(userData);
+        }
         return true;
       }
     } catch (e) {
@@ -82,12 +93,33 @@ class AuthManager {
     var singupResponse = await _googleSignHelper.signUpWithEmailAndPassword(
         userDataModel.mail, password);
     if (singupResponse is UserCredential) {
+      String token = await singupResponse.user.getIdToken();
       bool isSuccess = await _firebaseService.putUserData(
-          singupResponse.user.uid, userDataModel);
+          singupResponse.user.uid, token, userDataModel);
       if (isSuccess) return LocaleKeys.authentication_SIGNUP_SUCCESFUL.locale;
       return LocaleKeys.authentication_SIGNUP_FAILED.locale;
     } else {
       return singupResponse ?? LocaleKeys.authentication_SIGNUP_FAILED.locale;
     }
+  }
+
+  Future<bool> setUserData(UserDataModel userData) async {
+    return await _firebaseService.putUserData(_getUid, _getToken, userData);
+  }
+
+  Future<bool> postMedication(InventoryModel data) async {
+    return await _firebaseService.postMedication(_getUid, _getToken, data);
+  }
+
+  Future<List<InventoryModel>> getMedicationList() async {
+    return await _firebaseService.getMedications(_getToken, _getUid);
+  }
+
+  Future deleteMedication(InventoryModel model) async {
+    return await _firebaseService.deleteMedication(_getUid, _getToken, model);
+  }
+
+  Future<String> changePassword(String newPassword) async {
+    return await _googleSignHelper.changePassword(newPassword);
   }
 }

@@ -25,6 +25,21 @@ mixin _$ProfileViewModel on _ProfileViewModelBase, Store {
     });
   }
 
+  final _$isLoadingAtom = Atom(name: '_ProfileViewModelBase.isLoading');
+
+  @override
+  bool get isLoading {
+    _$isLoadingAtom.reportRead();
+    return super.isLoading;
+  }
+
+  @override
+  set isLoading(bool value) {
+    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
+      super.isLoading = value;
+    });
+  }
+
   final _$_ProfileViewModelBaseActionController =
       ActionController(name: '_ProfileViewModelBase');
 
@@ -40,9 +55,21 @@ mixin _$ProfileViewModel on _ProfileViewModelBase, Store {
   }
 
   @override
+  void changeLoading() {
+    final _$actionInfo = _$_ProfileViewModelBaseActionController.startAction(
+        name: '_ProfileViewModelBase.changeLoading');
+    try {
+      return super.changeLoading();
+    } finally {
+      _$_ProfileViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-isPasswordVisible: ${isPasswordVisible}
+isPasswordVisible: ${isPasswordVisible},
+isLoading: ${isLoading}
     ''';
   }
 }

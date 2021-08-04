@@ -31,7 +31,7 @@ class SplashView extends StatelessWidget {
         children: [
           _floatingActionButtonChangeLanguage(viewModel, context),
           context.emptySizedHeightBoxNormal,
-          _floatingActionButtonLogin(viewModel),
+          //_floatingActionButtonLogin(viewModel),
         ],
       ),
       body: Container(child: buildLottie, color: ColorTheme.GREY_LIGHT),

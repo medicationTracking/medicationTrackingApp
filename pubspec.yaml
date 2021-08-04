@@ -30,8 +30,11 @@ dependencies:
   easy_localization: ^3.0.0
   firebase_auth: ^1.1.1
   firebase_core: ^1.1.0
-  flutter_barcode_scanner: ^1.0.2
+  firebase_database: ^6.1.2
+  flutter_barcode_scanner: ^2.0.0
   flutter_mobx: ^1.1.0+2
+  geolocator: ^7.0.3
+  google_maps_flutter: ^2.0.6
   google_sign_in: ^5.0.2
   http: ^0.13.1
   intl: ^0.17.0
@@ -41,6 +44,9 @@ dependencies:
   provider: 5.0.0
   shared_preferences: ^2.0.5
   table_calendar: ^2.3.0
+  flutter_local_notifications: ^5.0.0
+  flutter_native_timezone: ^1.1.0
+
 
 dev_dependencies:
   flutter_test:

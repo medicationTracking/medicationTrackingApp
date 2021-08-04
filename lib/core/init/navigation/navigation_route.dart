@@ -6,11 +6,14 @@ import 'package:medication_app_v0/core/init/navigation/transitions/scale_route.d
 import 'package:medication_app_v0/core/init/navigation/transitions/size_route.dart';
 import 'package:medication_app_v0/core/init/navigation/transitions/slide_route.dart';
 import 'package:medication_app_v0/views/Inventory/view/inventory_view.dart';
+import 'package:medication_app_v0/views/add_medication.dart/view/add_medication_view.dart';
 import 'package:medication_app_v0/views/authenticate/forgot_password/view/forgot_password_view.dart';
 import 'package:medication_app_v0/views/authenticate/reset_password/view/reset_password_view.dart';
 import 'package:medication_app_v0/views/authenticate/verify_mail_code/view/verify_mail_code_view.dart';
 import 'package:medication_app_v0/views/covid/view/covid_view.dart';
 import 'package:medication_app_v0/views/allergens/view/allergens.view.dart';
+import 'package:medication_app_v0/views/intake_medication/view/intake_medication_view.dart';
+import 'package:medication_app_v0/views/pharmacy/view/pharmacy_view.dart';
 import 'package:medication_app_v0/views/profile/view/profile_view.dart';
 import 'package:medication_app_v0/views/splash/view/splash_view.dart';
 import '../../../views/home/view/home_view.dart';
@@ -47,6 +50,16 @@ class NavigationRoute {
         return _navigateToFadeDeafult(ProfileView(), settings);
       case NavigationConstants.ALLERGENS_VIEW:
         return _navigateToFadeDeafult(AllergensView(), settings);
+      case NavigationConstants.PHARMACY_VIEW:
+        return _navigateToFadeDeafult(PharmacyView(), settings);
+      case NavigationConstants.ADD_MEDICATION:
+        return _navigateToFadeDeafult(AddMedicationView(), settings);
+      case NavigationConstants.INTAKE_VIEW:
+        return _navigateToFadeDeafult(
+            IntakeMedicationView(
+              medication: settings.arguments,
+            ),
+            settings);
       default:
         return _normalNavigate(Scaffold(
           body: Text("Not Found"),

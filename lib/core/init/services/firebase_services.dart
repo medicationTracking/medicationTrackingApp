@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:medication_app_v0/core/components/models/others/firebase_auth_error.dart';
 import 'package:medication_app_v0/core/components/models/others/user_data_model.dart';
 import 'package:medication_app_v0/core/components/models/others/user_request.dart';
+import 'package:medication_app_v0/views/Inventory/model/inventory_model.dart';
 
 class FirebaseService {
   final dio = Dio(BaseOptions(
@@ -40,12 +41,55 @@ class FirebaseService {
     }
   }
 
-  Future putUserData(String uid, UserDataModel userDataModel) async {
+  Future putUserData(
+      String uid, String token, UserDataModel userDataModel) async {
     String path = '/users/$uid.json';
-    var response = await dio.put(path, data: userDataModel.toJson());
+    var response = await dio.put(path,
+        data: userDataModel.toJson(), queryParameters: {'auth': token});
     if (response.statusCode == HttpStatus.ok) {
       print(response.data.toString());
       return true;
     }
+  }
+
+  Future<List<InventoryModel>> getMedications(String token, String uid) async {
+    String path = '/medications/$uid.json';
+    List<InventoryModel> modelList = [];
+    var response = await dio.get(path, queryParameters: {'auth': token});
+    var data = response.data;
+    if (response.statusCode == HttpStatus.ok) {
+      if (data is Map) {
+        //convert json to List of InventoryModel
+        data.forEach((key, value) {
+          //.fromJson change to .fromMap! firebase response is map!
+          modelList.add(InventoryModel.fromMap(value));
+        });
+        return modelList;
+      } else {
+        print("Firebase Medication Error");
+      }
+    }
+    return [];
+  }
+
+  Future<bool> postMedication(
+      String uid, String token, InventoryModel model) async {
+    String path = '/medications/$uid.json';
+    var response = await dio
+        .post(path, data: model.toJson(), queryParameters: {'auth': token});
+    if (response.statusCode == HttpStatus.ok) {
+      print(response.data.toString());
+      return true;
+    } else {
+      print("postmedication error!!");
+      return false;
+    }
+  }
+
+  Future deleteMedication(
+      String uid, String token, InventoryModel model) async {
+    String path = '/medications/$uid.json';
+    var response = await dio.delete(path, queryParameters: {'auth': token});
+    print(response);
   }
 }

@@ -25,18 +25,21 @@
     },
     "home":{
         "HOME":"Hoşgeldin",
-        "CANCEL":"iptal"
+        "CANCEL":"iptal",
+        "REMINDER": "İlaç Hatırlatıcı",
+        "SKIP" : "Almadım",
+        "TAKE" : "Al",
+        "TAKEN": "Alındı",
+        "MISSED": "Unutuldu",
+        "REMINDER_LEFT" : "hatırlatıcı daha mevcut"
     },
 
     "profile":{
+        "PROFILE": "Profil",
         "FIRST_NAME": "Ad",
         "FIRST_NAME_HINT_TEXT":"Adınızı Giriniz",
-        "LAST_NAME": "Soyad",
-        "LAST_NAME_HINT_TEXT":"Soyadınızı Giriniz",
         "AGE": "Yaş",
         "AGE_HINT_TEXT":"Yaşınızı Giriniz",
-        "WEIGHT":"Kilo",
-        "WEIGHT_HINT_TEXT": "Kilonuzu Giriniz",
         "GENDER": "Cinsiyet",
         "GENDER_HINT_TEXT": "Cinsiyetinizi Giriniz",
         "FEMALE": "Kadın",
@@ -61,5 +64,49 @@
         "DELETE": "SİL",
         "DELETE_ALLERGEN": "Bu Alerjen Maddeyi Sil?",
         "EMPTY_SCREEN": "Alerjen Maddeleri Buraya Giriniz"
+    },
+
+    "reminder":{
+        "SET_REMINDER":"Hatırlatıcı Ekle",
+        "SAVE_REMINDER":"Hatırlatıcıyı kaydet",
+        "DATE":"Baslangıç Tarihi",
+        "FIRST_TIME":"İlk zaman",
+        "TIMES":"Tekrar sayısı",
+        "PERIOD":"Periyod",
+        "PERIOD_MONTHLY":"Ayda",
+        "PERIOD_WEEKLY":"Haftada",
+        "PERIOD_DAILY":"Günde"
+    },
+    "add_medication":{
+        "ADD_SUCCESFULLY":"İlacınız kaydedildi.",
+        "ADD_FAILED":"ilacınız kaydedilmedi.",
+        "MEDICATION_NAME_FIELD_ERROR_MESSAGE":"İlacınızın ismini girmek zorunludur.",
+        "ALLERGEN_WARNING":"Alerjen Uyarısı!",
+        "ALLERGEN_TEXT1":"Bu ilaca alerjiniz var.",
+        "ALLERGEN_TEXT2":"Bu ilacı eklemek istediğinize emin misiniz?",
+        "CANCEL":"Vazgeç",
+        "ADD":"İlacı ekle",
+        "EXPIRED_DATE":"son kullanma tarihi"
+    },
+    "covid":{
+        "COVID_TITLE":"Covid-19 Türkiye",
+        "DATA_EMPTY":"Veri Mevcut değil",
+        "TOTAL_CASE":"Toplam Vaka Sayısı",
+        "DAILY_CASE":"Günlük Vaka Sayısı",
+        "ACTIVE_CASE":"Aktif hasta Sayısı",
+        "DIF_ACTIVE_CASE":"Aktif Hasta Sayısı Değişimi",
+        "RECOVERY_TOTAL":"Toplam İyileşen Sayısı",
+        "RECOVERY_DAILY":"Günlük İyileşen sayısı",
+        "TOTAL_DEATH":"Toplam Ölüm Sayısı",
+        "DAILY_DEATH":"Günlük Ölüm Sayısı"
+    },
+    "pharmacy":{
+        "PHARMACY_TITLE":"Nöbetçi Eczaneler",
+        "AWAY_FROM":"km uzaktasın.",
+        "YOU_ARE":"Şuan bu eczaneden",
+        "OK":"Tamam",
+        "ADDRESS":"Adress",
+        "PHONE":"Tel"
     }
+
 }

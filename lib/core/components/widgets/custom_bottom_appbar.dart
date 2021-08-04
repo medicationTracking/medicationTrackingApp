@@ -18,18 +18,22 @@ class CustomBottomAppBar extends StatelessWidget {
               iconSize: context.height * 0.05,
               icon: Icon(Icons.home_outlined),
               onPressed: () {
-                navigation.navigateToPage(path: NavigationConstants.HOME_VIEW);
+                navigation.navigateToPageClear(
+                    path: NavigationConstants.HOME_VIEW);
               }),
           //not determined
           IconButton(
               icon: Icon(Icons.medical_services_outlined),
-              onPressed: () {},
+              onPressed: () {
+                navigation.navigateToPageClear(
+                    path: NavigationConstants.PHARMACY_VIEW);
+              },
               iconSize: context.height * 0.05),
           //covid page
           IconButton(
               icon: Icon(Icons.lightbulb_outline),
               onPressed: () {
-                navigation.navigateToPage(
+                navigation.navigateToPageClear(
                     path: NavigationConstants.COVID_TURKEY_VIEW);
               },
               iconSize: context.height * 0.05),
@@ -37,10 +41,10 @@ class CustomBottomAppBar extends StatelessWidget {
           IconButton(
               icon: Icon(Icons.bookmark_outline),
               onPressed: () {
-                navigation.navigateToPage(
+                navigation.navigateToPageClear(
                     path: NavigationConstants.INVENTORY_VIEW);
               },
-              iconSize: context.height * 0.05)
+              iconSize: context.height * 0.05),
         ],
       ),
     );
