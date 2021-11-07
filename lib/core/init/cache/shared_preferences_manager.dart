@@ -48,12 +48,4 @@ class SharedPreferencesManager {
   Future<bool> deletePreferencesKey(SharedPreferencesKey key) async {
     return await _preferences.remove(key.toString());
   }
-
-  Future<void> setListValue(
-      SharedPreferencesKey key, List<String> value) async {
-    await _preferences.setStringList(key.toString(), value);
-  }
-
-  Future<List<String>> getStringListValue(SharedPreferencesKey key) async =>
-      await _preferences.getStringList(key.toString()) ?? [];
 }
