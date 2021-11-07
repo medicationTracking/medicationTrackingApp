@@ -91,14 +91,6 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
         Divider(
           thickness: 2,
         ),
-        ElevatedButton(
-            onPressed: () {
-              ReminderModel reminder = ReminderModel(
-                  "Alperen", DateTime.now().add(Duration(minutes: 1)), 2, true);
-              NotificationManager.instance
-                  .scheduleReminderNotification(reminder);
-            },
-            child: Text("Notification")),
         Expanded(
             child: Padding(
           padding: context.paddingNormal,
